@@ -1,0 +1,37 @@
+import 'package:flutter/cupertino.dart';
+
+import '../../../constants.dart';
+
+class SalesManDataProvider with ChangeNotifier{
+
+  Future<void> uploadSalesMan({required collection,required count,required name,
+    required phone,required address,required joinDate,required status}) async {
+    DateTime time = DateTime.now();
+    try {
+      await firestore.collection(collection).doc(count.toString()).set({
+        Constant.KEY_SALESMAN_CODE : count.toString(),
+        Constant.KEY_SALESMAN_NAME : name.toString().toLowerCase(),
+        Constant.KEY_SALESMAN_PHONE : phone.toString(),
+        Constant.KEY_SALESMAN_ADDRESS : address.toString(),
+        Constant.KEY_SALESMAN_JOIN_DATE : joinDate.toString(),
+        Constant.KEY_SALESMAN_TIMESTAMP :  time.millisecondsSinceEpoch.toString(),
+        Constant.KEY_STATUS :  status.toString(),
+      });
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching count value: $e");
+    }
+    notifyListeners();
+  }
+
+  Future<void> deleteSalesMan({required collection,required id}) async {
+    try {
+      await firestore.collection(collection).doc(id.toString()).delete();
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching count value: $e");
+    }
+    notifyListeners();
+  }
+
+}

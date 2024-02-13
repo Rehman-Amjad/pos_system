@@ -6,6 +6,8 @@ import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/responsive.dart';
+import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
+import 'package:pos_system/screens/vendorman/provider/vendorman_firebase_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -16,23 +18,42 @@ import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
 
-class SalesManForm extends StatefulWidget {
+class VendorManForm extends StatefulWidget {
+
+
+
+ final String code,name,phone,address,joinDate,status;
+ final String edit;
+ String joiningDate = "select Joining date";
+  VendorManForm({
+    required this.edit,
+    required this.code,
+    required this.name,
+    required this.phone,
+    required this.address,
+    this.joinDate = "select Join date",
+    required this.status,
+
+  }){
+    joiningDate = joinDate;
+  }
 
   @override
-  State<SalesManForm> createState() => _SalesManFormState();
+  State<VendorManForm> createState() => _VendorManFormState();
 }
 
-class _SalesManFormState extends State<SalesManForm> {
-  _SalesManFormState(){
-    selectedStatus = statusList[0];
+class _VendorManFormState extends State<VendorManForm> {
+  _VendorManFormState(){
+ //  widget.edit=='true' ? selectedStatus = widget.status : selectedStatus = statusList[0];
+   selectedStatus = statusList[0];
   }
+
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var addressController = TextEditingController();
-
   String selectedStatus = "";
   var statusList = ['Running','Close'];
-  String joinDate = "select Joining date";
+
 
   @override
   void initState() {
@@ -47,10 +68,10 @@ class _SalesManFormState extends State<SalesManForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final countProvider = Provider.of<CountValueProvider>(context, listen: false);
-    final dataProvider = Provider.of<SalesManDataProvider>(context, listen: false);
+    final dataProvider = Provider.of<VendorDataProvider>(context, listen: false);
     return Container(
         width: size.width,
-        padding: EdgeInsets.all(defaultPadding),
+        padding: const EdgeInsets.all(defaultPadding),
         decoration: const BoxDecoration(
           color: secondaryColor,
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -61,41 +82,41 @@ class _SalesManFormState extends State<SalesManForm> {
           children: [
             Row(
               children: [
-                TextHelper().mNormalText(text: "Sale Man Code: ",color: Colors.white,size: 14),
+                TextHelper().mNormalText(text: "Vendor Code: ",color: Colors.white,size: 14),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
-                    return TextHelper().mNormalText(text: countValue.countValue.toString(),color: hoverColor,size: 16);
+                    return TextHelper().mNormalText(text: widget.edit == 'true' ? widget.code :countValue.countValue.toString(),color: hoverColor,size: 16);
                   },
                 ),
               ],
             ),
             SizedBox(height: 15,),
-            TextHelper().mNormalText(text: "Sale Man Name",color: Colors.white,size: 14),
+            TextHelper().mNormalText(text: "Vendor Name: ",color: Colors.white,size: 14),
             SizedBox(height: 15,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
                   controller: nameController,
-                  hintText: 'Enter Sale Man Name',)),
+                  hintText: widget.edit == 'true' ? nameController.text = widget.name : widget.name,)),
 
             SizedBox(height: 20,),
-            TextHelper().mNormalText(text: "Sale Man Phone",color: Colors.white,size: 14),
+            TextHelper().mNormalText(text: "Vendor Phone",color: Colors.white,size: 14),
             const SizedBox(height: 15,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
                   controller: phoneController,
-                  hintText: 'Phone number',)),
+                  hintText: widget.edit == 'true' ? phoneController.text = widget.phone : widget.phone,)),
 
             SizedBox(height: 20,),
 
-            TextHelper().mNormalText(text: "Sale Man Address",color: Colors.white,size: 14),
+            TextHelper().mNormalText(text: "Vendor Address",color: Colors.white,size: 14),
             const SizedBox(height: 15,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
                   controller: addressController,
-                  hintText: 'Enter Address',)),
+                  hintText: widget.edit == 'true' ? addressController.text = widget.address : widget.address,)),
 
             // CustomDropDown(
             //   enabled: true,
@@ -119,7 +140,7 @@ class _SalesManFormState extends State<SalesManForm> {
                 ),
                 child:  Padding(
                   padding: const EdgeInsets.only(left: 10,right: 10.0,top: 20.0,bottom:20.0),
-                  child: TextWidget(text: joinDate,color: Colors.white,size: 14, isBold: false,),
+                  child: TextWidget(text: widget.joiningDate,color: Colors.white,size: 14, isBold: false,),
                 ),
               ),
             ),
@@ -169,19 +190,40 @@ class _SalesManFormState extends State<SalesManForm> {
 
             Row(
               children: [
+
+                widget.edit == 'true' ?
+                ButtonWidget(
+                  text: "Update", onClicked: () {
+                  if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
+                    dataProvider.updateVendorData(
+                        collection: Constant.COLLECTION_VENDORMAN,
+                        code: widget.code,
+                        name: nameController.text.toString(),
+                        phone: phoneController.text.toString(),
+                        address: addressController.text.toString(),
+                        joinDate: widget.joiningDate.toString(),
+                        status: selectedStatus);
+                    Get.snackbar("Vendor Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
+                  }else{
+                    Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
+                  }
+
+
+                }, icons: false, width: 100, height: 50,
+                )
+                :
                 ButtonWidget(
                   text: "Save", onClicked: () {
-
                   if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
                     countProvider.fetchCountValue();
                     int newCountValue = countProvider.countValue;
-                    dataProvider.uploadPersonData(
-                        collection: Constant.COLLECTION_SALESMAN,
+                    dataProvider.uploadVendorData(
+                        collection: Constant.COLLECTION_VENDORMAN,
                         count: newCountValue,
                         name: nameController.text.toString(),
                         phone: phoneController.text.toString(),
                         address: addressController.text.toString(),
-                        joinDate: joinDate,
+                        joinDate: widget.joiningDate.toString(),
                         status: selectedStatus);
 
                     countProvider.updateCountValue(count: newCountValue+1);
@@ -189,7 +231,7 @@ class _SalesManFormState extends State<SalesManForm> {
                     nameController.text = "";
                     phoneController.text = "";
                     addressController.text = "";
-                    Get.snackbar("New sale man Added", "",backgroundColor: hoverColor,colorText: Colors.white);
+                    Get.snackbar("New Vendor Added", "",backgroundColor: hoverColor,colorText: Colors.white);
                   }else{
                     Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
                   }
@@ -201,7 +243,7 @@ class _SalesManFormState extends State<SalesManForm> {
                 ButtonWidget(
                   text: "Cancel", onClicked: () {
                   Provider.of<MenuAppController>(context, listen: false)
-                      .changeScreen(Routes.SALESMAN);
+                      .changeScreen(Routes.VENDOR);
                 }, icons: false, width: 100, height: 50,backgroundColor: Colors.grey,
                 ),
               ],
@@ -218,7 +260,7 @@ class _SalesManFormState extends State<SalesManForm> {
         lastDate: DateTime(2050));
 
     setState(() {
-      joinDate = DateFormat('dd-MM-yyyy').format(picDate!);
+      widget.joiningDate = DateFormat('dd-MM-yyyy').format(picDate!);
     });
   }
 }

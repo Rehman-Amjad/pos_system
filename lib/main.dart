@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
 import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/provider/text_color_provider.dart';
+import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
+import 'package:pos_system/screens/vendorman/provider/vendorman_firebase_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
@@ -45,6 +47,12 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => SalesManDataProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => SupplyManDataProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => VendorDataProvider(),
           ),
         ],
         child: MainScreen(),

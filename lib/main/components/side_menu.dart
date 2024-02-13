@@ -73,7 +73,7 @@ class SideMenu extends StatelessWidget {
 
             DrawerListTile(
               index: 4,
-              screenIndex: 4,
+              screenIndex: Routes.SUPPLYMAN,
               title: "Supply Man",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
@@ -87,7 +87,7 @@ class SideMenu extends StatelessWidget {
 
             DrawerListTile(
               index: 6,
-              screenIndex: 6,
+              screenIndex: Routes.VENDOR,
               title: "Vendor",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),

@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../constants.dart';
 
-class SalesManDataProvider with ChangeNotifier{
+class SupplyManDataProvider with ChangeNotifier{
 
-  Future<void> uploadPersonData({required collection,required count,required name,
+  Future<void> uploadSupplyManData({required collection,required count,required name,
     required phone,required address,required joinDate,required status}) async {
     DateTime time = DateTime.now();
     try {
       await firestore.collection(collection).doc(count.toString()).set({
-        Constant.KEY_SALESMAN_CODE : count.toString(),
-        Constant.KEY_SALESMAN_NAME : name.toString().toLowerCase(),
-        Constant.KEY_SALESMAN_PHONE : phone.toString(),
-        Constant.KEY_SALESMAN_ADDRESS : address.toString(),
-        Constant.KEY_SALESMAN_JOIN_DATE : joinDate.toString(),
-        Constant.KEY_SALESMAN_TIMESTAMP :  time.millisecondsSinceEpoch.toString(),
+        Constant.KEY_SUPPLYMAN_CODE : count.toString(),
+        Constant.KEY_SUPPLYMAN_NAME : name.toString().toLowerCase(),
+        Constant.KEY_SUPPLYMAN_PHONE : phone.toString(),
+        Constant.KEY_SUPPLYMAN_ADDRESS : address.toString(),
+        Constant.KEY_SUPPLYMAN_JOIN_DATE : joinDate.toString(),
+        Constant.KEY_SUPPLYMAN_TIMESTAMP :  time.millisecondsSinceEpoch.toString(),
         Constant.KEY_STATUS :  status.toString(),
       });
       notifyListeners();
@@ -24,7 +24,7 @@ class SalesManDataProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> deletePerson({required collection,required id}) async {
+  Future<void> deleteSupplyMan({required collection,required id}) async {
     try {
       await firestore.collection(collection).doc(id.toString()).delete();
       notifyListeners();

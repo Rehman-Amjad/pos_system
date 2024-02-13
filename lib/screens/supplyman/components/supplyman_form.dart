@@ -6,6 +6,7 @@ import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/responsive.dart';
+import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -16,14 +17,14 @@ import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
 
-class SalesManForm extends StatefulWidget {
+class SupplyManForm extends StatefulWidget {
 
   @override
-  State<SalesManForm> createState() => _SalesManFormState();
+  State<SupplyManForm> createState() => _SupplyManFormState();
 }
 
-class _SalesManFormState extends State<SalesManForm> {
-  _SalesManFormState(){
+class _SupplyManFormState extends State<SupplyManForm> {
+  _SupplyManFormState(){
     selectedStatus = statusList[0];
   }
   var nameController = TextEditingController();
@@ -47,7 +48,7 @@ class _SalesManFormState extends State<SalesManForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final countProvider = Provider.of<CountValueProvider>(context, listen: false);
-    final dataProvider = Provider.of<SalesManDataProvider>(context, listen: false);
+    final dataProvider = Provider.of<SupplyManDataProvider>(context, listen: false);
     return Container(
         width: size.width,
         padding: EdgeInsets.all(defaultPadding),
@@ -61,7 +62,7 @@ class _SalesManFormState extends State<SalesManForm> {
           children: [
             Row(
               children: [
-                TextHelper().mNormalText(text: "Sale Man Code: ",color: Colors.white,size: 14),
+                TextHelper().mNormalText(text: "Supply Man Code: ",color: Colors.white,size: 14),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
                     return TextHelper().mNormalText(text: countValue.countValue.toString(),color: hoverColor,size: 16);
@@ -70,16 +71,16 @@ class _SalesManFormState extends State<SalesManForm> {
               ],
             ),
             SizedBox(height: 15,),
-            TextHelper().mNormalText(text: "Sale Man Name",color: Colors.white,size: 14),
+            TextHelper().mNormalText(text: "Supply Man Name",color: Colors.white,size: 14),
             SizedBox(height: 15,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
                   controller: nameController,
-                  hintText: 'Enter Sale Man Name',)),
+                  hintText: 'Enter Supply Man Name',)),
 
             SizedBox(height: 20,),
-            TextHelper().mNormalText(text: "Sale Man Phone",color: Colors.white,size: 14),
+            TextHelper().mNormalText(text: "Supply Man Phone",color: Colors.white,size: 14),
             const SizedBox(height: 15,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -89,7 +90,7 @@ class _SalesManFormState extends State<SalesManForm> {
 
             SizedBox(height: 20,),
 
-            TextHelper().mNormalText(text: "Sale Man Address",color: Colors.white,size: 14),
+            TextHelper().mNormalText(text: "Supply Man Address",color: Colors.white,size: 14),
             const SizedBox(height: 15,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -175,8 +176,8 @@ class _SalesManFormState extends State<SalesManForm> {
                   if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
                     countProvider.fetchCountValue();
                     int newCountValue = countProvider.countValue;
-                    dataProvider.uploadPersonData(
-                        collection: Constant.COLLECTION_SALESMAN,
+                    dataProvider.uploadSupplyManData(
+                        collection: Constant.COLLECTION_SUPPLYMAN,
                         count: newCountValue,
                         name: nameController.text.toString(),
                         phone: phoneController.text.toString(),
@@ -189,7 +190,7 @@ class _SalesManFormState extends State<SalesManForm> {
                     nameController.text = "";
                     phoneController.text = "";
                     addressController.text = "";
-                    Get.snackbar("New sale man Added", "",backgroundColor: hoverColor,colorText: Colors.white);
+                    Get.snackbar("New Supply man Added", "",backgroundColor: hoverColor,colorText: Colors.white);
                   }else{
                     Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
                   }
@@ -201,7 +202,7 @@ class _SalesManFormState extends State<SalesManForm> {
                 ButtonWidget(
                   text: "Cancel", onClicked: () {
                   Provider.of<MenuAppController>(context, listen: false)
-                      .changeScreen(Routes.SALESMAN);
+                      .changeScreen(Routes.SUPPLYMAN);
                 }, icons: false, width: 100, height: 50,backgroundColor: Colors.grey,
                 ),
               ],

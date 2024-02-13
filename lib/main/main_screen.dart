@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pos_system/route/routes.dart';
 import 'package:pos_system/screens/category/add_category_screen.dart';
 import 'package:pos_system/screens/saleman/saleman_screen.dart';
+import 'package:pos_system/screens/supplyman/supplyman_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/MenuAppController.dart';
@@ -10,6 +11,9 @@ import '../responsive.dart';
 import '../screens/category/category_screen.dart';
 import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/saleman/add_salesman_screen.dart';
+import '../screens/supplyman/add_supplyman_screen.dart';
+import '../screens/vendorman/add_vendorman_screen.dart';
+import '../screens/vendorman/vendorman_screen.dart';
 import 'components/side_menu.dart';
 
 
@@ -33,6 +37,18 @@ class MainScreen extends StatelessWidget {
         break;
       case Routes.ADD_SALESMAN:
         screen = AddSaleManScreen();
+        break;
+      case Routes.SUPPLYMAN:
+        screen = SupplyManScreen();
+        break;
+      case Routes.ADD_SUPPLYMAN:
+        screen = AddSupplyManScreen();
+        break;
+        case Routes.VENDOR:
+        screen = VendorManScreen();
+        break;
+        case Routes.ADD_VENDOR:
+        screen = AddVendorManScreen();
         break;
       default:
         screen = DashboardScreen();

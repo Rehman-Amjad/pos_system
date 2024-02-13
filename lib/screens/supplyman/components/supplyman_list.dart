@@ -4,13 +4,15 @@ import 'package:pos_system/helper/text_helper.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
 import 'package:pos_system/responsive.dart';
+import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
+import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../dashboard/components/header.dart';
 
-class CategoryList extends StatelessWidget {
-  const CategoryList({Key? key}) : super(key: key);
+class SupplyManList extends StatelessWidget {
+  const SupplyManList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +34,12 @@ class CategoryList extends StatelessWidget {
             ),
             child: Table(
               columnWidths: const {
-                0: FlexColumnWidth(2),
+                0: FlexColumnWidth(1),
                 1: FlexColumnWidth(3),
                 2: FlexColumnWidth(3),
                 3: FlexColumnWidth(3),
-                4: FlexColumnWidth(3),
+                4: FlexColumnWidth(2),
+                5: FlexColumnWidth(3),
               },
               children: const [
                 TableRow(
@@ -48,20 +51,25 @@ class CategoryList extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.0),
-                      child: FittedBox(
-                        child: TextWidget(text: "Name", color: hoverColor,
+                      child: TextWidget(text: "Name", color: hoverColor,
+                        size: 14, isBold: true,),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: TextWidget(text: "Phone", color: hoverColor,
+                        size: 14, isBold: true,),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: TextWidget(text: "Address", color: hoverColor,
+                        size: 14, isBold: true,),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Center(
+                        child: TextWidget(text: "Status", color: hoverColor,
                           size: 14, isBold: true,),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: TextWidget(text: "Description", color: hoverColor,
-                        size: 14, isBold: true,),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: TextWidget(text: "Created By", color: hoverColor,
-                        size: 14, isBold: true,),
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.0),
@@ -77,15 +85,15 @@ class CategoryList extends StatelessWidget {
           ),
           SizedBox(height: 20,),
           StreamBuilder(
-            stream: firestore.collection(Constant.COLLECTION_CATEGORY)
-                .orderBy("timeStamp",descending: false)
+            stream: firestore.collection(Constant.COLLECTION_SUPPLYMAN)
+                .orderBy(Constant.KEY_SUPPLYMAN_TIMESTAMP,descending: false)
                 .snapshots(),
             builder: (context, snapshot){
               return (snapshot.connectionState == ConnectionState.waiting) ?
               const Center(
                 child: CircularProgressIndicator(color: hoverColor,),
               ) : snapshot.data!.docs.isEmpty ?
-              Center(child: Text("No Category Found",style: TextStyle(
+              Center(child: Text("No Supply Man Found",style: TextStyle(
                   fontSize: Responsive.isMobile(context) ? 12 : 18,fontWeight: FontWeight.bold
               ),)
                 ,) : ListView.separated(
@@ -93,21 +101,22 @@ class CategoryList extends StatelessWidget {
                 shrinkWrap: true,
                 physics: PageScrollPhysics(),
                 itemBuilder: (context,index){
-                  var category = snapshot.data!.docs[index].data();
+                  var supplyman = snapshot.data!.docs[index].data();
                     return Table(
                       columnWidths: const {
-                        0: FlexColumnWidth(2),
+                        0: FlexColumnWidth(1),
                         1: FlexColumnWidth(3),
                         2: FlexColumnWidth(3),
                         3: FlexColumnWidth(3),
-                        4: FlexColumnWidth(3),
+                        4: FlexColumnWidth(2),
+                        5: FlexColumnWidth(3),
                       },
                       children: [
                         TableRow(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 15,right: 5.0,bottom: 5.0,top: 5.0),
-                              child: TextWidget(text: category[Constant.KEY_CATEGORY_ID].toString(), color: Colors.white,
+                              padding: const EdgeInsets.only(left: 12,right: 5.0,bottom: 5.0,top: 5.0),
+                              child: TextWidget(text: supplyman[Constant.KEY_SUPPLYMAN_CODE].toString(), color: Colors.white,
                                 size: 14, isBold: false,),
                             ),
                             Row(
@@ -117,30 +126,39 @@ class CategoryList extends StatelessWidget {
                                   height: 30,
                                   margin: EdgeInsets.only(left: 12,top: 5),
                                   decoration: BoxDecoration(
-                                      color: hoverColor,
-                                      borderRadius: BorderRadius.circular(3)
+                                  color: hoverColor,
+                                  borderRadius: BorderRadius.circular(3)
                                   ),
-                                  child: Center(child: Icon(Icons.category)),
+                                  child: Center(child: Icon(Icons.person)),
                                 ),
+
                                 Padding(
+                                // padding: const EdgeInsets.only(left: 12,right: 5.0,bottom: 5.0,top: 5.0),
                                   padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                                  child: TextWidget(text: category[Constant.KEY_CATEGORY_NAME], color: Colors.white,
+                                  child: TextWidget(text: supplyman[Constant.KEY_SUPPLYMAN_NAME], color: Colors.white,
                                     size: 14, isBold: false,),
                                 ),
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 15,right: 5.0,bottom: 5.0,top: 5.0),
-                              child: TextWidget(text: category[Constant.KEY_CATEGORY_DESC], color: Colors.white,
+                              padding: const EdgeInsets.only(left: 12,right: 5.0,bottom: 5.0,top: 5.0),
+                              child: TextWidget(text: supplyman[Constant.KEY_SUPPLYMAN_PHONE], color: Colors.white,
                                 size: 14, isBold: false,),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 15,right: 5.0,bottom: 5.0,top: 5.0),
-                              child: TextWidget(text: "admin", color: Colors.white,
+                             Padding(
+                              padding: EdgeInsets.only(left: 12,right: 5.0,bottom: 5.0,top: 5.0),
+                              child: TextWidget(text: supplyman[Constant.KEY_SUPPLYMAN_ADDRESS], color: Colors.white,
                                 size: 14, isBold: false,),
+                            ),
+                             Padding(
+                              padding: EdgeInsets.only(left: 12,right: 5.0,bottom: 5.0,top: 5.0),
+                              child: Center(
+                                child: TextWidget(text: supplyman[Constant.KEY_STATUS], color: Colors.white,
+                                  size: 14, isBold: false,),
+                              ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 15,right: 5.0,bottom: 5.0,top: 5.0),
+                              padding: const EdgeInsets.only(left: 12,right: 5.0,bottom: 5.0,top: 5.0),
                               child: Center(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +168,9 @@ class CategoryList extends StatelessWidget {
                                       const SizedBox(width: 5,),
                                       GestureDetector(
                                           onTap: (){
-                                            Provider.of<CountValueProvider>(context, listen: false).deleteCategory(id: category[Constant.KEY_CATEGORY_ID]);
+                                            Provider.of<SupplyManDataProvider>(context, listen: false)
+                                                .deleteSupplyMan(id: supplyman[Constant.KEY_SUPPLYMAN_CODE],
+                                                collection: Constant.COLLECTION_SUPPLYMAN);
                                           },
                                           child: Icon(Icons.delete,color: Colors.red,size: Responsive.isMobile(context) ? 24 : 30,)),
                                     ],)

@@ -25,6 +25,18 @@ class Constant{
   static const KEY_CATEGORY_NAME = "name";
   static const KEY_CATEGORY_DESC = "desc";
 
+  static const KEY_STATUS = "status";
+
+  // Supply Man
+  static const COLLECTION_SUPPLYMAN = "SupplyMan";
+  static const KEY_SUPPLYMAN_CODE = "code";
+  static const KEY_SUPPLYMAN_NAME = "name";
+  static const KEY_SUPPLYMAN_PHONE = "phone";
+  static const KEY_SUPPLYMAN_ADDRESS = "address";
+  static const KEY_SUPPLYMAN_JOIN_DATE = "joinDate";
+  static const KEY_SUPPLYMAN_TIMESTAMP = "timestamp";
+
+  // Sales Man
   static const COLLECTION_SALESMAN = "SalesMan";
   static const KEY_SALESMAN_CODE = "code";
   static const KEY_SALESMAN_NAME = "name";
@@ -33,5 +45,21 @@ class Constant{
   static const KEY_SALESMAN_JOIN_DATE = "joinDate";
   static const KEY_SALESMAN_TIMESTAMP = "timestamp";
 
-  static const KEY_STATUS = "status";
+// Vendor Man
+  static const COLLECTION_VENDORMAN = "Vendor";
+  static const KEY_VENDORMAN_CODE = "code";
+  static const KEY_VENDORMAN_NAME = "name";
+  static const KEY_VENDORMAN_PHONE = "phone";
+  static const KEY_VENDORMAN_ADDRESS = "address";
+  static const KEY_VENDORMAN_JOIN_DATE = "joinDate";
+  static const KEY_VENDORMAN_TIMESTAMP = "timestamp";
+
+  // Customer
+  static const COLLECTION_CUSTOMER = "Customer";
+  static const KEY_CUSTOMER_CODE = "code";
+  static const KEY_CUSTOMER_NAME = "name";
+  static const KEY_CUSTOMER_PHONE = "phone";
+  static const KEY_CUSTOMER_ADDRESS = "address";
+  static const KEY_CUSTOMER_JOIN_DATE = "joinDate";
+  static const KEY_CUSTOMER_TIMESTAMP = "timestamp";
 }

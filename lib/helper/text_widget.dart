@@ -20,7 +20,7 @@ class TextWidget extends StatelessWidget {
       text,
       style: TextStyle(
         color: color,
-        fontSize: Responsive.isMobile(context) ? 11 : size,
+        fontSize: Responsive.isMobile(context) ? 12 : size,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       ),
     );

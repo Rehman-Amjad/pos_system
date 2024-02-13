@@ -168,7 +168,7 @@ class SalesManList extends StatelessWidget {
                                       GestureDetector(
                                           onTap: (){
                                             Provider.of<SalesManDataProvider>(context, listen: false)
-                                                .deleteSalesMan(id: salesman[Constant.KEY_SALESMAN_CODE],
+                                                .deletePerson(id: salesman[Constant.KEY_SALESMAN_CODE],
                                                 collection: Constant.COLLECTION_SALESMAN);
                                           },
                                           child: Icon(Icons.delete,color: Colors.red,size: Responsive.isMobile(context) ? 24 : 30,)),

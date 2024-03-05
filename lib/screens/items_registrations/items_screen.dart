@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:pos_system/screens/saleman/components/salesman_list.dart';
+import 'package:pos_system/screens/supplyman/components/supplyman_list.dart';
+import 'package:pos_system/screens/vendorman/components/vendorman_list.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -10,8 +12,9 @@ import '../../helper/custom_shadow_button.dart';
 import '../../helper/text_helper.dart';
 import '../../route/routes.dart';
 import '../dashboard/components/header.dart';
+import 'components/items_list.dart';
 
-class SalesManScreen extends StatelessWidget {
+class ItemsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +25,12 @@ class SalesManScreen extends StatelessWidget {
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            const Header(),
-            const SizedBox(height: defaultDrawerHeadHeight + 20),
+          const  Header(),
+          const  SizedBox(height: defaultDrawerHeadHeight + 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextHelper().mNormalText(text: "Sales Man List",color: Colors.white,
+                TextHelper().mNormalText(text: "Items List",color: Colors.white,
                     size: Responsive.isMobile(context) ? 14.0 : 18.0),
                 CustomNeumorphicButton(
                   width: Responsive.isMobile(context) ? 150.0 : 200.0,
@@ -35,8 +38,8 @@ class SalesManScreen extends StatelessWidget {
                   isIcon: false,
                   label: 'Add New',
                   press: (){
-                    provider.parameters?.clear();
-                    provider.changeScreen(Routes.ADD_SALESMAN);
+                   provider.parameters?.clear();
+                   provider.changeScreen(Routes.ADD_ITEMS_REGISTRATION);
                   },),
                 // ButtonWidget(text: "Add New", width: 120, height: 50,backgroundColor: hoverColor,icons: true,
                 //     onClicked: (){
@@ -46,8 +49,8 @@ class SalesManScreen extends StatelessWidget {
                 // )
               ],
             ),
-            const SizedBox(height: defaultDrawerHeadHeight + 20.0),
-            const SalesManList()
+           const SizedBox(height: defaultDrawerHeadHeight + 20.0),
+           const ItemsList()
           ],
         ),
       ),

@@ -8,6 +8,7 @@ const drawerBackground = Color(0xFF212332);
 const hoverColor = Color(0xFFfe9f42);
 
 const defaultPadding = 16.0;
+const defaultBorderRadius = 10.0;
 const defaultDrawerHeadHeight = 20.0;
 
 
@@ -62,4 +63,23 @@ class Constant{
   static const KEY_CUSTOMER_ADDRESS = "address";
   static const KEY_CUSTOMER_JOIN_DATE = "joinDate";
   static const KEY_CUSTOMER_TIMESTAMP = "timestamp";
+
+  // UOM Registration
+  static const COLLECTION_UOM = "uom";
+  static const KEY_UOM_ID = "id";
+  static const KEY_UOM_NAME = "name";
+  static const KEY_UOM_DESC = "desc";
+
+  // Items Registration
+  static const COLLECTION_ITEMS = "items";
+  static const KEY_ITEM_NAME = "name";
+  static const KEY_ITEM_CODE = "code";
+  static const KEY_ITEM_CATEGORY = "category";
+  static const KEY_ITEM_UOM = "uom";
+  static const KEY_ITEM_STOCK = "stock";
+  static const KEY_ITEM_QUANTITY = "quantity";
+  static const KEY_ITEM_PURCHASE_PRICE = "purchasePrice";
+  static const KEY_ITEM_SALE_PRICE = "salePrice";
+  static const KEY_ITEM_TIMESTAMP = "timestamp";
+
 }

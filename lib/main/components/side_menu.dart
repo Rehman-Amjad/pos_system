@@ -24,16 +24,16 @@ class SideMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          DrawerHeader(
+          const DrawerHeader(
                // child: Image.asset("assets/images/logo.png"),
                 child: Center(child: Text("Waqas Hassan P.O.S",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
               ),
 
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Main",color: Colors.blue,size: 14),
+              child: TextHelper().mNormalText(text: "Main",color: Colors.blue,size: 14.0),
             ),
-            DrawerListTile(
+            const DrawerListTile(
           index: 0,
           screenIndex: Routes.DASHBOARD_ROUTE,
           title: "Dashboard",
@@ -43,85 +43,85 @@ class SideMenu extends StatelessWidget {
           // },
         ),
 
-            Divider(thickness: 0.5,),
-            SizedBox(height: defaultDrawerHeadHeight,),
+            const Divider(thickness: 0.5,),
+            const SizedBox(height: defaultDrawerHeadHeight,),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Registration Form",color: Colors.blue,size: 14),
+              child: TextHelper().mNormalText(text: "Registration Form",color: Colors.blue,size: 14.0),
             ),
-            SizedBox(height: defaultDrawerHeadHeight-5,),
-            DrawerListTile(
+            const SizedBox(height: defaultDrawerHeadHeight-5,),
+            const DrawerListTile(
               index: 1,
               screenIndex: Routes.CATEGORY_ROUTE,
               title: "Category",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 2,
-              screenIndex: 2,
+              screenIndex: Routes.ITEMS_REGISTRATION,
               title: "Items Registration",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 3,
-              screenIndex: 3,
+              screenIndex: Routes.UOM,
               title: "UOM Registration",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 4,
               screenIndex: Routes.SUPPLYMAN,
               title: "Supply Man",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 5,
               screenIndex: Routes.SALESMAN,
               title: "Sales Man",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 6,
               screenIndex: Routes.VENDOR,
               title: "Vendor",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 7,
-              screenIndex: 7,
+              screenIndex: Routes.CUSTOMER,
               title: "Customer",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
             //Purchase LIST
-            Divider(thickness: 0.5,),
-            SizedBox(height: defaultDrawerHeadHeight,),
+            const Divider(thickness: 0.5,),
+            const SizedBox(height: defaultDrawerHeadHeight,),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Purchase Forms",color: Colors.blue,size: 14),
+              child: TextHelper().mNormalText(text: "Purchase Forms",color: Colors.blue,size: 14.0),
             ),
-            SizedBox(height: defaultDrawerHeadHeight-5,),
-            DrawerListTile(
+            const SizedBox(height: defaultDrawerHeadHeight-5,),
+            const DrawerListTile(
               index: 8,
               screenIndex: 8,
               title: "Purchase",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 9,
               screenIndex: 9,
               title: "P. History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
+            const DrawerListTile(
               index: 10,
               screenIndex: 10,
               title: "P. Returns",
@@ -140,7 +140,7 @@ class SideMenu extends StatelessWidget {
             SizedBox(height: defaultDrawerHeadHeight,),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Sales Forms",color: Colors.blue,size: 14),
+              child: TextHelper().mNormalText(text: "Sales Forms",color: Colors.blue,size: 14.0),
             ),
             SizedBox(height: defaultDrawerHeadHeight-5,),
             DrawerListTile(
@@ -176,7 +176,7 @@ class SideMenu extends StatelessWidget {
             SizedBox(height: defaultDrawerHeadHeight,),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Reports",color: Colors.blue,size: 14),
+              child: TextHelper().mNormalText(text: "Reports",color: Colors.blue,size: 14.0),
             ),
             SizedBox(height: defaultDrawerHeadHeight-5,),
             DrawerListTile(

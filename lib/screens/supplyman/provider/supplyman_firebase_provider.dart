@@ -24,6 +24,23 @@ class SupplyManDataProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  Future<void> updateSupplyManData({required collection,required code,required name,
+    required phone,required address,required joinDate,required status}) async {
+    try {
+      await firestore.collection(collection).doc(code.toString()).update({
+        Constant.KEY_SUPPLYMAN_NAME : name.toString().toLowerCase(),
+        Constant.KEY_SUPPLYMAN_PHONE : phone.toString(),
+        Constant.KEY_SUPPLYMAN_ADDRESS : address.toString(),
+        Constant.KEY_SUPPLYMAN_JOIN_DATE : joinDate.toString(),
+        Constant.KEY_STATUS :  status.toString(),
+      });
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching count value: $e");
+    }
+    notifyListeners();
+  }
+
   Future<void> deleteSupplyMan({required collection,required id}) async {
     try {
       await firestore.collection(collection).doc(id.toString()).delete();

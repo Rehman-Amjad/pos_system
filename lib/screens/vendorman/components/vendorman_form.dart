@@ -82,7 +82,7 @@ class _VendorManFormState extends State<VendorManForm> {
           children: [
             Row(
               children: [
-                TextHelper().mNormalText(text: "Vendor Code: ",color: Colors.white,size: 14),
+                TextHelper().mNormalText(text: "Vendor Code: ",color: Colors.white,size: 14.0),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
                     return TextHelper().mNormalText(text: widget.edit == 'true' ? widget.code :countValue.countValue.toString(),color: hoverColor,size: 16);
@@ -90,28 +90,28 @@ class _VendorManFormState extends State<VendorManForm> {
                 ),
               ],
             ),
-            SizedBox(height: 15,),
-            TextHelper().mNormalText(text: "Vendor Name: ",color: Colors.white,size: 14),
-            SizedBox(height: 15,),
+            SizedBox(height: 15.0,),
+            TextHelper().mNormalText(text: "Vendor Name: ",color: Colors.white,size: 14.0),
+            SizedBox(height: 15.0,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
                   controller: nameController,
                   hintText: widget.edit == 'true' ? nameController.text = widget.name : widget.name,)),
 
-            SizedBox(height: 20,),
-            TextHelper().mNormalText(text: "Vendor Phone",color: Colors.white,size: 14),
-            const SizedBox(height: 15,),
+            SizedBox(height: 20.0,),
+            TextHelper().mNormalText(text: "Vendor Phone",color: Colors.white,size: 14.0),
+            const SizedBox(height: 15.0,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
                   controller: phoneController,
                   hintText: widget.edit == 'true' ? phoneController.text = widget.phone : widget.phone,)),
 
-            SizedBox(height: 20,),
+            SizedBox(height: 20.0,),
 
-            TextHelper().mNormalText(text: "Vendor Address",color: Colors.white,size: 14),
-            const SizedBox(height: 15,),
+            TextHelper().mNormalText(text: "Vendor Address",color: Colors.white,size: 14.0),
+            const SizedBox(height: 15.0,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
                 child: CustomTextField(
@@ -124,9 +124,9 @@ class _VendorManFormState extends State<VendorManForm> {
             //   onChanged: (value) {
             //     print(value);
             // },),
-            const SizedBox(height: 20,),
-            TextHelper().mNormalText(text: "Joining Date",color: Colors.white,size: 14),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 20.0,),
+            TextHelper().mNormalText(text: "Joining Date",color: Colors.white,size: 14.0),
+            const SizedBox(height: 15.0,),
             GestureDetector(
               onTap: () => _showDatePicker(),
               child: Container(
@@ -139,15 +139,15 @@ class _VendorManFormState extends State<VendorManForm> {
                     borderRadius: BorderRadius.circular(5)
                 ),
                 child:  Padding(
-                  padding: const EdgeInsets.only(left: 10,right: 10.0,top: 20.0,bottom:20.0),
+                  padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 20.0,bottom:20.0),
                   child: TextWidget(text: widget.joiningDate,color: Colors.white,size: 14, isBold: false,),
                 ),
               ),
             ),
 
-            const SizedBox(height: 20,),
-            TextHelper().mNormalText(text: "Select Status",color: Colors.white,size: 14),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 20.0,),
+            TextHelper().mNormalText(text: "Select Status",color: Colors.white,size: 14.0),
+            const SizedBox(height: 15.0,),
             Container(
               width: Responsive.isMobile(context) ?  size.width: size.width / 2.9 ,
               decoration: BoxDecoration(
@@ -158,12 +158,12 @@ class _VendorManFormState extends State<VendorManForm> {
                 borderRadius: BorderRadius.circular(5)
               ),
               child:  Padding(
-                padding: const EdgeInsets.only(left: 10,right: 5.0,top: 5.0,bottom:5.0),
+                padding: const EdgeInsets.only(left: 10.0,right: 5.0,top: 5.0,bottom:5.0),
                 child: DropdownButtonFormField(
                   value: selectedStatus,
                   items: statusList
                       .map((e) => DropdownMenuItem(
-                    child: TextWidget(text: e, color: Colors.white, size: 12, isBold: false,),
+                    child: TextWidget(text: e, color: Colors.white, size: 12.0, isBold: false,),
                     value: e,
                   ))
                       .toList(),
@@ -186,7 +186,7 @@ class _VendorManFormState extends State<VendorManForm> {
               ),
             ),
 
-            SizedBox(height: 20,),
+            SizedBox(height: 20.0,),
 
             Row(
               children: [
@@ -209,7 +209,7 @@ class _VendorManFormState extends State<VendorManForm> {
                   }
 
 
-                }, icons: false, width: 100, height: 50,
+                }, icons: false, width: 100.0, height: 50.0,
                 )
                 :
                 ButtonWidget(
@@ -237,14 +237,14 @@ class _VendorManFormState extends State<VendorManForm> {
                   }
 
 
-                }, icons: false, width: 100, height: 50,
+                }, icons: false, width: 100.0, height: 50.0,
                 ),
-                const SizedBox(width: 20,),
+                const SizedBox(width: 20.0,),
                 ButtonWidget(
                   text: "Cancel", onClicked: () {
                   Provider.of<MenuAppController>(context, listen: false)
                       .changeScreen(Routes.VENDOR);
-                }, icons: false, width: 100, height: 50,backgroundColor: Colors.grey,
+                }, icons: false, width: 100.0, height: 50.0,backgroundColor: Colors.grey,
                 ),
               ],
             ),
@@ -252,6 +252,7 @@ class _VendorManFormState extends State<VendorManForm> {
         )
     );
   }
+
   void _showDatePicker() async {
     DateTime? picDate = await showDatePicker(
         context: context,

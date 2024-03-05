@@ -4,9 +4,11 @@ import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/helper/text_widget.dart';
+import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
 import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
+import 'package:pos_system/screens/vendorman/provider/vendorman_firebase_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -17,12 +19,14 @@ import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
 
-class SupplyManForm extends StatefulWidget {
+class CustomerForm extends StatefulWidget {
 
-  final String code,name,phone,address,joinDate,status;
-  final String edit;
-  String joiningDate = "select Joining date";
-  SupplyManForm({super.key,
+
+
+ final String code,name,phone,address,joinDate,status;
+ final String edit;
+ String joiningDate = "select Joining date";
+ CustomerForm({
     required this.edit,
     required this.code,
     required this.name,
@@ -36,20 +40,21 @@ class SupplyManForm extends StatefulWidget {
   }
 
   @override
-  State<SupplyManForm> createState() => _SupplyManFormState();
+  State<CustomerForm> createState() => _CustomerFormState();
 }
 
-class _SupplyManFormState extends State<SupplyManForm> {
-  _SupplyManFormState(){
-    selectedStatus = statusList[0];
+class _CustomerFormState extends State<CustomerForm> {
+  _CustomerFormState(){
+ //  widget.edit=='true' ? selectedStatus = widget.status : selectedStatus = statusList[0];
+   selectedStatus = statusList[0];
   }
+
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var addressController = TextEditingController();
-
   String selectedStatus = "";
   var statusList = ['Running','Close'];
-  String joinDate = "select Joining date";
+
 
   @override
   void initState() {
@@ -64,13 +69,13 @@ class _SupplyManFormState extends State<SupplyManForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final countProvider = Provider.of<CountValueProvider>(context, listen: false);
-    final dataProvider = Provider.of<SupplyManDataProvider>(context, listen: false);
+    final dataProvider = Provider.of<CustomerDataProvider>(context, listen: false);
     return Container(
         width: size.width,
         padding: const EdgeInsets.all(defaultPadding),
         decoration: const BoxDecoration(
           color: secondaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -78,19 +83,16 @@ class _SupplyManFormState extends State<SupplyManForm> {
           children: [
             Row(
               children: [
-                TextHelper().mNormalText(text: "Supply Man Code: ",color: Colors.white,size: 14.0),
+                TextHelper().mNormalText(text: "Customer Code: ",color: Colors.white,size: 14.0),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
-                    return TextHelper().mNormalText(text: widget.edit == 'true' ?
-                    widget.code :
-                    countValue.countValue.toString(),
-                        color: hoverColor,size: 16.0);
+                    return TextHelper().mNormalText(text: widget.edit == 'true' ? widget.code :countValue.countValue.toString(),color: hoverColor,size: 16.0);
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 15.0,),
-            TextHelper().mNormalText(text: "Supply Man Name",color: Colors.white,size: 14.0),
+            SizedBox(height: 15.0,),
+            TextHelper().mNormalText(text: "Customer Name: ",color: Colors.white,size: 14.0),
             SizedBox(height: 15.0,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -99,7 +101,7 @@ class _SupplyManFormState extends State<SupplyManForm> {
                   hintText: widget.edit == 'true' ? nameController.text = widget.name : widget.name,)),
 
             SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Supply Man Phone",color: Colors.white,size: 14.0),
+            TextHelper().mNormalText(text: "Customer Phone",color: Colors.white,size: 14.0),
             const SizedBox(height: 15.0,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -109,7 +111,7 @@ class _SupplyManFormState extends State<SupplyManForm> {
 
             SizedBox(height: 20.0,),
 
-            TextHelper().mNormalText(text: "Supply Man Address",color: Colors.white,size: 14.0),
+            TextHelper().mNormalText(text: "Customer Address",color: Colors.white,size: 14.0),
             const SizedBox(height: 15.0,),
             Container(
                 width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -150,11 +152,11 @@ class _SupplyManFormState extends State<SupplyManForm> {
             Container(
               width: Responsive.isMobile(context) ?  size.width: size.width / 2.9 ,
               decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1,
-                      color: Colors.white
-                  ),
-                  borderRadius: BorderRadius.circular(5.0)
+                border: Border.all(
+                  width: 1,
+                  color: Colors.white
+                ),
+                borderRadius: BorderRadius.circular(5.0)
               ),
               child:  Padding(
                 padding: const EdgeInsets.only(left: 10.0,right: 5.0,top: 5.0,bottom:5.0),
@@ -179,7 +181,7 @@ class _SupplyManFormState extends State<SupplyManForm> {
                   ),
                   dropdownColor: bgColor,
                   decoration: const InputDecoration(
-                      border: InputBorder.none
+                    border: InputBorder.none
                   ),
                 ),
               ),
@@ -194,15 +196,15 @@ class _SupplyManFormState extends State<SupplyManForm> {
                 ButtonWidget(
                   text: "Update", onClicked: () {
                   if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
-                    dataProvider.updateSupplyManData(
-                        collection: Constant.COLLECTION_SUPPLYMAN,
+                    dataProvider.updateCustomerData(
+                        collection: Constant.COLLECTION_CUSTOMER,
                         code: widget.code,
                         name: nameController.text.toString(),
                         phone: phoneController.text.toString(),
                         address: addressController.text.toString(),
                         joinDate: widget.joiningDate.toString(),
                         status: selectedStatus);
-                    Get.snackbar("Supply Man Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
+                    Get.snackbar("Customer Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
                   }else{
                     Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
                   }
@@ -210,14 +212,14 @@ class _SupplyManFormState extends State<SupplyManForm> {
 
                 }, icons: false, width: 100.0, height: 50.0,
                 )
-                    :
+                :
                 ButtonWidget(
                   text: "Save", onClicked: () {
                   if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
                     countProvider.fetchCountValue();
                     int newCountValue = countProvider.countValue;
-                    dataProvider.uploadSupplyManData(
-                        collection: Constant.COLLECTION_SUPPLYMAN,
+                    dataProvider.uploadCustomerData(
+                        collection: Constant.COLLECTION_CUSTOMER,
                         count: newCountValue,
                         name: nameController.text.toString(),
                         phone: phoneController.text.toString(),
@@ -230,7 +232,7 @@ class _SupplyManFormState extends State<SupplyManForm> {
                     nameController.text = "";
                     phoneController.text = "";
                     addressController.text = "";
-                    Get.snackbar("New Supply Man Added", "",backgroundColor: hoverColor,colorText: Colors.white);
+                    Get.snackbar("New Customer Added", "",backgroundColor: hoverColor,colorText: Colors.white);
                   }else{
                     Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
                   }
@@ -242,7 +244,7 @@ class _SupplyManFormState extends State<SupplyManForm> {
                 ButtonWidget(
                   text: "Cancel", onClicked: () {
                   Provider.of<MenuAppController>(context, listen: false)
-                      .changeScreen(Routes.SUPPLYMAN);
+                      .changeScreen(Routes.CUSTOMER);
                 }, icons: false, width: 100.0, height: 50.0,backgroundColor: Colors.grey,
                 ),
               ],

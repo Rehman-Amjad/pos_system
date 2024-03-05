@@ -9,6 +9,7 @@ import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import '../../helper/custom_shadow_button.dart';
 import '../../helper/text_helper.dart';
+import '../../responsive.dart';
 import '../../route/routes.dart';
 import '../dashboard/components/header.dart';
 
@@ -24,14 +25,15 @@ class VendorManScreen extends StatelessWidget {
         child: Column(
           children: [
           const  Header(),
-          const  SizedBox(height: defaultDrawerHeadHeight + 20),
+          const  SizedBox(height: defaultDrawerHeadHeight + 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextHelper().mNormalText(text: "Vendor List",color: Colors.white,size: 18),
+                TextHelper().mNormalText(text: "Vendor List",color: Colors.white,
+                    size: Responsive.isMobile(context) ? 14.0 : 18.0),
                 CustomNeumorphicButton(
-                  width: 200,
-                  height: 50,
+                  width: Responsive.isMobile(context) ? 150.0: 200.0,
+                  height: 50.0,
                   isIcon: false,
                   label: 'Add New',
                   press: (){
@@ -46,7 +48,7 @@ class VendorManScreen extends StatelessWidget {
                 // )
               ],
             ),
-           const SizedBox(height: defaultDrawerHeadHeight + 20),
+           const SizedBox(height: defaultDrawerHeadHeight + 20.0),
            const VendorManList()
           ],
         ),

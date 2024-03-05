@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
+import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
+import 'package:pos_system/provider/items_data_fetch_provider.dart';
 import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/provider/text_color_provider.dart';
 import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
+import 'package:pos_system/screens/uom/provider/uom_provider.dart';
 import 'package:pos_system/screens/vendorman/provider/vendorman_firebase_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +56,15 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => VendorDataProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CustomerDataProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => UomProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ItemsDataProvider(),
           ),
         ],
         child: MainScreen(),

@@ -8,8 +8,10 @@ import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import '../../helper/text_helper.dart';
 import '../dashboard/components/header.dart';
+import 'components/customer_form.dart';
 
-class AddSupplyManScreen extends StatelessWidget {
+
+class AddCustomerScreen extends StatelessWidget {
 
 
   @override
@@ -18,23 +20,23 @@ class AddSupplyManScreen extends StatelessWidget {
     return SafeArea(
         child: SingleChildScrollView(
           primary: false,
-          padding: EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Header(),
-              const SizedBox(height: defaultDrawerHeadHeight + 20),
-              TextHelper().mNormalText(text: "Supply Man",color: Colors.white,size: 18.0),
+              const SizedBox(height: defaultDrawerHeadHeight + 20.0),
+              TextHelper().mNormalText(text: "Customer",color: Colors.white,size: 18.0),
               const SizedBox(height: defaultDrawerHeadHeight-10),
-              TextHelper().mNormalText(text: "Add new Supply Man",color: Colors.white70,size: 14.0),
-              const SizedBox(height: defaultDrawerHeadHeight + 20),
-              SupplyManForm(
+              TextHelper().mNormalText(text: "Add new Customer",color: Colors.white70,size: 14.0),
+              const SizedBox(height: defaultDrawerHeadHeight + 20.0),
+              CustomerForm(
                 edit: provider.parameters?['edit'] ?? 'false',
-                code: provider.parameters?[Constant.KEY_SUPPLYMAN_CODE] ?? "no code",
-                name: provider.parameters?[Constant.KEY_SUPPLYMAN_NAME] ?? 'Enter Supply Man Name',
-                phone: provider.parameters?[Constant.KEY_SUPPLYMAN_PHONE] ?? 'Enter Phone Number',
-                address: provider.parameters?[Constant.KEY_SUPPLYMAN_ADDRESS] ?? 'Enter Supply Man Address',
-                joinDate: provider.parameters?[Constant.KEY_SUPPLYMAN_JOIN_DATE] ?? 'select Join date',
+                code: provider.parameters?[Constant.KEY_VENDORMAN_CODE] ?? "no code",
+                name: provider.parameters?[Constant.KEY_VENDORMAN_NAME] ?? 'Enter Customer Name',
+                phone: provider.parameters?[Constant.KEY_VENDORMAN_PHONE] ?? 'Enter Phone Number',
+                address: provider.parameters?[Constant.KEY_VENDORMAN_ADDRESS] ?? 'Enter Customer Address',
+                joinDate: provider.parameters?[Constant.KEY_VENDORMAN_JOIN_DATE] ?? 'select Join date',
                 status: provider.parameters?[Constant.KEY_STATUS] ?? 'choose status',
               )
             ],

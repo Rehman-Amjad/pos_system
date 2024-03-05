@@ -12,4 +12,8 @@ class Routes {
   static const ADD_VENDOR = 8;
   static const CUSTOMER = 9;
   static const ADD_CUSTOMER = 10;
+  static const UOM = 11;
+  static const ADD_UOM = 12;
+  static const ITEMS_REGISTRATION = 13;
+  static const ADD_ITEMS_REGISTRATION = 14;
 }

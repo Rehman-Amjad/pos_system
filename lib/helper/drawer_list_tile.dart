@@ -29,7 +29,7 @@ class DrawerListTile extends StatelessWidget {
     final textColorProvider = Provider.of<TextColorProvider>(context,listen: false);
     print("Tiles Builder");
     return Container(
-      margin: EdgeInsets.only(left: 20,right: 20),
+      margin: const EdgeInsets.only(left: 20,right: 20),
       child: Consumer<TextColorProvider>(
           builder: (context,value,child){
             return MouseRegion(

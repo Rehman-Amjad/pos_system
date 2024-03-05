@@ -51,6 +51,19 @@ class CountValueProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  Future<void> updateCategory({required code,required name, required description}) async {
+    try {
+      await firestore.collection(Constant.COLLECTION_CATEGORY).doc(code.toString()).set({
+        Constant.KEY_CATEGORY_NAME : name.toString().toLowerCase(),
+        Constant.KEY_CATEGORY_DESC : description.toString(),
+      });
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching count value: $e");
+    }
+    notifyListeners();
+  }
+
   Future<void> deleteCategory({required id}) async {
     try {
       await firestore.collection(Constant.COLLECTION_CATEGORY).doc(id.toString()).delete();

@@ -12,13 +12,14 @@ import '../../../helper/custom_textfield.dart';
 import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
+import '../provider/uom_provider.dart';
 
-class CategoryForm extends StatefulWidget {
+class UOMForm extends StatefulWidget {
 
   final String code,name,desc;
   final String edit;
 
-  CategoryForm({super.key,
+  UOMForm({super.key,
     required this.edit,
     required this.code,
     required this.name,
@@ -26,10 +27,10 @@ class CategoryForm extends StatefulWidget {
   });
 
   @override
-  State<CategoryForm> createState() => _CategoryFormState();
+  State<UOMForm> createState() => _UOMFormState();
 }
 
-class _CategoryFormState extends State<CategoryForm> {
+class _UOMFormState extends State<UOMForm> {
   var categoryNameController = TextEditingController();
 
   var categoryDescriptionController = TextEditingController();
@@ -47,6 +48,7 @@ class _CategoryFormState extends State<CategoryForm> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final countProvider = Provider.of<CountValueProvider>(context, listen: false);
+    final provider = Provider.of<UomProvider>(context, listen: false);
     return Container(
       width: size.width,
       padding: const EdgeInsets.all(defaultPadding),
@@ -60,7 +62,7 @@ class _CategoryFormState extends State<CategoryForm> {
         children: [
           Row(
             children: [
-              TextHelper().mNormalText(text: "Category Code: ",color: Colors.white,size: 14.0),
+              TextHelper().mNormalText(text: "UOM Code: ",color: Colors.white,size: 14.0),
               Consumer<CountValueProvider>(
                 builder: (context, countValue, child) {
                   return TextHelper().mNormalText(text: widget.edit == 'true' ? widget.code : countValue.countValue.toString(),color: hoverColor,size: 16.0);
@@ -69,7 +71,7 @@ class _CategoryFormState extends State<CategoryForm> {
             ],
           ),
           const SizedBox(height: 15,),
-          TextHelper().mNormalText(text: "Category Name",color: Colors.white,size: 14.0),
+          TextHelper().mNormalText(text: "UOM Name",color: Colors.white,size: 14.0),
           const SizedBox(height: 15,),
           Container(
               width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -77,7 +79,7 @@ class _CategoryFormState extends State<CategoryForm> {
                 controller: categoryNameController,
                 hintText: widget.edit == 'true' ? categoryNameController.text = widget.name : widget.name,)),
           const SizedBox(height: 20,),
-          TextHelper().mNormalText(text: "Category Description",color: Colors.white,size: 14.0),
+          TextHelper().mNormalText(text: "UOM Description",color: Colors.white,size: 14.0),
           const SizedBox(height: 15,),
           Container(
               width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
@@ -96,12 +98,12 @@ class _CategoryFormState extends State<CategoryForm> {
                   child: ButtonWidget(
                     text: "Update", onClicked: () {
                     if(categoryNameController.text.isNotEmpty && categoryDescriptionController.text.isNotEmpty){
-                      countProvider.updateCategory(
+                      provider.updateUom(
                           code: widget.code,
                           name: categoryNameController.text.toString(),
                           description: categoryDescriptionController.text.toString(),
                         );
-                      Get.snackbar("Category Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
+                      Get.snackbar("UOM Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
                     }else{
                       Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
                     }
@@ -117,7 +119,7 @@ class _CategoryFormState extends State<CategoryForm> {
                       if(categoryNameController.text.isNotEmpty && categoryDescriptionController.text.isNotEmpty){
                         countProvider.fetchCountValue();
                         int newCountValue = countProvider.countValue;
-                        countProvider.uploadCategory(count: newCountValue,
+                        provider.uploadUom(count: newCountValue,
                             name: categoryNameController.text.toString(),
                           description: categoryDescriptionController.text.toString()
                         );
@@ -125,7 +127,7 @@ class _CategoryFormState extends State<CategoryForm> {
                         countProvider.fetchCountValue();
                         categoryNameController.text = "";
                         categoryDescriptionController.text = "";
-                        Get.snackbar("New Category Added", "",backgroundColor: hoverColor,colorText: Colors.white);
+                        Get.snackbar("New UOM Added", "",backgroundColor: hoverColor,colorText: Colors.white);
                       }else{
                         Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
                       }
@@ -141,7 +143,7 @@ class _CategoryFormState extends State<CategoryForm> {
                   child: ButtonWidget(
                     text: "Cancel", onClicked: () {
                     Provider.of<MenuAppController>(context, listen: false)
-                        .changeScreen(Routes.CATEGORY_ROUTE);
+                        .changeScreen(Routes.UOM);
                   }, icons: false, width: 50.0, height: 50.0,backgroundColor: Colors.grey,
                   ),
                 ),

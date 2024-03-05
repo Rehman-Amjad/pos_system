@@ -5,6 +5,7 @@ import 'package:pos_system/helper/my_button.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:pos_system/route/routes.dart';
 import 'package:pos_system/screens/category/components/category_list.dart';
+import 'package:pos_system/screens/uom/components/uom_list.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -13,7 +14,7 @@ import '../../helper/custom_shadow_button.dart';
 import '../../helper/text_helper.dart';
 import '../dashboard/components/header.dart';
 
-class CategoryScreen extends StatelessWidget {
+class UOMScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class CategoryScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextHelper().mNormalText(text: "Items Category list",color: Colors.white,
+                  TextHelper().mNormalText(text: "UOM list",color: Colors.white,
                       size: Responsive.isMobile(context) ? 14.0 : 18.0),
                   CustomNeumorphicButton(
                     width: Responsive.isMobile(context) ?  150 : 200,
@@ -38,7 +39,7 @@ class CategoryScreen extends StatelessWidget {
                     label: 'Add New',
                     press: (){
                       provider.parameters?.clear();
-                      provider.changeScreen(Routes.ADD_CATEGORY_ROUTE);
+                      provider.changeScreen(Routes.ADD_UOM);
                     },),
                   // ButtonWidget(text: "Add New", width: 120, height: 50,backgroundColor: hoverColor,icons: true,
                   //     onClicked: (){
@@ -49,7 +50,10 @@ class CategoryScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: defaultDrawerHeadHeight + 20),
-              CategoryList()
+              const UomList()
+
+
+
 
             ],
           ),

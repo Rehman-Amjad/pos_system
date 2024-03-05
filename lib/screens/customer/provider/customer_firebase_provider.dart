@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../constants.dart';
 
-class VendorDataProvider with ChangeNotifier{
+class CustomerDataProvider with ChangeNotifier{
 
-  Future<void> uploadVendorData({required collection,required count,required name,
+  Future<void> uploadCustomerData({required collection,required count,required name,
     required phone,required address,required joinDate,required status}) async {
     DateTime time = DateTime.now();
     try {
       await firestore.collection(collection).doc(count.toString()).set({
-        Constant.KEY_VENDORMAN_CODE : count.toString(),
-        Constant.KEY_VENDORMAN_NAME : name.toString().toLowerCase(),
-        Constant.KEY_VENDORMAN_PHONE : phone.toString(),
-        Constant.KEY_VENDORMAN_ADDRESS : address.toString(),
-        Constant.KEY_VENDORMAN_JOIN_DATE : joinDate.toString(),
-        Constant.KEY_VENDORMAN_TIMESTAMP :  time.millisecondsSinceEpoch.toString(),
+        Constant.KEY_CUSTOMER_CODE : count.toString(),
+        Constant.KEY_CUSTOMER_NAME : name.toString().toLowerCase(),
+        Constant.KEY_CUSTOMER_PHONE : phone.toString(),
+        Constant.KEY_CUSTOMER_ADDRESS : address.toString(),
+        Constant.KEY_CUSTOMER_JOIN_DATE : joinDate.toString(),
+        Constant.KEY_CUSTOMER_TIMESTAMP :  time.millisecondsSinceEpoch.toString(),
         Constant.KEY_STATUS :  status.toString(),
       });
       notifyListeners();
@@ -24,14 +24,14 @@ class VendorDataProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> updateVendorData({required collection,required code,required name,
+  Future<void> updateCustomerData({required collection,required code,required name,
     required phone,required address,required joinDate,required status}) async {
     try {
       await firestore.collection(collection).doc(code.toString()).update({
-        Constant.KEY_VENDORMAN_NAME : name.toString().toLowerCase(),
-        Constant.KEY_VENDORMAN_PHONE : phone.toString(),
-        Constant.KEY_VENDORMAN_ADDRESS : address.toString(),
-        Constant.KEY_VENDORMAN_JOIN_DATE : joinDate.toString(),
+        Constant.KEY_CUSTOMER_NAME : name.toString().toLowerCase(),
+        Constant.KEY_CUSTOMER_PHONE : phone.toString(),
+        Constant.KEY_CUSTOMER_ADDRESS : address.toString(),
+        Constant.KEY_CUSTOMER_JOIN_DATE : joinDate.toString(),
         Constant.KEY_STATUS :  status.toString(),
       });
       notifyListeners();
@@ -41,7 +41,7 @@ class VendorDataProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> deleteVendor({required collection,required id}) async {
+  Future<void> deleteCustomer({required collection,required id}) async {
     try {
       await firestore.collection(collection).doc(id.toString()).delete();
       notifyListeners();

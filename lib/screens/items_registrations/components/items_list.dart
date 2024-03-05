@@ -16,8 +16,8 @@ import '../../../constants.dart';
 import '../../../route/routes.dart';
 import '../../dashboard/components/header.dart';
 
-class VendorManList extends StatelessWidget {
-  const VendorManList({Key? key}) : super(key: key);
+class ItemsList extends StatelessWidget {
+  const ItemsList({Key? key}) : super(key: key);
 
 
   @override
@@ -26,8 +26,8 @@ class VendorManList extends StatelessWidget {
     return Column(
       children: [
         StreamBuilder(
-          stream: firestore.collection(Constant.COLLECTION_VENDORMAN)
-              .orderBy(Constant.KEY_VENDORMAN_TIMESTAMP,descending: false)
+          stream: firestore.collection(Constant.COLLECTION_ITEMS)
+              .orderBy(Constant.KEY_ITEM_TIMESTAMP,descending: false)
               .snapshots(),
           builder: (context, snapshot){
             return (snapshot.connectionState == ConnectionState.waiting) ?
@@ -40,7 +40,7 @@ class VendorManList extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: secondaryColor,
               ),
-              child: Center(child: Text("No Vendor Found",style: TextStyle(
+              child: Center(child: Text("No Items Found",style: TextStyle(
                   fontSize: Responsive.isMobile(context) ? 12 : 18,fontWeight: FontWeight.bold
               ),)
                 ,),
@@ -51,7 +51,7 @@ class VendorManList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)
               ),
               child: PaginatedDataTable(
-                  header: TextWidget(text: "Total Vendor: ${snapshot.data!.docs.length}",size: 20,color: Colors.white, isBold: false,),
+                  header: TextWidget(text: "Total Items: ${snapshot.data!.docs.length}",size: 20,color: Colors.white, isBold: false,),
                   headingRowColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                       return hoverColor; // Default color
@@ -77,7 +77,7 @@ class VendorManList extends StatelessWidget {
                       size: 14, isBold: true,),),
                   ],
                   source: DataTableSourceImpl(
-                      vendor: snapshot.data!.docs,
+                      items: snapshot.data!.docs,
                       length: snapshot.data!.docs.length,
                       context: context
                   )),
@@ -90,11 +90,11 @@ class VendorManList extends StatelessWidget {
 }
 
 class DataTableSourceImpl extends DataTableSource {
-  final vendor;
+  final items;
   final length;
   final context;
 
-  DataTableSourceImpl({required this.vendor,required this.length,required this.context});
+  DataTableSourceImpl({required this.items,required this.length,required this.context});
 
   @override
   DataRow? getRow(int index) {
@@ -107,7 +107,7 @@ class DataTableSourceImpl extends DataTableSource {
       ),
       cells: [
         DataCell(
-          TextWidget(text: vendor[index][Constant.KEY_VENDORMAN_CODE].toString(), color: Colors.white,
+          TextWidget(text: items[index][Constant.KEY_ITEM_CODE].toString(), color: Colors.white,
             size: 14.0, isBold: false,),
         ),
         DataCell(
@@ -125,25 +125,25 @@ class DataTableSourceImpl extends DataTableSource {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10,right: 5.0,bottom: 5.0,top: 5.0),
-                  child: TextWidget(text: vendor[index][Constant.KEY_VENDORMAN_NAME].toString(), color: Colors.white,
+                  child: TextWidget(text: items[index][Constant.KEY_VENDORMAN_NAME].toString(), color: Colors.white,
                     size: 14.0, isBold: false,),),
               ],
             )
         ),
         DataCell(
-          TextWidget(text: vendor[index][Constant.KEY_VENDORMAN_PHONE].toString(), color: Colors.white,
+          TextWidget(text: items[index][Constant.KEY_VENDORMAN_PHONE].toString(), color: Colors.white,
             size: 14.0, isBold: false,),
         ),
         DataCell(
-          TextWidget(text: vendor[index][Constant.KEY_VENDORMAN_ADDRESS].toString(), color: Colors.white,
+          TextWidget(text: items[index][Constant.KEY_VENDORMAN_ADDRESS].toString(), color: Colors.white,
             size: 14.0, isBold: false,),
         ),
         DataCell(
-          TextWidget(text: vendor[index][Constant.KEY_VENDORMAN_JOIN_DATE].toString(), color: Colors.white,
+          TextWidget(text: items[index][Constant.KEY_VENDORMAN_JOIN_DATE].toString(), color: Colors.white,
             size: 14.0, isBold: false,),
         ),
         DataCell(
-          TextWidget(text: vendor[index][Constant.KEY_STATUS].toString(), color: Colors.white,
+          TextWidget(text: items[index][Constant.KEY_STATUS].toString(), color: Colors.white,
             size: 14.0, isBold: false,),
         ),
         DataCell(
@@ -156,12 +156,12 @@ class DataTableSourceImpl extends DataTableSource {
                       Provider.of<MenuAppController>(context,listen: false)
                           .changeScreenWithParams(Routes.ADD_VENDOR, parameters: {
                         'edit':'true',
-                        Constant.KEY_VENDORMAN_CODE.toString():vendor[index][Constant.KEY_VENDORMAN_CODE].toString(),
-                        Constant.KEY_VENDORMAN_NAME.toString():vendor[index][Constant.KEY_VENDORMAN_NAME].toString(),
-                        Constant.KEY_VENDORMAN_PHONE.toString():vendor[index][Constant.KEY_VENDORMAN_PHONE].toString(),
-                        Constant.KEY_VENDORMAN_ADDRESS.toString():vendor[index][Constant.KEY_VENDORMAN_ADDRESS].toString(),
-                        Constant.KEY_VENDORMAN_JOIN_DATE.toString():vendor[index][Constant.KEY_VENDORMAN_JOIN_DATE].toString(),
-                        Constant.KEY_STATUS.toString():vendor[index][Constant.KEY_STATUS].toString(),
+                        Constant.KEY_VENDORMAN_CODE.toString():items[index][Constant.KEY_VENDORMAN_CODE].toString(),
+                        Constant.KEY_VENDORMAN_NAME.toString():items[index][Constant.KEY_VENDORMAN_NAME].toString(),
+                        Constant.KEY_VENDORMAN_PHONE.toString():items[index][Constant.KEY_VENDORMAN_PHONE].toString(),
+                        Constant.KEY_VENDORMAN_ADDRESS.toString():items[index][Constant.KEY_VENDORMAN_ADDRESS].toString(),
+                        Constant.KEY_VENDORMAN_JOIN_DATE.toString():items[index][Constant.KEY_VENDORMAN_JOIN_DATE].toString(),
+                        Constant.KEY_STATUS.toString():items[index][Constant.KEY_STATUS].toString(),
                       });
                     },
                     child: Icon(Icons.edit,color: hoverColor,size: Responsive.isMobile(context) ? 24.0 : 30.0,)),
@@ -169,7 +169,7 @@ class DataTableSourceImpl extends DataTableSource {
                 GestureDetector(
                     onTap: (){
                       Provider.of<VendorDataProvider>(context, listen: false)
-                          .deleteVendor(id: vendor[index][Constant.KEY_VENDORMAN_CODE].toString(),
+                          .deleteVendor(id: items[index][Constant.KEY_VENDORMAN_CODE].toString(),
                           collection: Constant.COLLECTION_VENDORMAN);
                     },
                     child: Icon(Icons.delete,color: Colors.red,size: Responsive.isMobile(context) ? 24.0 : 30.0,)),

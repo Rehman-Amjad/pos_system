@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pos_system/constants.dart';
 
-class CountValueProvider with ChangeNotifier{
+class CountValueProvider with ChangeNotifier {
   int _countValue = 1;
 
   int get countValue => _countValue;
@@ -23,26 +23,30 @@ class CountValueProvider with ChangeNotifier{
 
   Future<void> updateCountValue({required count}) async {
     try {
-      await firestore.collection("countValue").doc("count").update({
-        "counter" : count.toString()
-      });
+      await firestore
+          .collection("countValue")
+          .doc("count")
+          .update({"counter": count.toString()});
       notifyListeners();
     } catch (e) {
       print("Error fetching count value: $e");
     }
     notifyListeners();
   }
-
 
   // category firebase collection
-  Future<void> uploadCategory({required count,required name, required description}) async {
+  Future<void> uploadCategory(
+      {required count, required name, required description}) async {
     DateTime time = DateTime.now();
     try {
-      await firestore.collection(Constant.COLLECTION_CATEGORY).doc(count.toString()).set({
-        Constant.KEY_CATEGORY_ID : count.toString(),
-        Constant.KEY_CATEGORY_NAME : name.toString().toLowerCase(),
-        Constant.KEY_CATEGORY_DESC : description.toString(),
-        "timeStamp" :  time.millisecondsSinceEpoch.toString(),
+      await firestore
+          .collection(Constant.COLLECTION_CATEGORY)
+          .doc(count.toString())
+          .set({
+        Constant.KEY_CATEGORY_ID: count.toString(),
+        Constant.KEY_CATEGORY_NAME: name.toString().toLowerCase(),
+        Constant.KEY_CATEGORY_DESC: description.toString(),
+        "timeStamp": time.millisecondsSinceEpoch.toString(),
       });
       notifyListeners();
     } catch (e) {
@@ -51,11 +55,15 @@ class CountValueProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> updateCategory({required code,required name, required description}) async {
+  Future<void> updateCategory(
+      {required code, required name, required description}) async {
     try {
-      await firestore.collection(Constant.COLLECTION_CATEGORY).doc(code.toString()).set({
-        Constant.KEY_CATEGORY_NAME : name.toString().toLowerCase(),
-        Constant.KEY_CATEGORY_DESC : description.toString(),
+      await firestore
+          .collection(Constant.COLLECTION_CATEGORY)
+          .doc(code.toString())
+          .update({
+        Constant.KEY_CATEGORY_NAME: name.toString().toLowerCase(),
+        Constant.KEY_CATEGORY_DESC: description.toString(),
       });
       notifyListeners();
     } catch (e) {
@@ -66,12 +74,14 @@ class CountValueProvider with ChangeNotifier{
 
   Future<void> deleteCategory({required id}) async {
     try {
-      await firestore.collection(Constant.COLLECTION_CATEGORY).doc(id.toString()).delete();
+      await firestore
+          .collection(Constant.COLLECTION_CATEGORY)
+          .doc(id.toString())
+          .delete();
       notifyListeners();
     } catch (e) {
       print("Error fetching count value: $e");
     }
     notifyListeners();
   }
-
 }

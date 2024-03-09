@@ -2,20 +2,25 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../constants.dart';
 
-class SalesManDataProvider with ChangeNotifier{
-
-  Future<void> uploadPersonData({required collection,required count,required name,
-    required phone,required address,required joinDate,required status}) async {
+class SalesManDataProvider with ChangeNotifier {
+  Future<void> uploadPersonData(
+      {required collection,
+      required code,
+      required name,
+      required phone,
+      required address,
+      required joinDate,
+      required status}) async {
     DateTime time = DateTime.now();
     try {
-      await firestore.collection(collection).doc(count.toString()).set({
-        Constant.KEY_SALESMAN_CODE : count.toString(),
-        Constant.KEY_SALESMAN_NAME : name.toString().toLowerCase(),
-        Constant.KEY_SALESMAN_PHONE : phone.toString(),
-        Constant.KEY_SALESMAN_ADDRESS : address.toString(),
-        Constant.KEY_SALESMAN_JOIN_DATE : joinDate.toString(),
-        Constant.KEY_SALESMAN_TIMESTAMP :  time.millisecondsSinceEpoch.toString(),
-        Constant.KEY_STATUS :  status.toString(),
+      await firestore.collection(collection).doc(code.toString()).set({
+        Constant.KEY_SALESMAN_CODE: code.toString(),
+        Constant.KEY_SALESMAN_NAME: name.toString().toLowerCase(),
+        Constant.KEY_SALESMAN_PHONE: phone.toString(),
+        Constant.KEY_SALESMAN_ADDRESS: address.toString(),
+        Constant.KEY_SALESMAN_JOIN_DATE: joinDate.toString(),
+        Constant.KEY_SALESMAN_TIMESTAMP: time.millisecondsSinceEpoch.toString(),
+        Constant.KEY_STATUS: status.toString(),
       });
       notifyListeners();
     } catch (e) {
@@ -24,15 +29,21 @@ class SalesManDataProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> updateSalesManData({required collection,required code,required name,
-    required phone,required address,required joinDate,required status}) async {
+  Future<void> updateSalesManData(
+      {required collection,
+      required count,
+      required name,
+      required phone,
+      required address,
+      required joinDate,
+      required status}) async {
     try {
-      await firestore.collection(collection).doc(code.toString()).update({
-        Constant.KEY_SALESMAN_NAME : name.toString().toLowerCase(),
-        Constant.KEY_SALESMAN_PHONE : phone.toString(),
-        Constant.KEY_SALESMAN_ADDRESS : address.toString(),
-        Constant.KEY_SALESMAN_JOIN_DATE : joinDate.toString(),
-        Constant.KEY_STATUS :  status.toString(),
+      await firestore.collection(collection).doc(count.toString()).update({
+        Constant.KEY_SALESMAN_NAME: name.toString().toLowerCase(),
+        Constant.KEY_SALESMAN_PHONE: phone.toString(),
+        Constant.KEY_SALESMAN_ADDRESS: address.toString(),
+        Constant.KEY_SALESMAN_JOIN_DATE: joinDate.toString(),
+        Constant.KEY_STATUS: status.toString(),
       });
       notifyListeners();
     } catch (e) {
@@ -41,7 +52,7 @@ class SalesManDataProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> deletePerson({required collection,required id}) async {
+  Future<void> deletePerson({required collection, required id}) async {
     try {
       await firestore.collection(collection).doc(id.toString()).delete();
       notifyListeners();
@@ -50,5 +61,4 @@ class SalesManDataProvider with ChangeNotifier{
     }
     notifyListeners();
   }
-
 }

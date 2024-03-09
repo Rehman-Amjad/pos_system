@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/screens/items_registrations/components/items_registration_form.dart';
-import 'package:pos_system/screens/saleman/components/saleman_form.dart';
-import 'package:pos_system/screens/supplyman/components/supplyman_form.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';

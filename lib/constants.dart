@@ -11,16 +11,13 @@ const defaultPadding = 16.0;
 const defaultBorderRadius = 10.0;
 const defaultDrawerHeadHeight = 20.0;
 
-
 // SIDE BAR SVG IMAGE
 const DASHBOARD_SVG = "assets/icons/menu_dashboard.svg";
-
-
 
 //firebase firestore
 var firestore = FirebaseFirestore.instance;
 
-class Constant{
+class Constant {
   static const COLLECTION_CATEGORY = "category";
   static const KEY_CATEGORY_ID = "categoryId";
   static const KEY_CATEGORY_NAME = "name";
@@ -37,16 +34,7 @@ class Constant{
   static const KEY_SUPPLYMAN_JOIN_DATE = "joinDate";
   static const KEY_SUPPLYMAN_TIMESTAMP = "timestamp";
 
-  // Sales Man
-  static const COLLECTION_SALESMAN = "SalesMan";
-  static const KEY_SALESMAN_CODE = "code";
-  static const KEY_SALESMAN_NAME = "name";
-  static const KEY_SALESMAN_PHONE = "phone";
-  static const KEY_SALESMAN_ADDRESS = "address";
-  static const KEY_SALESMAN_JOIN_DATE = "joinDate";
-  static const KEY_SALESMAN_TIMESTAMP = "timestamp";
-
-// Vendor Man
+  // Vendor Man
   static const COLLECTION_VENDORMAN = "Vendor";
   static const KEY_VENDORMAN_CODE = "code";
   static const KEY_VENDORMAN_NAME = "name";
@@ -70,6 +58,15 @@ class Constant{
   static const KEY_UOM_NAME = "name";
   static const KEY_UOM_DESC = "desc";
 
+  // Sales Man
+  static const COLLECTION_SALESMAN = "SalesMan";
+  static const KEY_SALESMAN_CODE = "code";
+  static const KEY_SALESMAN_NAME = "name";
+  static const KEY_SALESMAN_PHONE = "phone";
+  static const KEY_SALESMAN_ADDRESS = "address";
+  static const KEY_SALESMAN_JOIN_DATE = "joinDate";
+  static const KEY_SALESMAN_TIMESTAMP = "timestamp";
+
   // Items Registration
   static const COLLECTION_ITEMS = "items";
   static const KEY_ITEM_NAME = "name";
@@ -80,6 +77,6 @@ class Constant{
   static const KEY_ITEM_QUANTITY = "quantity";
   static const KEY_ITEM_PURCHASE_PRICE = "purchasePrice";
   static const KEY_ITEM_SALE_PRICE = "salePrice";
+  static const KEY_ITEM_JOIN_DATE = 'joiningDate';
   static const KEY_ITEM_TIMESTAMP = "timestamp";
-
 }

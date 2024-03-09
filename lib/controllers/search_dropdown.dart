@@ -1,5 +1,8 @@
-
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/items_data_fetch_provider.dart';
 
 class SearchableDropdown extends StatefulWidget {
   final List<String> items;
@@ -22,51 +25,92 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final dataProvider = Provider.of<ItemsDataProvider>(context, listen: false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextField(
-          controller: _searchController,
-          onChanged: (value) {
-            setState(() {});
-          },
-          decoration: InputDecoration(
-            hintText: 'Search',
-            prefixIcon: Icon(Icons.search),
-          ),
-        ),
-        SizedBox(height: 10),
-        DropdownButtonFormField<String>(
-          value: _selectedItem,
-          items: _buildDropdownItems(),
-          onChanged: (value) {
-            setState(() {
-              _selectedItem = value;
-            });
-          },
-          decoration: InputDecoration(
-            labelText: 'Select Item',
-            border: OutlineInputBorder(),
+        DropdownButtonHideUnderline(
+          child: DropdownButton2<String>(
+            isExpanded: true,
+            hint: Text(
+              'Select Item',
+              style: TextStyle(
+                fontSize: 14.0,
+                color: Theme.of(context).hintColor,
+              ),
+            ),
+            items: dataProvider.category
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                        ),
+                      ),
+                    ))
+                .toList(),
+            value: dataProvider.selectedCategory,
+            onChanged: (value) {
+              setState(() {
+                dataProvider.selectedCategory = value;
+              });
+            },
+            buttonStyleData: const ButtonStyleData(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              height: 40.0,
+              width: 400.0,
+            ),
+            dropdownStyleData: const DropdownStyleData(
+              maxHeight: 200.0,
+            ),
+            menuItemStyleData: const MenuItemStyleData(
+              height: 40.0,
+            ),
+            dropdownSearchData: DropdownSearchData(
+              searchController: _searchController,
+              searchInnerWidgetHeight: 50.0,
+              searchInnerWidget: Container(
+                height: 50.0,
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  bottom: 4.0,
+                  right: 8.0,
+                  left: 8.0,
+                ),
+                child: TextFormField(
+                  expands: true,
+                  maxLines: null,
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 8.0,
+                    ),
+                    hintText: 'Search for an item...',
+                    hintStyle: const TextStyle(fontSize: 12.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+              searchMatchFn: (item, searchValue) {
+                return item.value.toString().contains(searchValue);
+              },
+            ),
+            //This to clear the search value when you close the menu
+            onMenuStateChange: (isOpen) {
+              if (!isOpen) {
+                _searchController.clear();
+              }
+            },
           ),
         ),
       ],
     );
-  }
-
-  List<DropdownMenuItem<String>> _buildDropdownItems() {
-    List<DropdownMenuItem<String>> dropdownItems = [];
-    for (String item in widget.items) {
-      if (_searchController.text.isEmpty ||
-          item.toLowerCase().contains(_searchController.text.toLowerCase())) {
-        dropdownItems.add(
-          DropdownMenuItem(
-            value: item,
-            child: Text(item),
-          ),
-        );
-      }
-    }
-    return dropdownItems;
   }
 
   @override

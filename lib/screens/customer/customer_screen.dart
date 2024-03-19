@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/responsive.dart';
-import 'package:pos_system/screens/saleman/components/salesman_list.dart';
-import 'package:pos_system/screens/supplyman/components/supplyman_list.dart';
-import 'package:pos_system/screens/vendorman/components/vendorman_list.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import '../../helper/custom_shadow_button.dart';
@@ -15,32 +11,34 @@ import '../dashboard/components/header.dart';
 import 'components/customer_list.dart';
 
 class CustomerScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    final provider  =  Provider.of<MenuAppController>(context, listen: false);
+    final provider = Provider.of<MenuAppController>(context, listen: false);
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-          const  Header(),
-          const  SizedBox(height: defaultDrawerHeadHeight + 20.0),
+            const Header(),
+            const SizedBox(height: defaultDrawerHeadHeight + 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextHelper().mNormalText(text: "Customer List",color: Colors.white,
+                TextHelper().mNormalText(
+                    text: "Customer List",
+                    color: Colors.white,
                     size: Responsive.isMobile(context) ? 14.0 : 18.0),
                 CustomNeumorphicButton(
                   width: Responsive.isMobile(context) ? 150.0 : 200.0,
                   height: 50.0,
                   isIcon: false,
                   label: 'Add New',
-                  press: (){
-                   provider.parameters?.clear();
-                   provider.changeScreen(Routes.ADD_CUSTOMER);
-                  },),
+                  press: () {
+                    provider.parameters?.clear();
+                    provider.changeScreen(Routes.ADD_CUSTOMER);
+                  },
+                ),
                 // ButtonWidget(text: "Add New", width: 120, height: 50,backgroundColor: hoverColor,icons: true,
                 //     onClicked: (){
                 //       Provider.of<MenuAppController>(context, listen: false)
@@ -49,8 +47,8 @@ class CustomerScreen extends StatelessWidget {
                 // )
               ],
             ),
-           const SizedBox(height: defaultDrawerHeadHeight + 20.0),
-           const CustomerList()
+            const SizedBox(height: defaultDrawerHeadHeight + 20.0),
+            const CustomerList()
           ],
         ),
       ),

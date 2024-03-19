@@ -5,7 +5,6 @@ class MenuAppController extends ChangeNotifier {
 
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
-
   void controlMenu() {
     if (!_scaffoldKey.currentState!.isDrawerOpen) {
       _scaffoldKey.currentState!.openDrawer();
@@ -13,10 +12,9 @@ class MenuAppController extends ChangeNotifier {
   }
 
   int _selectedIndex = 0;
-  Map<String, dynamic>? _parameters = {};
-
-
   int get selectedIndex => _selectedIndex;
+
+  Map<String, dynamic>? _parameters = {};
   Map<String, dynamic>? get parameters => _parameters;
 
   void changeScreen(int index) {
@@ -24,12 +22,10 @@ class MenuAppController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  void changeScreenWithParams(int routeName, {required Map<String, dynamic> parameters}) {
+  void changeScreenWithParams(int routeName,
+      {required Map<String, dynamic> parameters}) {
     _selectedIndex = routeName;
     _parameters = parameters;
     notifyListeners();
   }
-  
-
 }

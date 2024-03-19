@@ -5,28 +5,20 @@ import 'package:intl/intl.dart';
 import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
-import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/responsive.dart';
-import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provider.dart';
-import 'package:pos_system/screens/vendorman/provider/vendorman_firebase_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants.dart';
 import '../../../controllers/MenuAppController.dart';
-import '../../../helper/custom_shadow_button.dart';
 import '../../../helper/custom_textfield.dart';
 import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
 
 class CustomerForm extends StatefulWidget {
-
-
-
- final String code,name,phone,address,joinDate,status;
- final String edit;
- String joiningDate = "select Joining date";
- CustomerForm({
+  final String code, name, phone, address, joinDate, status;
+  final String edit;
+  String joiningDate = "select Joining date";
+  CustomerForm({
     required this.edit,
     required this.code,
     required this.name,
@@ -34,8 +26,7 @@ class CustomerForm extends StatefulWidget {
     required this.address,
     this.joinDate = "select Join date",
     required this.status,
-
-  }){
+  }) {
     joiningDate = joinDate;
   }
 
@@ -44,17 +35,16 @@ class CustomerForm extends StatefulWidget {
 }
 
 class _CustomerFormState extends State<CustomerForm> {
-  _CustomerFormState(){
- //  widget.edit=='true' ? selectedStatus = widget.status : selectedStatus = statusList[0];
-   selectedStatus = statusList[0];
+  _CustomerFormState() {
+    //  widget.edit=='true' ? selectedStatus = widget.status : selectedStatus = statusList[0];
+    selectedStatus = statusList[0];
   }
 
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var addressController = TextEditingController();
   String selectedStatus = "";
-  var statusList = ['Running','Close'];
-
+  var statusList = ['Running', 'Close'];
 
   @override
   void initState() {
@@ -68,8 +58,10 @@ class _CustomerFormState extends State<CustomerForm> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final countProvider = Provider.of<CountValueProvider>(context, listen: false);
-    final dataProvider = Provider.of<CustomerDataProvider>(context, listen: false);
+    final countProvider =
+        Provider.of<CountValueProvider>(context, listen: false);
+    final dataProvider =
+        Provider.of<CustomerDataProvider>(context, listen: false);
     return Container(
         width: size.width,
         padding: const EdgeInsets.all(defaultPadding),
@@ -83,41 +75,77 @@ class _CustomerFormState extends State<CustomerForm> {
           children: [
             Row(
               children: [
-                TextHelper().mNormalText(text: "Customer Code: ",color: Colors.white,size: 14.0),
+                TextHelper().mNormalText(
+                    text: "Customer Code: ", color: Colors.white, size: 14.0),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
-                    return TextHelper().mNormalText(text: widget.edit == 'true' ? widget.code :countValue.countValue.toString(),color: hoverColor,size: 16.0);
+                    return TextHelper().mNormalText(
+                        text: widget.edit == 'true'
+                            ? widget.code
+                            : countValue.countValue.toString(),
+                        color: hoverColor,
+                        size: 16.0);
                   },
                 ),
               ],
             ),
-            SizedBox(height: 15.0,),
-            TextHelper().mNormalText(text: "Customer Name: ",color: Colors.white,size: 14.0),
-            SizedBox(height: 15.0,),
+            SizedBox(
+              height: 15.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Customer Name: ", color: Colors.white, size: 14.0),
+            SizedBox(
+              height: 15.0,
+            ),
             Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
-                child: CustomTextField(
-                  controller: nameController,
-                  hintText: widget.edit == 'true' ? nameController.text = widget.name : widget.name,)),
+              width:
+                  Responsive.isMobile(context) ? size.width : size.width / 1.9,
+              child: CustomTextField(
+                controller: nameController,
+                hintText: widget.edit == 'true'
+                    ? nameController.text = widget.name
+                    : widget.name,
+              ),
+            ),
 
-            SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Customer Phone",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Customer Phone", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
+                width: Responsive.isMobile(context)
+                    ? size.width
+                    : size.width / 1.9,
                 child: CustomTextField(
                   controller: phoneController,
-                  hintText: widget.edit == 'true' ? phoneController.text = widget.phone : widget.phone,)),
+                  hintText: widget.edit == 'true'
+                      ? phoneController.text = widget.phone
+                      : widget.phone,
+                )),
 
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
 
-            TextHelper().mNormalText(text: "Customer Address",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            TextHelper().mNormalText(
+                text: "Customer Address", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
-                child: CustomTextField(
-                  controller: addressController,
-                  hintText: widget.edit == 'true' ? addressController.text = widget.address : widget.address,)),
+              width:
+                  Responsive.isMobile(context) ? size.width : size.width / 1.9,
+              child: CustomTextField(
+                controller: addressController,
+                hintText: widget.edit == 'true'
+                    ? addressController.text = widget.address
+                    : widget.address,
+              ),
+            ),
 
             // CustomDropDown(
             //   enabled: true,
@@ -125,53 +153,71 @@ class _CustomerFormState extends State<CustomerForm> {
             //   onChanged: (value) {
             //     print(value);
             // },),
-            const SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Joining Date",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Joining Date", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             GestureDetector(
               onTap: () => _showDatePicker(),
               child: Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 2.9 ,
+                width: Responsive.isMobile(context)
+                    ? size.width
+                    : size.width / 2.9,
                 decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1,
-                        color: Colors.white
+                    border: Border.all(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5.0)),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
+                  child: Center(
+                    child: TextWidget(
+                      text: widget.joiningDate,
+                      color: Colors.white,
+                      size: 14.0,
+                      isBold: false,
                     ),
-                    borderRadius: BorderRadius.circular(5.0)
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 20.0,bottom:20.0),
-                  child: TextWidget(text: widget.joiningDate,color: Colors.white,size: 14.0, isBold: false,),
+                  ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Select Status",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Select Status", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             Container(
-              width: Responsive.isMobile(context) ?  size.width: size.width / 2.9 ,
+              width:
+                  Responsive.isMobile(context) ? size.width : size.width / 2.9,
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Colors.white
-                ),
-                borderRadius: BorderRadius.circular(5.0)
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 5.0,top: 5.0,bottom:5.0),
+                  border: Border.all(width: 1, color: Colors.white),
+                  borderRadius: BorderRadius.circular(5.0)),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, right: 5.0, top: 5.0, bottom: 5.0),
                 child: DropdownButtonFormField(
                   value: selectedStatus,
                   items: statusList
                       .map((e) => DropdownMenuItem(
-                    child: TextWidget(text: e, color: Colors.white, size: 12.0, isBold: false,),
-                    value: e,
-                  ))
+                            child: TextWidget(
+                              text: e,
+                              color: Colors.white,
+                              size: 12.0,
+                              isBold: false,
+                            ),
+                            value: e,
+                          ))
                       .toList(),
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus =
-                      value as String;
+                      selectedStatus = value as String;
                     });
                     // selectedGroup = value as String;
                   },
@@ -180,78 +226,99 @@ class _CustomerFormState extends State<CustomerForm> {
                     color: hoverColor,
                   ),
                   dropdownColor: bgColor,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none
-                  ),
+                  decoration: const InputDecoration(border: InputBorder.none),
                 ),
               ),
             ),
 
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
 
             Row(
               children: [
+                widget.edit == 'true'
+                    ? ButtonWidget(
+                        text: "Update",
+                        onClicked: () {
+                          if (nameController.text.isNotEmpty &&
+                              phoneController.text.isNotEmpty) {
+                            dataProvider.updateCustomerData(
+                                collection: Constant.COLLECTION_CUSTOMER,
+                                code: widget.code,
+                                name: nameController.text.toString(),
+                                phone: phoneController.text.toString(),
+                                address: addressController.text.toString(),
+                                joinDate: widget.joiningDate.toString(),
+                                status: selectedStatus);
+                            Get.snackbar("Customer Updated...", "",
+                                backgroundColor: hoverColor,
+                                colorText: Colors.white);
+                          } else {
+                            Get.snackbar(
+                                "Alert!!!", "Please filled missing fields",
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white);
+                          }
+                        },
+                        icons: false,
+                        width: 100.0,
+                        height: 50.0,
+                      )
+                    : ButtonWidget(
+                        text: "Save",
+                        onClicked: () {
+                          if (nameController.text.isNotEmpty &&
+                              phoneController.text.isNotEmpty) {
+                            countProvider.fetchCountValue();
+                            int newCountValue = countProvider.countValue;
+                            dataProvider.uploadCustomerData(
+                                collection: Constant.COLLECTION_CUSTOMER,
+                                count: newCountValue,
+                                name: nameController.text.toString(),
+                                phone: phoneController.text.toString(),
+                                address: addressController.text.toString(),
+                                joinDate: widget.joiningDate.toString(),
+                                status: selectedStatus);
 
-                widget.edit == 'true' ?
-                ButtonWidget(
-                  text: "Update", onClicked: () {
-                  if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
-                    dataProvider.updateCustomerData(
-                        collection: Constant.COLLECTION_CUSTOMER,
-                        code: widget.code,
-                        name: nameController.text.toString(),
-                        phone: phoneController.text.toString(),
-                        address: addressController.text.toString(),
-                        joinDate: widget.joiningDate.toString(),
-                        status: selectedStatus);
-                    Get.snackbar("Customer Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
-                  }else{
-                    Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
-                  }
-
-
-                }, icons: false, width: 100.0, height: 50.0,
-                )
-                :
-                ButtonWidget(
-                  text: "Save", onClicked: () {
-                  if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
-                    countProvider.fetchCountValue();
-                    int newCountValue = countProvider.countValue;
-                    dataProvider.uploadCustomerData(
-                        collection: Constant.COLLECTION_CUSTOMER,
-                        count: newCountValue,
-                        name: nameController.text.toString(),
-                        phone: phoneController.text.toString(),
-                        address: addressController.text.toString(),
-                        joinDate: widget.joiningDate.toString(),
-                        status: selectedStatus);
-
-                    countProvider.updateCountValue(count: newCountValue+1);
-                    countProvider.fetchCountValue();
-                    nameController.text = "";
-                    phoneController.text = "";
-                    addressController.text = "";
-                    Get.snackbar("New Customer Added", "",backgroundColor: hoverColor,colorText: Colors.white);
-                  }else{
-                    Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
-                  }
-
-
-                }, icons: false, width: 100.0, height: 50.0,
+                            countProvider.updateCountValue(
+                                count: newCountValue + 1);
+                            countProvider.fetchCountValue();
+                            nameController.text = "";
+                            phoneController.text = "";
+                            addressController.text = "";
+                            Get.snackbar("New Customer Added", "",
+                                backgroundColor: hoverColor,
+                                colorText: Colors.white);
+                          } else {
+                            Get.snackbar(
+                                "Alert!!!", "Please filled missing fields",
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white);
+                          }
+                        },
+                        icons: false,
+                        width: 100.0,
+                        height: 50.0,
+                      ),
+                const SizedBox(
+                  width: 20.0,
                 ),
-                const SizedBox(width: 20.0,),
                 ButtonWidget(
-                  text: "Cancel", onClicked: () {
-                  Provider.of<MenuAppController>(context, listen: false)
-                      .changeScreen(Routes.CUSTOMER);
-                }, icons: false, width: 100.0, height: 50.0,backgroundColor: Colors.grey,
+                  text: "Cancel",
+                  onClicked: () {
+                    Provider.of<MenuAppController>(context, listen: false)
+                        .changeScreen(Routes.CUSTOMER);
+                  },
+                  icons: false,
+                  width: 100.0,
+                  height: 50.0,
+                  backgroundColor: Colors.grey,
                 ),
               ],
             ),
           ],
-        )
-    );
+        ));
   }
 
   void _showDatePicker() async {

@@ -16,4 +16,6 @@ class Routes {
   static const ADD_UOM = 12;
   static const ITEMS_REGISTRATION = 13;
   static const ADD_ITEMS_REGISTRATION = 14;
+  static const PURCHASE = 15;
+  static const ADD_PURCHASE = 16;
 }

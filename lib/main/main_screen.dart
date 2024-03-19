@@ -1,17 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:pos_system/route/routes.dart';
 import 'package:pos_system/screens/category/add_category_screen.dart';
 import 'package:pos_system/screens/customer/add_customer_screen.dart';
-import 'package:pos_system/screens/items_registrations/components/items_registration_form.dart';
 import 'package:pos_system/screens/saleman/saleman_screen.dart';
 import 'package:pos_system/screens/supplyman/supplyman_screen.dart';
 import 'package:pos_system/screens/uom/add_uom_screen.dart';
 import 'package:pos_system/screens/uom/uom_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../controllers/MenuAppController.dart';
 import '../responsive.dart';
+import '../screens/Purchase/add_purchase_screen.dart';
+import '../screens/Purchase/purchase_screen.dart';
 import '../screens/category/category_screen.dart';
 import '../screens/customer/customer_screen.dart';
 import '../screens/dashboard/dashboard_screen.dart';
@@ -23,13 +22,12 @@ import '../screens/vendorman/add_vendorman_screen.dart';
 import '../screens/vendorman/vendorman_screen.dart';
 import 'components/side_menu.dart';
 
-
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final menuAppController = Provider.of<MenuAppController>(context);
     Widget screen;
-    switch(menuAppController.selectedIndex){
+    switch (menuAppController.selectedIndex) {
       case Routes.DASHBOARD_ROUTE:
         screen = DashboardScreen();
         break;
@@ -51,10 +49,10 @@ class MainScreen extends StatelessWidget {
       case Routes.ADD_SUPPLYMAN:
         screen = AddSupplyManScreen();
         break;
-        case Routes.VENDOR:
+      case Routes.VENDOR:
         screen = VendorManScreen();
         break;
-        case Routes.ADD_VENDOR:
+      case Routes.ADD_VENDOR:
         screen = AddVendorManScreen();
         break;
       case Routes.CUSTOMER:
@@ -70,13 +68,20 @@ class MainScreen extends StatelessWidget {
         screen = AddUOMScreen();
         break;
 
-        case Routes.ITEMS_REGISTRATION:
+      case Routes.ITEMS_REGISTRATION:
         screen = ItemsScreen();
         break;
 
-        case Routes.ADD_ITEMS_REGISTRATION:
+      case Routes.ADD_ITEMS_REGISTRATION:
         screen = AddItemsScreen();
         break;
+
+      case Routes.PURCHASE:
+        screen = PurchaseScreen();
+
+      case Routes.ADD_PURCHASE:
+        screen = AddPurchaseScreen();
+
       default:
         screen = DashboardScreen();
         break;
@@ -99,7 +104,7 @@ class MainScreen extends StatelessWidget {
               ),
             Expanded(
               // It takes 5/6 part of the screen
-              flex: 5,
+              flex: 8,
               child: screen,
             ),
           ],

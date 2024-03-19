@@ -14,7 +14,6 @@ class SearchableDropdown extends StatefulWidget {
 }
 
 class _SearchableDropdownState extends State<SearchableDropdown> {
-  String? _selectedItem;
   late TextEditingController _searchController;
 
   @override
@@ -26,7 +25,6 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
   @override
   Widget build(BuildContext context) {
     final dataProvider = Provider.of<ItemsDataProvider>(context, listen: false);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,7 +32,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
           child: DropdownButton2<String>(
             isExpanded: true,
             hint: Text(
-              'Select Item',
+              'Select Category',
               style: TextStyle(
                 fontSize: 14.0,
                 color: Theme.of(context).hintColor,
@@ -59,7 +57,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
             },
             buttonStyleData: const ButtonStyleData(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              height: 40.0,
+              height: 57.0,
               width: 400.0,
             ),
             dropdownStyleData: const DropdownStyleData(
@@ -72,7 +70,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               searchController: _searchController,
               searchInnerWidgetHeight: 50.0,
               searchInnerWidget: Container(
-                height: 50.0,
+                height: 57.0,
                 padding: const EdgeInsets.only(
                   top: 8.0,
                   bottom: 4.0,
@@ -89,7 +87,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                       horizontal: 10.0,
                       vertical: 8.0,
                     ),
-                    hintText: 'Search for an item...',
+                    hintText: 'Search for Category...',
                     hintStyle: const TextStyle(fontSize: 12.0),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),

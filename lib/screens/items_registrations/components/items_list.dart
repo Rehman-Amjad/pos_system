@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pos_system/controllers/MenuAppController.dart';
-import 'package:pos_system/helper/text_helper.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:pos_system/screens/items_registrations/provider/register_firebase_provider.dart';

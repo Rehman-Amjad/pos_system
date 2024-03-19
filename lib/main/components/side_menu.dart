@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pos_system/route/routes.dart';
@@ -24,32 +23,45 @@ class SideMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          const DrawerHeader(
-               // child: Image.asset("assets/images/logo.png"),
-                child: Center(child: Text("Waqas Hassan P.O.S",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-              ),
+            const DrawerHeader(
+              // child: Image.asset("assets/images/logo.png"),
+              child: Center(
+                  child: Text(
+                "Waqas Hassan P.O.S",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              )),
+            ),
 
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Main",color: Colors.blue,size: 14.0),
+              child: TextHelper()
+                  .mNormalText(text: "Main", color: Colors.blue, size: 14.0),
             ),
             const DrawerListTile(
-          index: 0,
-          screenIndex: Routes.DASHBOARD_ROUTE,
-          title: "Dashboard",
-          svgSrc: DASHBOARD_SVG,
-          // press: () {
-          //
-          // },
-        ),
+              index: 0,
+              screenIndex: Routes.DASHBOARD_ROUTE,
+              title: "Dashboard",
+              svgSrc: DASHBOARD_SVG,
+              // press: () {
+              //
+              // },
+            ),
 
-            const Divider(thickness: 0.5,),
-            const SizedBox(height: defaultDrawerHeadHeight,),
+            const Divider(
+              thickness: 0.5,
+            ),
+            const SizedBox(
+              height: defaultDrawerHeadHeight,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Registration Form",color: Colors.blue,size: 14.0),
+              child: TextHelper().mNormalText(
+                  text: "Registration Form", color: Colors.blue, size: 14.0),
             ),
-            const SizedBox(height: defaultDrawerHeadHeight-5,),
+            const SizedBox(
+              height: defaultDrawerHeadHeight - 5,
+            ),
             const DrawerListTile(
               index: 1,
               screenIndex: Routes.CATEGORY_ROUTE,
@@ -100,16 +112,23 @@ class SideMenu extends StatelessWidget {
             ),
 
             //Purchase LIST
-            const Divider(thickness: 0.5,),
-            const SizedBox(height: defaultDrawerHeadHeight,),
+            const Divider(
+              thickness: 0.5,
+            ),
+            const SizedBox(
+              height: defaultDrawerHeadHeight,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Purchase Forms",color: Colors.blue,size: 14.0),
+              child: TextHelper().mNormalText(
+                  text: "Purchase Forms", color: Colors.blue, size: 14.0),
             ),
-            const SizedBox(height: defaultDrawerHeadHeight-5,),
+            const SizedBox(
+              height: defaultDrawerHeadHeight - 5,
+            ),
             const DrawerListTile(
               index: 8,
-              screenIndex: 8,
+              screenIndex: Routes.PURCHASE,
               title: "Purchase",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
@@ -136,13 +155,20 @@ class SideMenu extends StatelessWidget {
             ),
 
             //Sale LIST
-            Divider(thickness: 0.5,),
-            SizedBox(height: defaultDrawerHeadHeight,),
+            Divider(
+              thickness: 0.5,
+            ),
+            SizedBox(
+              height: defaultDrawerHeadHeight,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Sales Forms",color: Colors.blue,size: 14.0),
+              child: TextHelper().mNormalText(
+                  text: "Sales Forms", color: Colors.blue, size: 14.0),
             ),
-            SizedBox(height: defaultDrawerHeadHeight-5,),
+            SizedBox(
+              height: defaultDrawerHeadHeight - 5,
+            ),
             DrawerListTile(
               index: 12,
               screenIndex: 12,
@@ -172,13 +198,20 @@ class SideMenu extends StatelessWidget {
             ),
 
             //Reports LIST
-            Divider(thickness: 0.5,),
-            SizedBox(height: defaultDrawerHeadHeight,),
+            Divider(
+              thickness: 0.5,
+            ),
+            SizedBox(
+              height: defaultDrawerHeadHeight,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper().mNormalText(text: "Reports",color: Colors.blue,size: 14.0),
+              child: TextHelper()
+                  .mNormalText(text: "Reports", color: Colors.blue, size: 14.0),
             ),
-            SizedBox(height: defaultDrawerHeadHeight-5,),
+            SizedBox(
+              height: defaultDrawerHeadHeight - 5,
+            ),
             DrawerListTile(
               index: 16,
               screenIndex: 16,
@@ -206,7 +239,6 @@ class SideMenu extends StatelessWidget {
               title: "Low Stock",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
-
           ],
         ),
       ),
@@ -273,5 +305,3 @@ class SideMenu extends StatelessWidget {
     );
   }
 }
-
-

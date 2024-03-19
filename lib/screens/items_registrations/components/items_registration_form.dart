@@ -253,8 +253,8 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               child: CustomTextField(
                                 controller: stockController,
                                 hintText: widget.edit == 'true'
-                                    ? stockController.text = widget.status
-                                    : widget.stock,
+                                    ? widget.stock
+                                    : "Enter Stock",
                               )),
                         ],
                       )),

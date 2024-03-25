@@ -360,3 +360,25 @@ class _BuildTextFieldState extends State<BuildTextField> {
     );
   }
 }
+
+class FormControllers {
+  TextEditingController uomController = TextEditingController();
+  TextEditingController itemController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  TextEditingController priceRateController = TextEditingController();
+  TextEditingController saleRateController = TextEditingController();
+  TextEditingController discountController = TextEditingController();
+  TextEditingController totalController = TextEditingController();
+
+  Map<String, String> toMap() {
+    return {
+      "Uom": uomController.text.toString(),
+      "Quantity": quantityController.text.toString(),
+      "PriceRate": priceRateController.text.toString(),
+      "SaleRate": saleRateController.text.toString(),
+      "Discount": discountController.text.toString(),
+      "ToTal": totalController.text.toString(),
+      "Item": itemController.text.toString(),
+    };
+  }
+}

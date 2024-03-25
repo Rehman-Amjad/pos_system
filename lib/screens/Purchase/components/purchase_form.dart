@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
+import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../controllers/vendor_dropdown.dart';
@@ -243,6 +244,10 @@ class PurchaseForm extends StatelessWidget {
               thickness: 2.5,
             ),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.safety_check_outlined),
+          ),
           SizedBox(
             height: 45.0,
           ),
@@ -250,11 +255,13 @@ class PurchaseForm extends StatelessWidget {
             builder: (context, provider, _) {
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: provider.items.length,
+                itemCount: provider.controllers.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      provider.items[index],
+                      BuildTextField(
+                        index: index + 1,
+                      ),
                       Divider(),
                     ],
                   );
@@ -278,7 +285,7 @@ class PurchaseForm extends StatelessWidget {
                 ),
                 onPressed: () {
                   Provider.of<FormBuilderProvider>(context, listen: false)
-                      .addItem(context, index);
+                      .addItem(context);
                 },
               ),
             ),

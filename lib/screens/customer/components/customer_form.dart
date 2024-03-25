@@ -100,7 +100,7 @@ class _CustomerFormState extends State<CustomerForm> {
             Container(
               width:
                   Responsive.isMobile(context) ? size.width : size.width / 1.9,
-              child: CustomTextField(
+              child: CustomizeTextField(
                 controller: nameController,
                 hintText: widget.edit == 'true'
                     ? nameController.text = widget.name
@@ -120,7 +120,7 @@ class _CustomerFormState extends State<CustomerForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: phoneController,
                   hintText: widget.edit == 'true'
                       ? phoneController.text = widget.phone
@@ -139,7 +139,7 @@ class _CustomerFormState extends State<CustomerForm> {
             Container(
               width:
                   Responsive.isMobile(context) ? size.width : size.width / 1.9,
-              child: CustomTextField(
+              child: CustomizeTextField(
                 controller: addressController,
                 hintText: widget.edit == 'true'
                     ? addressController.text = widget.address

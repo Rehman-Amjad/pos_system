@@ -1,44 +1,44 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:pos_system/provider/items_data_fetch_provider.dart';
+import 'package:pos_system/constants.dart';
 import 'package:provider/provider.dart';
 
-class CashDropdown extends StatefulWidget {
-  const CashDropdown({super.key});
+import '../provider/items_data_fetch_provider.dart';
+
+class CashDropDown extends StatefulWidget {
+  const CashDropDown({Key? key}) : super(key: key);
 
   @override
-  State<CashDropdown> createState() => _CashDropdownState();
+  _CashDropDownState createState() => _CashDropDownState();
 }
 
-class _CashDropdownState extends State<CashDropdown> {
+class _CashDropDownState extends State<CashDropDown> {
   late TextEditingController _cashController;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _cashController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ItemsDataProvider>(context, listen: false);
+    final dataProvider = Provider.of<ItemsDataProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
               isExpanded: true,
               hint: Text(
-                'Select Payment Method',
+                'Select Payment',
                 style: TextStyle(
                   fontSize: 14.0,
-                  color: Theme.of(context).hintColor,
+                  color: hoverColor,
                 ),
               ),
-              items: provider.cashMethods
+              items: dataProvider.cashMethods
                   .map((item) => DropdownMenuItem(
                         value: item,
                         child: Text(
@@ -49,16 +49,16 @@ class _CashDropdownState extends State<CashDropdown> {
                         ),
                       ))
                   .toList(),
-              value: provider.selectCashMethod,
+              value: dataProvider.selectCashMethod,
               onChanged: (value) {
                 setState(() {
-                  provider.selectCashMethod = value;
+                  dataProvider.selectCashMethod = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 height: 57.0,
-                width: 800.0,
+                width: 400.0,
               ),
               dropdownStyleData: const DropdownStyleData(
                 maxHeight: 200.0,
@@ -77,25 +77,20 @@ class _CashDropdownState extends State<CashDropdown> {
                     right: 8.0,
                     left: 8.0,
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Expanded(
-                      child: TextFormField(
-                        expands: true,
-                        maxLines: null,
-                        controller: _cashController,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 8.0,
-                          ),
-                          hintText: 'Search for Payment...',
-                          hintStyle: const TextStyle(fontSize: 12.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
+                  child: TextFormField(
+                    expands: true,
+                    maxLines: null,
+                    controller: _cashController,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 8.0,
+                      ),
+                      hintText: 'Search for Payment...',
+                      hintStyle: const TextStyle(fontSize: 12.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),
@@ -115,5 +110,11 @@ class _CashDropdownState extends State<CashDropdown> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _cashController.dispose();
+    super.dispose();
   }
 }

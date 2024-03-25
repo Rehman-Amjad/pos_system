@@ -104,7 +104,7 @@ class _SalesManFormState extends State<SalesManForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: nameController,
                   hintText: widget.edit == 'true'
                       ? nameController.text = widget.name
@@ -123,7 +123,7 @@ class _SalesManFormState extends State<SalesManForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: phoneController,
                   hintText: widget.edit == 'true'
                       ? phoneController.text = widget.phone
@@ -143,7 +143,7 @@ class _SalesManFormState extends State<SalesManForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: addressController,
                   hintText: widget.edit == 'true'
                       ? addressController.text = widget.address

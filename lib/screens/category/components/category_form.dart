@@ -87,7 +87,7 @@ class _CategoryFormState extends State<CategoryForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: categoryNameController,
                   hintText: widget.edit == 'true'
                       ? categoryNameController.text = widget.name
@@ -105,7 +105,7 @@ class _CategoryFormState extends State<CategoryForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: categoryDescriptionController,
                   hintText: widget.edit == 'true'
                       ? categoryDescriptionController.text = widget.desc

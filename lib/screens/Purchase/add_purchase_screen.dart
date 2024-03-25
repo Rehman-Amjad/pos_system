@@ -30,22 +30,10 @@ class AddPurchaseScreen extends StatelessWidget {
                   text: "Add New Purchase", color: Colors.white70, size: 14.0),
               SizedBox(height: defaultDrawerHeadHeight + 20.0),
               PurchaseForm(
-                joinDate:
-                    provider.parameters?[Constant.KEY_VENDORMAN_JOIN_DATE] ??
-                        '',
-                // serialNum: serialNum,
-                // itemCode: itemCode,
-                // itemName: itemName,
-                // vendorName: vendorName,
-                // uom: uom,
-                // quantity: quantity,
-                // purchasePrice: purchasePrice,
-                // salePrice: salePrice,
-                // totalAmount: totalAmount,
-                // discount: discount,
-                // discountAmount: discountAmount,
-                // payableAmount: payableAmount,
-              ),
+                  // joinDate:
+                  //     provider.parameters?[Constant.KEY_VENDORMAN_JOIN_DATE] ??
+                  //         '',
+                  ),
             ],
           ),
         ),

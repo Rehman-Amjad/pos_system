@@ -18,11 +18,11 @@ import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
 
 class SupplyManForm extends StatefulWidget {
-
-  final String code,name,phone,address,joinDate,status;
+  final String code, name, phone, address, joinDate, status;
   final String edit;
   String joiningDate = "select Joining date";
-  SupplyManForm({super.key,
+  SupplyManForm({
+    super.key,
     required this.edit,
     required this.code,
     required this.name,
@@ -30,8 +30,7 @@ class SupplyManForm extends StatefulWidget {
     required this.address,
     this.joinDate = "select Join date",
     required this.status,
-
-  }){
+  }) {
     joiningDate = joinDate;
   }
 
@@ -40,7 +39,7 @@ class SupplyManForm extends StatefulWidget {
 }
 
 class _SupplyManFormState extends State<SupplyManForm> {
-  _SupplyManFormState(){
+  _SupplyManFormState() {
     selectedStatus = statusList[0];
   }
   var nameController = TextEditingController();
@@ -48,7 +47,7 @@ class _SupplyManFormState extends State<SupplyManForm> {
   var addressController = TextEditingController();
 
   String selectedStatus = "";
-  var statusList = ['Running','Close'];
+  var statusList = ['Running', 'Close'];
   String joinDate = "select Joining date";
 
   @override
@@ -63,8 +62,10 @@ class _SupplyManFormState extends State<SupplyManForm> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final countProvider = Provider.of<CountValueProvider>(context, listen: false);
-    final dataProvider = Provider.of<SupplyManDataProvider>(context, listen: false);
+    final countProvider =
+        Provider.of<CountValueProvider>(context, listen: false);
+    final dataProvider =
+        Provider.of<SupplyManDataProvider>(context, listen: false);
     return Container(
         width: size.width,
         padding: const EdgeInsets.all(defaultPadding),
@@ -78,44 +79,77 @@ class _SupplyManFormState extends State<SupplyManForm> {
           children: [
             Row(
               children: [
-                TextHelper().mNormalText(text: "Supply Man Code: ",color: Colors.white,size: 14.0),
+                TextHelper().mNormalText(
+                    text: "Supply Man Code: ", color: Colors.white, size: 14.0),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
-                    return TextHelper().mNormalText(text: widget.edit == 'true' ?
-                    widget.code :
-                    countValue.countValue.toString(),
-                        color: hoverColor,size: 16.0);
+                    return TextHelper().mNormalText(
+                        text: widget.edit == 'true'
+                            ? widget.code
+                            : countValue.countValue.toString(),
+                        color: hoverColor,
+                        size: 16.0);
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 15.0,),
-            TextHelper().mNormalText(text: "Supply Man Name",color: Colors.white,size: 14.0),
-            SizedBox(height: 15.0,),
+            const SizedBox(
+              height: 15.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Supply Man Name", color: Colors.white, size: 14.0),
+            SizedBox(
+              height: 15.0,
+            ),
             Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
-                child: CustomTextField(
+                width: Responsive.isMobile(context)
+                    ? size.width
+                    : size.width / 1.9,
+                child: CustomizeTextField(
                   controller: nameController,
-                  hintText: widget.edit == 'true' ? nameController.text = widget.name : widget.name,)),
+                  hintText: widget.edit == 'true'
+                      ? nameController.text = widget.name
+                      : widget.name,
+                )),
 
-            SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Supply Man Phone",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Supply Man Phone", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
-                child: CustomTextField(
+                width: Responsive.isMobile(context)
+                    ? size.width
+                    : size.width / 1.9,
+                child: CustomizeTextField(
                   controller: phoneController,
-                  hintText: widget.edit == 'true' ? phoneController.text = widget.phone : widget.phone,)),
+                  hintText: widget.edit == 'true'
+                      ? phoneController.text = widget.phone
+                      : widget.phone,
+                )),
 
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
 
-            TextHelper().mNormalText(text: "Supply Man Address",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            TextHelper().mNormalText(
+                text: "Supply Man Address", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 1.9 ,
-                child: CustomTextField(
+                width: Responsive.isMobile(context)
+                    ? size.width
+                    : size.width / 1.9,
+                child: CustomizeTextField(
                   controller: addressController,
-                  hintText: widget.edit == 'true' ? addressController.text = widget.address : widget.address,)),
+                  hintText: widget.edit == 'true'
+                      ? addressController.text = widget.address
+                      : widget.address,
+                )),
 
             // CustomDropDown(
             //   enabled: true,
@@ -123,53 +157,69 @@ class _SupplyManFormState extends State<SupplyManForm> {
             //   onChanged: (value) {
             //     print(value);
             // },),
-            const SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Joining Date",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Joining Date", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             GestureDetector(
               onTap: () => _showDatePicker(),
               child: Container(
-                width: Responsive.isMobile(context) ?  size.width: size.width / 2.9 ,
+                width: Responsive.isMobile(context)
+                    ? size.width
+                    : size.width / 2.9,
                 decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1,
-                        color: Colors.white
-                    ),
-                    borderRadius: BorderRadius.circular(5.0)
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 20.0,bottom:20.0),
-                  child: TextWidget(text: widget.joiningDate,color: Colors.white,size: 14.0, isBold: false,),
+                    border: Border.all(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5.0)),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 20.0, bottom: 20.0),
+                  child: TextWidget(
+                    text: widget.joiningDate,
+                    color: Colors.white,
+                    size: 14.0,
+                    isBold: false,
+                  ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 20.0,),
-            TextHelper().mNormalText(text: "Select Status",color: Colors.white,size: 14.0),
-            const SizedBox(height: 15.0,),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Select Status", color: Colors.white, size: 14.0),
+            const SizedBox(
+              height: 15.0,
+            ),
             Container(
-              width: Responsive.isMobile(context) ?  size.width: size.width / 2.9 ,
+              width:
+                  Responsive.isMobile(context) ? size.width : size.width / 2.9,
               decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1,
-                      color: Colors.white
-                  ),
-                  borderRadius: BorderRadius.circular(5.0)
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 5.0,top: 5.0,bottom:5.0),
+                  border: Border.all(width: 1, color: Colors.white),
+                  borderRadius: BorderRadius.circular(5.0)),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, right: 5.0, top: 5.0, bottom: 5.0),
                 child: DropdownButtonFormField(
                   value: selectedStatus,
                   items: statusList
                       .map((e) => DropdownMenuItem(
-                    child: TextWidget(text: e, color: Colors.white, size: 12.0, isBold: false,),
-                    value: e,
-                  ))
+                            child: TextWidget(
+                              text: e,
+                              color: Colors.white,
+                              size: 12.0,
+                              isBold: false,
+                            ),
+                            value: e,
+                          ))
                       .toList(),
                   onChanged: (value) {
                     setState(() {
-                      selectedStatus =
-                      value as String;
+                      selectedStatus = value as String;
                     });
                     // selectedGroup = value as String;
                   },
@@ -178,78 +228,99 @@ class _SupplyManFormState extends State<SupplyManForm> {
                     color: hoverColor,
                   ),
                   dropdownColor: bgColor,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none
-                  ),
+                  decoration: const InputDecoration(border: InputBorder.none),
                 ),
               ),
             ),
 
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
 
             Row(
               children: [
+                widget.edit == 'true'
+                    ? ButtonWidget(
+                        text: "Update",
+                        onClicked: () {
+                          if (nameController.text.isNotEmpty &&
+                              phoneController.text.isNotEmpty) {
+                            dataProvider.updateSupplyManData(
+                                collection: Constant.COLLECTION_SUPPLYMAN,
+                                code: widget.code,
+                                name: nameController.text.toString(),
+                                phone: phoneController.text.toString(),
+                                address: addressController.text.toString(),
+                                joinDate: widget.joiningDate.toString(),
+                                status: selectedStatus);
+                            Get.snackbar("Supply Man Updated...", "",
+                                backgroundColor: hoverColor,
+                                colorText: Colors.white);
+                          } else {
+                            Get.snackbar(
+                                "Alert!!!", "Please filled missing fields",
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white);
+                          }
+                        },
+                        icons: false,
+                        width: 100.0,
+                        height: 50.0,
+                      )
+                    : ButtonWidget(
+                        text: "Save",
+                        onClicked: () {
+                          if (nameController.text.isNotEmpty &&
+                              phoneController.text.isNotEmpty) {
+                            countProvider.fetchCountValue();
+                            int newCountValue = countProvider.countValue;
+                            dataProvider.uploadSupplyManData(
+                                collection: Constant.COLLECTION_SUPPLYMAN,
+                                count: newCountValue,
+                                name: nameController.text.toString(),
+                                phone: phoneController.text.toString(),
+                                address: addressController.text.toString(),
+                                joinDate: widget.joiningDate.toString(),
+                                status: selectedStatus);
 
-                widget.edit == 'true' ?
-                ButtonWidget(
-                  text: "Update", onClicked: () {
-                  if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
-                    dataProvider.updateSupplyManData(
-                        collection: Constant.COLLECTION_SUPPLYMAN,
-                        code: widget.code,
-                        name: nameController.text.toString(),
-                        phone: phoneController.text.toString(),
-                        address: addressController.text.toString(),
-                        joinDate: widget.joiningDate.toString(),
-                        status: selectedStatus);
-                    Get.snackbar("Supply Man Updated...", "",backgroundColor: hoverColor,colorText: Colors.white);
-                  }else{
-                    Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
-                  }
-
-
-                }, icons: false, width: 100.0, height: 50.0,
-                )
-                    :
-                ButtonWidget(
-                  text: "Save", onClicked: () {
-                  if(nameController.text.isNotEmpty && phoneController.text.isNotEmpty){
-                    countProvider.fetchCountValue();
-                    int newCountValue = countProvider.countValue;
-                    dataProvider.uploadSupplyManData(
-                        collection: Constant.COLLECTION_SUPPLYMAN,
-                        count: newCountValue,
-                        name: nameController.text.toString(),
-                        phone: phoneController.text.toString(),
-                        address: addressController.text.toString(),
-                        joinDate: widget.joiningDate.toString(),
-                        status: selectedStatus);
-
-                    countProvider.updateCountValue(count: newCountValue+1);
-                    countProvider.fetchCountValue();
-                    nameController.text = "";
-                    phoneController.text = "";
-                    addressController.text = "";
-                    Get.snackbar("New Supply Man Added", "",backgroundColor: hoverColor,colorText: Colors.white);
-                  }else{
-                    Get.snackbar("Alert!!!", "Please filled missing fields",backgroundColor: Colors.red,colorText: Colors.white);
-                  }
-
-
-                }, icons: false, width: 100.0, height: 50.0,
+                            countProvider.updateCountValue(
+                                count: newCountValue + 1);
+                            countProvider.fetchCountValue();
+                            nameController.text = "";
+                            phoneController.text = "";
+                            addressController.text = "";
+                            Get.snackbar("New Supply Man Added", "",
+                                backgroundColor: hoverColor,
+                                colorText: Colors.white);
+                          } else {
+                            Get.snackbar(
+                                "Alert!!!", "Please filled missing fields",
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white);
+                          }
+                        },
+                        icons: false,
+                        width: 100.0,
+                        height: 50.0,
+                      ),
+                const SizedBox(
+                  width: 20.0,
                 ),
-                const SizedBox(width: 20.0,),
                 ButtonWidget(
-                  text: "Cancel", onClicked: () {
-                  Provider.of<MenuAppController>(context, listen: false)
-                      .changeScreen(Routes.SUPPLYMAN);
-                }, icons: false, width: 100.0, height: 50.0,backgroundColor: Colors.grey,
+                  text: "Cancel",
+                  onClicked: () {
+                    Provider.of<MenuAppController>(context, listen: false)
+                        .changeScreen(Routes.SUPPLYMAN);
+                  },
+                  icons: false,
+                  width: 100.0,
+                  height: 50.0,
+                  backgroundColor: Colors.grey,
                 ),
               ],
             ),
           ],
-        )
-    );
+        ));
   }
 
   void _showDatePicker() async {

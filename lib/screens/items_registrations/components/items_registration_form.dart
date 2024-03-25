@@ -122,7 +122,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                 width: Responsive.isMobile(context)
                     ? size.width
                     : size.width / 1.9,
-                child: CustomTextField(
+                child: CustomizeTextField(
                   controller: nameController,
                   hintText: widget.edit == 'true'
                       ? nameController.text = widget.name
@@ -168,8 +168,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                                     color: hoverColor,
                                   ));
                                 } else {
-                                  return SearchableDropdown(
-                                      items: value.category);
+                                  return SearchableDropdown();
                                 }
                               },
                             ),
@@ -250,7 +249,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               width: Responsive.isMobile(context)
                                   ? size.width
                                   : size.width / 1.9,
-                              child: CustomTextField(
+                              child: CustomizeTextField(
                                 controller: stockController,
                                 hintText: widget.edit == 'true'
                                     ? widget.stock
@@ -278,7 +277,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               width: Responsive.isMobile(context)
                                   ? size.width
                                   : size.width / 1.9,
-                              child: CustomTextField(
+                              child: CustomizeTextField(
                                 controller: quantityController,
                                 hintText: widget.edit == 'true'
                                     ? quantityController.text = widget.quantity
@@ -316,7 +315,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               width: Responsive.isMobile(context)
                                   ? size.width
                                   : size.width / 1.9,
-                              child: CustomTextField(
+                              child: CustomizeTextField(
                                 controller: purchasePriceController,
                                 hintText: widget.edit == 'true'
                                     ? purchasePriceController.text =
@@ -345,7 +344,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               width: Responsive.isMobile(context)
                                   ? size.width
                                   : size.width / 1.9,
-                              child: CustomTextField(
+                              child: CustomizeTextField(
                                 controller: salePriceController,
                                 hintText: widget.edit == 'true'
                                     ? salePriceController.text =
@@ -569,14 +568,5 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
     setState(() {
       widget.joiningDate = DateFormat('dd-MM-yyyy').format(picDate!);
     });
-  }
-}
-
-class AnotherClass {
-  final ItemsDataProvider dataProvider;
-  void Function(String, String)? onChanged;
-
-  AnotherClass(this.dataProvider, {this.onChanged}) {
-    dataProvider.onSelectedItemChanged = onChanged;
   }
 }

@@ -22,7 +22,13 @@ class ItemsDataProvider extends ChangeNotifier {
 
   List<String> itemName = [];
   List<String> itemsID = [];
+  List<String> itemQuantity = [];
+  List<String> itemPurchasePrice = [];
+  List<String> itemSalePrice = [];
   String? selectedItemName;
+  String? selectedItemQuantity;
+  String? selectedItemPurchasePrice;
+  String? selectedItemSalePrice;
   String? selectedItemNameId;
   Map<String, String> itemNameDocumentIds = {};
   void Function(String, String)? onSelectedItemNameChanged;
@@ -49,7 +55,6 @@ class ItemsDataProvider extends ChangeNotifier {
       };
 
       selectedCategory = category[0];
-      print(selectedItemNameId);
       notifyListeners();
     } catch (error) {
       print('Error fetching data: $error');
@@ -133,8 +138,20 @@ class ItemsDataProvider extends ChangeNotifier {
       itemsID = snapshot.docs
           .map((doc) => doc.data()[Constant.KEY_ITEM_CODE] as String)
           .toList();
+      itemQuantity = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_ITEM_QUANTITY] as String)
+          .toList();
+      itemPurchasePrice = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_ITEM_PURCHASE_PRICE] as String)
+          .toList();
+      itemSalePrice = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_ITEM_SALE_PRICE] as String)
+          .toList();
       selectedItemName = itemName[0];
       selectedItemNameId = itemsID[0];
+      selectedItemQuantity = itemQuantity[0];
+      selectedItemPurchasePrice = itemPurchasePrice[0];
+      selectedItemSalePrice = itemSalePrice[0];
       print('Selected Item Name: $selectedItemName');
       print('Selected Item ID: $selectedItemNameId');
       notifyListeners();
@@ -143,32 +160,4 @@ class ItemsDataProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  void setSelectedItemName(String newValue) {
-    selectedItemName = newValue;
-    selectedItemNameId = itemNameDocumentIds[newValue];
-    selectedItemName = itemName[0];
-    selectedItemNameId = itemsID[0];
-  }
 }
-
-// List<int> itemQuantities = []; // List to store item quantities
-// String? selectedItemQuantity;
-//
-// Future<void> fetchItemQuantities() async {
-//   try {
-//     final snapshot =
-//         await firestore.collection(Constant.COLLECTION_ITEMS).get();
-//     itemQuantities = snapshot.docs
-//         .map((doc) => doc.data()[Constant.KEY_ITEM_QUANTITY] as int)
-//         .toList();
-//     notifyListeners();
-//   } catch (e) {
-//     print('Error Fetching data: $e');
-//   }
-// }
-//
-// void setSelectedItemQuantity(String newValue) {
-//   selectedItemQuantity = newValue;
-//   notifyListeners();
-// }

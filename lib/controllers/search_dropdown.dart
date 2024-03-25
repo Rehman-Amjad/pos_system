@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import '../provider/items_data_fetch_provider.dart';
 
 class SearchableDropdown extends StatefulWidget {
-  final List<String> items;
-
-  const SearchableDropdown({Key? key, required this.items}) : super(key: key);
+  const SearchableDropdown({Key? key}) : super(key: key);
 
   @override
   _SearchableDropdownState createState() => _SearchableDropdownState();
@@ -25,89 +23,91 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
   @override
   Widget build(BuildContext context) {
     final dataProvider = Provider.of<ItemsDataProvider>(context, listen: false);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DropdownButtonHideUnderline(
-          child: DropdownButton2<String>(
-            isExpanded: true,
-            hint: Text(
-              'Select Category',
-              style: TextStyle(
-                fontSize: 14.0,
-                color: Theme.of(context).hintColor,
-              ),
-            ),
-            items: dataProvider.category
-                .map((item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14.0,
-                        ),
-                      ),
-                    ))
-                .toList(),
-            value: dataProvider.selectedCategory,
-            onChanged: (value) {
-              setState(() {
-                dataProvider.selectedCategory = value;
-              });
-            },
-            buttonStyleData: const ButtonStyleData(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              height: 57.0,
-              width: 400.0,
-            ),
-            dropdownStyleData: const DropdownStyleData(
-              maxHeight: 200.0,
-            ),
-            menuItemStyleData: const MenuItemStyleData(
-              height: 40.0,
-            ),
-            dropdownSearchData: DropdownSearchData(
-              searchController: _searchController,
-              searchInnerWidgetHeight: 50.0,
-              searchInnerWidget: Container(
-                height: 57.0,
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  bottom: 4.0,
-                  right: 8.0,
-                  left: 8.0,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DropdownButtonHideUnderline(
+            child: DropdownButton2<String>(
+              isExpanded: true,
+              hint: Text(
+                'Select Category',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Theme.of(context).hintColor,
                 ),
-                child: TextFormField(
-                  expands: true,
-                  maxLines: null,
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 8.0,
-                    ),
-                    hintText: 'Search for Category...',
-                    hintStyle: const TextStyle(fontSize: 12.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+              ),
+              items: dataProvider.category
+                  .map((item) => DropdownMenuItem(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                          ),
+                        ),
+                      ))
+                  .toList(),
+              value: dataProvider.selectedCategory,
+              onChanged: (value) {
+                setState(() {
+                  dataProvider.selectedCategory = value;
+                });
+              },
+              buttonStyleData: const ButtonStyleData(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                height: 57.0,
+                width: 400.0,
+              ),
+              dropdownStyleData: const DropdownStyleData(
+                maxHeight: 200.0,
+              ),
+              menuItemStyleData: const MenuItemStyleData(
+                height: 40.0,
+              ),
+              dropdownSearchData: DropdownSearchData(
+                searchController: _searchController,
+                searchInnerWidgetHeight: 50.0,
+                searchInnerWidget: Container(
+                  height: 57.0,
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    bottom: 4.0,
+                    right: 8.0,
+                    left: 8.0,
+                  ),
+                  child: TextFormField(
+                    expands: true,
+                    maxLines: null,
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 8.0,
+                      ),
+                      hintText: 'Search for Category...',
+                      hintStyle: const TextStyle(fontSize: 12.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
                 ),
+                searchMatchFn: (item, searchValue) {
+                  return item.value.toString().contains(searchValue);
+                },
               ),
-              searchMatchFn: (item, searchValue) {
-                return item.value.toString().contains(searchValue);
+              //This to clear the search value when you close the menu
+              onMenuStateChange: (isOpen) {
+                if (!isOpen) {
+                  _searchController.clear();
+                }
               },
             ),
-            //This to clear the search value when you close the menu
-            onMenuStateChange: (isOpen) {
-              if (!isOpen) {
-                _searchController.clear();
-              }
-            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

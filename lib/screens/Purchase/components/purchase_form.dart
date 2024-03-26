@@ -255,13 +255,11 @@ class PurchaseForm extends StatelessWidget {
             builder: (context, provider, _) {
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: provider.controllers.length,
+                itemCount: provider.items.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      BuildTextField(
-                        index: index + 1,
-                      ),
+                      provider.items[index],
                       Divider(),
                     ],
                   );
@@ -272,7 +270,7 @@ class PurchaseForm extends StatelessWidget {
           Center(
             child: Container(
               height: 36.0,
-              width: 36.0, // Set width to make it a circle
+              width: 36.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: hoverColor,

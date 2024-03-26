@@ -19,13 +19,7 @@ class BuildTextField extends StatefulWidget {
   State<BuildTextField> createState() => _BuildTextFieldState();
 }
 
-TextEditingController uomController = TextEditingController();
-TextEditingController itemController = TextEditingController();
-TextEditingController quantityController = TextEditingController();
-TextEditingController priceRateController = TextEditingController();
-TextEditingController saleRateController = TextEditingController();
-TextEditingController discountController = TextEditingController();
-TextEditingController totalController = TextEditingController();
+FormControllers _formControllers = FormControllers();
 
 class _BuildTextFieldState extends State<BuildTextField> {
   @override
@@ -157,7 +151,8 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                     height: 40.0,
                                   ),
                                   dropdownSearchData: DropdownSearchData(
-                                    searchController: itemController,
+                                    searchController:
+                                        _formControllers.itemController,
                                     searchInnerWidgetHeight: 50.0,
                                     searchInnerWidget: Container(
                                       height: 57.0,
@@ -170,7 +165,8 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                       child: TextFormField(
                                         expands: true,
                                         maxLines: null,
-                                        controller: itemController,
+                                        controller:
+                                            _formControllers.itemController,
                                         decoration: InputDecoration(
                                           isDense: true,
                                           contentPadding:
@@ -197,7 +193,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                   //This to clear the search value when you close the menu
                                   onMenuStateChange: (isOpen) {
                                     if (!isOpen) {
-                                      itemController.clear();
+                                      _formControllers.itemController.clear();
                                     }
                                   },
                                 ),
@@ -216,7 +212,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 padding: const EdgeInsets.only(right: 8),
                 child: TextFormField(
                   cursorColor: hoverColor,
-                  controller: uomController,
+                  controller: _formControllers.uomController,
                   decoration: InputDecoration(
                     hintText: 'Uom',
                     enabledBorder: OutlineInputBorder(
@@ -235,10 +231,10 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 padding: const EdgeInsets.only(right: 8),
                 child: TextFormField(
                   cursorColor: hoverColor,
-                  controller: quantityController,
+                  controller: _formControllers.quantityController,
                   decoration: InputDecoration(
                     hintText: provider.selectedItemQuantity != null
-                        ? quantityController.text =
+                        ? _formControllers.quantityController.text =
                             provider.selectedItemQuantity!
                         : "0",
                     enabledBorder: OutlineInputBorder(
@@ -257,10 +253,10 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 padding: const EdgeInsets.only(right: 8),
                 child: TextFormField(
                   cursorColor: hoverColor,
-                  controller: priceRateController,
+                  controller: _formControllers.priceRateController,
                   decoration: InputDecoration(
                     hintText: provider.selectedItemPurchasePrice != null
-                        ? priceRateController.text =
+                        ? _formControllers.priceRateController.text =
                             provider.selectedItemPurchasePrice!
                         : "0",
                     enabledBorder: OutlineInputBorder(
@@ -279,10 +275,10 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 padding: const EdgeInsets.only(right: 8),
                 child: TextFormField(
                   cursorColor: hoverColor,
-                  controller: saleRateController,
+                  controller: _formControllers.saleRateController,
                   decoration: InputDecoration(
                     hintText: provider.selectedItemSalePrice != null
-                        ? saleRateController.text =
+                        ? _formControllers.saleRateController.text =
                             provider.selectedItemSalePrice!
                         : "0",
                     enabledBorder: OutlineInputBorder(
@@ -301,7 +297,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 padding: const EdgeInsets.only(right: 8),
                 child: TextFormField(
                   cursorColor: hoverColor,
-                  controller: discountController,
+                  controller: _formControllers.discountController,
                   decoration: InputDecoration(
                     hintText: 'Discount',
                     enabledBorder: OutlineInputBorder(
@@ -320,7 +316,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 padding: const EdgeInsets.only(right: 8),
                 child: TextFormField(
                   cursorColor: hoverColor,
-                  controller: totalController,
+                  controller: _formControllers.discountController,
                   decoration: InputDecoration(
                     hintText: 'T.Amount',
                     enabledBorder: OutlineInputBorder(

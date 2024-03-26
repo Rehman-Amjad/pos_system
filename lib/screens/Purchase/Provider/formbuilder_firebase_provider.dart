@@ -5,14 +5,11 @@ import '../components/build_text_field.dart';
 class FormBuilderProvider with ChangeNotifier {
   String joiningDate = 'Select Joining Date';
 
-  List<FormControllers> _items = [];
-  List<FormControllers> get items => _items;
-
-  List<FormControllers> _controllers = [];
-  List<FormControllers> get controllers => _controllers;
+  List<BuildTextField> _items = [];
+  List<BuildTextField> get items => _items;
 
   void addItem(BuildContext context) {
-    _controllers.add(FormControllers());
+    _items.add(BuildTextField());
     notifyListeners();
   }
 

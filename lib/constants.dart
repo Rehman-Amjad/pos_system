@@ -79,4 +79,53 @@ class Constant {
   static const KEY_ITEM_SALE_PRICE = "salePrice";
   static const KEY_ITEM_JOIN_DATE = 'joiningDate';
   static const KEY_ITEM_TIMESTAMP = "timestamp";
+
+  // Purchase
+  static const COLLECTION = 'purchase';
+  static const KEY_PURCHASE_CODE = 'code';
+  static const KEY_PURCHASE_JOIN_DATE = 'joiningDate';
+  static const KEY_PURCHASE_TIMESTAMP = 'timestamp';
 }
+
+// SingleChildScrollView(
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// DropdownButtonHideUnderline(
+// child: DropdownButton2<String>(
+// isExpanded: true,
+// hint: Text(
+// 'Select Item Name',
+// style: TextStyle(
+// fontSize: 14.0,
+// color: Theme.of(context).hintColor,
+// ),
+// ),
+// items: provider.itemName
+//     .map((item) => DropdownMenuItem(
+// value: item,
+// child: Text(
+// item,
+// style: const TextStyle(
+// fontSize: 14.0,
+// ),
+// ),
+// ))
+//     .toList(),
+// value: provider.selectedItemName,
+// onChanged: (value) {
+// provider.selectedItemName = value;
+// int itemIndex = provider.itemName.indexOf(value!);
+// provider.selectedItemNameId = provider.itemsID[itemIndex];
+// provider.selectedItemQuantity =
+// provider.itemQuantity[itemIndex];
+// provider.selectedItemSalePrice =
+// provider.itemSalePrice[itemIndex];
+// provider.selectedItemPurchasePrice =
+// provider.itemPurchasePrice[itemIndex];
+// },
+// ),
+// ),
+// ],
+// ),
+// );

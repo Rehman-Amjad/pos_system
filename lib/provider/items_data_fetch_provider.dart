@@ -41,6 +41,15 @@ class ItemsDataProvider extends ChangeNotifier {
 
   String? selectCashMethod;
 
+  dynamic selectedItem(value) {
+    selectedItemName = value;
+    int itemIndex = itemName.indexOf(value!);
+    selectedItemNameId = itemsID[itemIndex];
+    selectedItemQuantity = itemQuantity[itemIndex];
+    selectedItemSalePrice = itemSalePrice[itemIndex];
+    selectedItemPurchasePrice = itemPurchasePrice[itemIndex];
+  }
+
   Future<void> fetchCategory() async {
     try {
       final snapshot =

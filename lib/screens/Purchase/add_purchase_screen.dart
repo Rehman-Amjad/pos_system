@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pos_system/constants.dart';
-import 'package:pos_system/controllers/MenuAppController.dart';
 import 'package:pos_system/helper/text_helper.dart';
 import 'package:pos_system/screens/dashboard/components/header.dart';
-import 'package:provider/provider.dart';
 
 import 'components/purchase_form.dart';
 
@@ -12,7 +10,6 @@ class AddPurchaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MenuAppController>(context, listen: false);
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,
@@ -29,11 +26,7 @@ class AddPurchaseScreen extends StatelessWidget {
               TextHelper().mNormalText(
                   text: "Add New Purchase", color: Colors.white70, size: 14.0),
               SizedBox(height: defaultDrawerHeadHeight + 20.0),
-              PurchaseForm(
-                  // joinDate:
-                  //     provider.parameters?[Constant.KEY_VENDORMAN_JOIN_DATE] ??
-                  //         '',
-                  ),
+              PurchaseForm(),
             ],
           ),
         ),

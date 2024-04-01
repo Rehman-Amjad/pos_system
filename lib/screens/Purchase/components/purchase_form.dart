@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,15 +17,14 @@ import '../../../responsive.dart';
 
 class PurchaseForm extends StatelessWidget {
   int index;
-  PurchaseForm({
-    super.key,
-    this.index = 0,
-  });
+  PurchaseForm({super.key, this.index = 0});
 
   TextEditingController _stockController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FormBuilderProvider>(context, listen: false);
+    final providerr = Provider.of<CountValueProvider>(context, listen: false);
     Provider.of<CountValueProvider>(context, listen: false).fetchCountValue();
     final size = MediaQuery.of(context).size;
     return Container(
@@ -238,54 +238,114 @@ class PurchaseForm extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 18.0, left: 5.0),
+            padding: EdgeInsets.only(right: 18.0, left: 5.0, bottom: 8.0),
             child: Divider(
               color: hoverColor,
               thickness: 2.5,
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.safety_check_outlined),
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              onPressed: () {
+                provider.saveDataToFireStore(
+                  context,
+                  purchaseCode: providerr.countValue.toString(),
+                );
+                providerr.fetchCountValue();
+                int newCountValue = providerr.countValue;
+                providerr.updateCountValue(count: newCountValue + 1);
+              },
+              icon: Icon(
+                Icons.save,
+                color: Colors.green,
+                size: 22,
+              ),
+            ),
           ),
           SizedBox(
             height: 45.0,
           ),
           Consumer<FormBuilderProvider>(
-            builder: (context, provider, _) {
+            builder: (context, value, child) {
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: provider.items.length,
+                itemCount: value.items.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      provider.items[index],
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 40),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 2),
+                                child: Text('Serial no: '),
+                              ),
+                              Consumer<FormBuilderProvider>(
+                                builder: (context, value, child) {
+                                  return Text(
+                                    (index + 1).toString(),
+                                    style: TextStyle(color: hoverColor),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 18.0),
+                      value.items[index],
+                      SizedBox(height: 10.0),
+                      Center(
+                        child: Container(
+                          height: 32.0,
+                          width: 32.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: hoverColor,
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 16.0,
+                            ),
+                            onPressed: () {
+                              provider.deleteItem(index);
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 12.0),
                       Divider(),
+                      SizedBox(height: 18.0),
                     ],
                   );
                 },
               );
             },
           ),
-          Center(
-            child: Container(
-              height: 36.0,
-              width: 36.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: hoverColor,
+          SizedBox(height: 10.0),
+          Container(
+            height: 36.0,
+            width: 36.0,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: hoverColor,
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 18.0,
               ),
-              child: IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 18.0,
-                ),
-                onPressed: () {
-                  Provider.of<FormBuilderProvider>(context, listen: false)
-                      .addItem(context);
-                },
-              ),
+              onPressed: () {
+                provider.addItem();
+              },
             ),
           ),
         ],

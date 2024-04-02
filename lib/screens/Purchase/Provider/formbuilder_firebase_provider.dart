@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pos_system/provider/items_data_fetch_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../components/build_text_field.dart';
 
@@ -24,9 +26,8 @@ class FormBuilderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteItem(int index) {
+  void deleteItem(int index, BuildContext context) {
     _items.removeAt(index);
-    _controllers.removeAt(index);
     notifyListeners();
   }
 

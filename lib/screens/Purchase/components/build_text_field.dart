@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +13,7 @@ class BuildTextField extends StatefulWidget {
   final int index;
   BuildTextField({
     Key? key,
-    this.index = 0,
+    required this.index,
   });
 
   @override
@@ -23,11 +22,11 @@ class BuildTextField extends StatefulWidget {
 
 FormControllers _formControllers = FormControllers();
 
-// _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
-//     .controllers[widget.index];
 class _BuildTextFieldState extends State<BuildTextField> {
   @override
   Widget build(BuildContext context) {
+    _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
+        .controllers[widget.index];
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Column(
@@ -357,6 +356,9 @@ class _BuildTextFieldState extends State<BuildTextField> {
                           borderSide: BorderSide(color: hoverColor),
                         ),
                       ),
+                      onChanged: (value) {
+                        updateTotal();
+                      },
                       textAlign: TextAlign.start,
                     ),
                   ],
@@ -396,6 +398,21 @@ class _BuildTextFieldState extends State<BuildTextField> {
         SizedBox(height: 16),
       ],
     );
+  }
+
+  void updateTotal() {
+    double discount =
+        double.tryParse(_formControllers.discountController.text) ?? 0;
+    double totalAmount = calculateTotal(discount);
+    _formControllers.totalController.text = totalAmount.toString();
+  }
+
+  double calculateTotal(double discount) {
+    double originalAmount =
+        double.tryParse(_formControllers.priceRateController.text) ?? 0;
+    double discountedAmount =
+        originalAmount - (originalAmount * (discount / 100));
+    return discountedAmount;
   }
 }
 

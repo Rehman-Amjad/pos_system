@@ -24,7 +24,7 @@ class PurchaseForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FormBuilderProvider>(context, listen: false);
-    final providerr = Provider.of<CountValueProvider>(context, listen: false);
+    final provider1 = Provider.of<CountValueProvider>(context, listen: false);
     Provider.of<CountValueProvider>(context, listen: false).fetchCountValue();
     final size = MediaQuery.of(context).size;
     return Container(
@@ -250,11 +250,11 @@ class PurchaseForm extends StatelessWidget {
               onPressed: () {
                 provider.saveDataToFireStore(
                   context,
-                  purchaseCode: providerr.countValue.toString(),
+                  purchaseCode: provider1.countValue.toString(),
                 );
-                providerr.fetchCountValue();
-                int newCountValue = providerr.countValue;
-                providerr.updateCountValue(count: newCountValue + 1);
+                provider1.fetchCountValue();
+                int newCountValue = provider1.countValue;
+                provider1.updateCountValue(count: newCountValue + 1);
               },
               icon: Icon(
                 Icons.save,
@@ -284,13 +284,9 @@ class PurchaseForm extends StatelessWidget {
                                 padding: const EdgeInsets.only(right: 2),
                                 child: Text('Serial no: '),
                               ),
-                              Consumer<FormBuilderProvider>(
-                                builder: (context, value, child) {
-                                  return Text(
-                                    (index + 1).toString(),
-                                    style: TextStyle(color: hoverColor),
-                                  );
-                                },
+                              Text(
+                                (index + 1).toString(),
+                                style: TextStyle(color: hoverColor),
                               ),
                             ],
                           ),
@@ -299,27 +295,31 @@ class PurchaseForm extends StatelessWidget {
                       SizedBox(height: 18.0),
                       value.items[index],
                       SizedBox(height: 10.0),
-                      Center(
-                        child: Container(
-                          height: 32.0,
-                          width: 32.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: hoverColor,
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                              size: 16.0,
+                      if (index == value.items.length - 1)
+                        Center(
+                          child: Container(
+                            height: 32.0,
+                            width: 32.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: hoverColor,
                             ),
-                            onPressed: () {
-                              provider.deleteItem(index);
-                            },
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 16.0,
+                              ),
+                              onPressed: () {
+                                Provider.of<FormBuilderProvider>(context,
+                                        listen: false)
+                                    .deleteItem(index, context);
+                                print('indexToDelete: $index');
+                              },
+                            ),
                           ),
                         ),
-                      ),
                       SizedBox(height: 12.0),
                       Divider(),
                       SizedBox(height: 18.0),
@@ -344,7 +344,8 @@ class PurchaseForm extends StatelessWidget {
                 size: 18.0,
               ),
               onPressed: () {
-                provider.addItem();
+                Provider.of<FormBuilderProvider>(context, listen: false)
+                    .addItem();
               },
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/items_data_fetch_provider.dart';
@@ -52,6 +53,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
               onChanged: (value) {
                 setState(() {
                   dataProvider.selectedVendor = value;
+                  AllController.vendor = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(

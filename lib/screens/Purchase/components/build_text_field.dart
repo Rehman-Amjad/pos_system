@@ -412,6 +412,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
         double.tryParse(_formControllers.priceRateController.text) ?? 0;
     double discountedAmount =
         originalAmount - (originalAmount * (discount / 100));
+    // String discountWithPercentage = discountAmount.toStringAsFixed(2) + '%';
     return discountedAmount;
   }
 }

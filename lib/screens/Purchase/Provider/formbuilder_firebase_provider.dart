@@ -43,13 +43,13 @@ class FormBuilderProvider with ChangeNotifier {
     date,
   }) async {
     try {
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
       await fireStore.collection('purchase').doc(purchaseCode).set({
         'purchaseCode': purchaseCode,
         'date': date,
-        'purchaseDate': purchaseDate,
-        'time': time,
+        'p.date&time': time,
+        'timestamp': id,
         'vendor': vendor,
-        'vendorID': vendorID,
         'remarks': remarks,
         'paymentVia': paymentVia,
         'invoiceType': 'purchase'
@@ -100,7 +100,7 @@ class FormBuilderProvider with ChangeNotifier {
     }
   }
 
-  void datePicker(BuildContext context) async {
+  datePicker(BuildContext context) async {
     DateTime? picDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),

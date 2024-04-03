@@ -53,6 +53,7 @@ class _CashDropDownState extends State<CashDropDown> {
               onChanged: (value) {
                 setState(() {
                   dataProvider.selectCashMethod = value;
+                  AllController.cash = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(
@@ -117,4 +118,9 @@ class _CashDropDownState extends State<CashDropDown> {
     _cashController.dispose();
     super.dispose();
   }
+}
+
+class AllController {
+  static dynamic cash = TextEditingController();
+  static dynamic vendor = TextEditingController();
 }

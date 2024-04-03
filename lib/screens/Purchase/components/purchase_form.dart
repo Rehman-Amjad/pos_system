@@ -19,7 +19,7 @@ class PurchaseForm extends StatelessWidget {
   int index;
   PurchaseForm({super.key, this.index = 0});
 
-  TextEditingController _stockController = TextEditingController();
+  TextEditingController _remarksController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,9 @@ class PurchaseForm extends StatelessWidget {
                       Consumer<FormBuilderProvider>(
                         builder: (context, value, child) {
                           return GestureDetector(
-                            onTap: () => value.datePicker(context),
+                            onTap: () {
+                              value.datePicker(context);
+                            },
                             child: Container(
                               width: Responsive.isMobile(context)
                                   ? size.width
@@ -188,7 +190,7 @@ class PurchaseForm extends StatelessWidget {
                             ? size.width
                             : size.width / 3.9,
                         child: CustomizeTextField(
-                          controller: _stockController,
+                          controller: _remarksController,
                           hintText: 'Edit Text',
                         ),
                       ),
@@ -251,6 +253,11 @@ class PurchaseForm extends StatelessWidget {
                 provider.saveDataToFireStore(
                   context,
                   purchaseCode: provider1.countValue.toString(),
+                  paymentVia: AllController.cash,
+                  remarks: _remarksController.text.toString(),
+                  vendor: AllController.vendor,
+                  date: provider.joiningDate,
+                  time: DateTime.now(),
                 );
                 provider1.fetchCountValue();
                 int newCountValue = provider1.countValue;

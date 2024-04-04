@@ -153,9 +153,19 @@ class PurchaseForm extends StatelessWidget {
                 builder: (context, value, child) {
                   if (value.vendor.isEmpty) {
                     value.fetchVendorName();
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: hoverColor,
+                    return Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: secondaryColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "No Items Found",
+                          style: TextStyle(
+                              fontSize: Responsive.isMobile(context) ? 12 : 18,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     );
                   } else {
@@ -262,6 +272,7 @@ class PurchaseForm extends StatelessWidget {
                 provider1.fetchCountValue();
                 int newCountValue = provider1.countValue;
                 provider1.updateCountValue(count: newCountValue + 1);
+                _remarksController.text = '';
               },
               icon: Icon(
                 Icons.save,

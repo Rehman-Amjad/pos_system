@@ -5,6 +5,7 @@ import 'package:pos_system/helper/custom_shadow_button.dart';
 import 'package:pos_system/helper/text_helper.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:pos_system/route/routes.dart';
+import 'package:pos_system/screens/Purchase/Provider/purcahse_list.dart';
 import 'package:pos_system/screens/dashboard/components/header.dart';
 import 'package:provider/provider.dart';
 

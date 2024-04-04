@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pos_system/provider/items_data_fetch_provider.dart';
-import 'package:provider/provider.dart';
-
+import 'package:pos_system/constants.dart';
 import '../components/build_text_field.dart';
 
 class FormBuilderProvider with ChangeNotifier {
@@ -69,7 +67,9 @@ class FormBuilderProvider with ChangeNotifier {
         FormControllers controllers = _controllers[i];
         String selectedItemName = controllers.itemNameController.text;
         String selectedItemCode = controllers.itemCodeController.text;
-        String uom = controllers.uomController.text;
+        String selectedUom = controllers.uomController.text;
+        String selectedStock = controllers.stockController.text;
+        String totalAmount = controllers.totalAmountController.text;
         String quantity = controllers.quantityController.text;
         String priceRate = controllers.priceRateController.text;
         String saleRate = controllers.saleRateController.text;
@@ -83,15 +83,18 @@ class FormBuilderProvider with ChangeNotifier {
             .collection("items")
             .doc(id)
             .set({
-          'selectedItemName': selectedItemName,
-          'selectedItemCode': selectedItemCode,
-          'uom': uom,
+          'itemName': selectedItemName,
+          'itemCode': selectedItemCode,
+          'totalAmount': totalAmount,
           'quantity': quantity,
           'priceRate': priceRate,
           'saleRate': saleRate,
           'discount': discount,
           'total': total,
-          'id': id,
+          'uom': selectedUom,
+          'stock': selectedStock,
+          Constant.KEY_PURCHASE_TIMESTAMP:
+              DateTime.now().millisecondsSinceEpoch.toString(),
         }).whenComplete(() {});
       }
       print('Data saved to Firestore successfully');

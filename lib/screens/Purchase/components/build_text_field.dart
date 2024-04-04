@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +48,32 @@ class _BuildTextFieldState extends State<BuildTextField> {
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 2),
+              child: Text('Stock: '),
+            ),
+            Consumer<ItemsDataProvider>(
+              builder: (context, value, child) {
+                return Text(
+                  value.selectedItemStock.toString(),
+                  style: TextStyle(color: hoverColor),
+                );
+              },
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 2),
+              child: Text('Uom: '),
+            ),
+            Consumer<ItemsDataProvider>(
+              builder: (context, value, child) {
+                return Text(
+                  value.selectedUom.toString(),
+                  style: TextStyle(color: hoverColor),
+                );
+              },
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 2),
               child: Text(
                 'Company: ',
               ),
@@ -85,10 +110,22 @@ class _BuildTextFieldState extends State<BuildTextField> {
                       child: Consumer<ItemsDataProvider>(
                         builder: (context, values, child) {
                           if (values.itemName.isEmpty) {
-                            values.fetchItemName();
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: hoverColor,
+                            values.fetchAllItemElements();
+                            return Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: secondaryColor,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "No Items Found",
+                                  style: TextStyle(
+                                      fontSize: Responsive.isMobile(context)
+                                          ? 12
+                                          : 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             );
                           } else {
@@ -132,11 +169,20 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                           provider.selectedItemPurchasePrice =
                                               provider
                                                   .itemPurchasePrice[itemIndex];
+                                          provider.selectedItemStock =
+                                              provider.itemStock[itemIndex];
+                                          provider.selectedUom =
+                                              provider.uom[itemIndex];
                                           _formControllers
                                               .itemNameController.text = value;
                                           _formControllers
                                                   .itemCodeController.text =
                                               provider.itemsID[itemIndex];
+                                          _formControllers.uomController.text =
+                                              provider.uom[itemIndex];
+                                          _formControllers
+                                                  .stockController.text =
+                                              provider.itemStock[itemIndex];
                                         });
                                       },
                                       buttonStyleData: const ButtonStyleData(
@@ -219,34 +265,6 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 child: Column(
                   children: [
                     Text(
-                      'Uom',
-                      style: TextStyle(fontSize: 16.0, color: hoverColor),
-                    ),
-                    SizedBox(height: 12.0),
-                    TextFormField(
-                      cursorColor: hoverColor,
-                      controller: _formControllers.uomController,
-                      decoration: InputDecoration(
-                        hintText: 'Uom',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: hoverColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: hoverColor),
-                        ),
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Column(
-                  children: [
-                    Text(
                       'Quantity',
                       style: TextStyle(fontSize: 16.0, color: hoverColor),
                     ),
@@ -255,10 +273,10 @@ class _BuildTextFieldState extends State<BuildTextField> {
                       cursorColor: hoverColor,
                       controller: _formControllers.quantityController,
                       decoration: InputDecoration(
-                        hintText: provider.selectedItemQuantity != null
-                            ? _formControllers.quantityController.text =
-                                provider.selectedItemQuantity!
-                            : "0",
+                        hintText:
+                            _formControllers.quantityController.text.isEmpty
+                                ? _formControllers.quantityController.text = '1'
+                                : _formControllers.quantityController.text,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: hoverColor),
                         ),
@@ -267,6 +285,9 @@ class _BuildTextFieldState extends State<BuildTextField> {
                         ),
                       ),
                       textAlign: TextAlign.start,
+                      onChanged: (value) {
+                        updateTotal();
+                      },
                     ),
                   ],
                 ),
@@ -379,6 +400,34 @@ class _BuildTextFieldState extends State<BuildTextField> {
                       cursorColor: hoverColor,
                       controller: _formControllers.totalController,
                       decoration: InputDecoration(
+                        hintText: 'Amount',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: hoverColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: hoverColor),
+                        ),
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Column(
+                  children: [
+                    Text(
+                      'Total Amount',
+                      style: TextStyle(fontSize: 16.0, color: hoverColor),
+                    ),
+                    SizedBox(height: 12.0),
+                    TextFormField(
+                      cursorColor: hoverColor,
+                      controller: _formControllers.totalAmountController,
+                      decoration: InputDecoration(
                         hintText: 'T.Amount',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: hoverColor),
@@ -403,28 +452,42 @@ class _BuildTextFieldState extends State<BuildTextField> {
   void updateTotal() {
     double discount =
         double.tryParse(_formControllers.discountController.text) ?? 0;
-    double totalAmount = calculateTotal(discount);
-    _formControllers.totalController.text = totalAmount.toString();
+    double quantity =
+        double.tryParse(_formControllers.quantityController.text) ?? 0;
+    double totalAmount = calculateTotalAmount(discount);
+    double amount = calculateAmount(quantity);
+    _formControllers.totalAmountController.text = totalAmount.toString();
+    _formControllers.totalController.text = amount.toString();
   }
 
-  double calculateTotal(double discount) {
+  double calculateTotalAmount(double discount) {
     double originalAmount =
         double.tryParse(_formControllers.priceRateController.text) ?? 0;
-    double discountedAmount =
-        originalAmount - (originalAmount * (discount / 100));
-    // String discountWithPercentage = discountAmount.toStringAsFixed(2) + '%';
+    double quantity =
+        double.tryParse(_formControllers.quantityController.text) ?? 0;
+    double amount = (originalAmount * quantity);
+    double discountedAmount = amount - (amount * (discount / 100));
     return discountedAmount;
+  }
+
+  double calculateAmount(double quantity) {
+    double originalAmount =
+        double.tryParse(_formControllers.priceRateController.text) ?? 0;
+    double amount = (originalAmount * quantity);
+    return amount;
   }
 }
 
 class FormControllers {
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemCodeController = TextEditingController();
-  TextEditingController uomController = TextEditingController();
   TextEditingController itemController = TextEditingController();
+  TextEditingController stockController = TextEditingController();
+  TextEditingController uomController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   TextEditingController priceRateController = TextEditingController();
   TextEditingController saleRateController = TextEditingController();
   TextEditingController discountController = TextEditingController();
   TextEditingController totalController = TextEditingController();
+  TextEditingController totalAmountController = TextEditingController();
 }

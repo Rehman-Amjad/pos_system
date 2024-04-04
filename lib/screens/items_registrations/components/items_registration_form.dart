@@ -163,10 +163,24 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               builder: (context, value, child) {
                                 if (value.category.isEmpty) {
                                   value.fetchCategory();
-                                  return const Center(
-                                      child: CircularProgressIndicator(
-                                    color: hoverColor,
-                                  ));
+                                  return Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: secondaryColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "No Items Found",
+                                        style: TextStyle(
+                                            fontSize:
+                                                Responsive.isMobile(context)
+                                                    ? 12
+                                                    : 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  );
                                 } else {
                                   return SearchableDropdown();
                                 }
@@ -200,10 +214,23 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                             builder: (context, dataProvider, _) {
                               if (dataProvider.uom.isEmpty) {
                                 dataProvider.fetchUom();
-                                return const Center(
-                                    child: CircularProgressIndicator(
-                                  color: hoverColor,
-                                ));
+                                return Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: secondaryColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "No Items Found",
+                                      style: TextStyle(
+                                          fontSize: Responsive.isMobile(context)
+                                              ? 12
+                                              : 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                );
                               } else {
                                 return CustomDropDownList(
                                   items: dataProvider.uom,

@@ -14,6 +14,11 @@ class ItemsDataProvider extends ChangeNotifier {
   String? selectedUomId;
   Map<String, String> itemUomDocumentIds = {};
 
+  List<String> itemStock = [];
+  String? selectedItemStock;
+  String? selectedItemStockId;
+  Map<String, String> itemStockDocumentIds = {};
+
   List<String> vendor = [];
   String? selectedVendor;
   String? selectedVendorId;
@@ -25,6 +30,7 @@ class ItemsDataProvider extends ChangeNotifier {
   List<String> itemQuantity = [];
   List<String> itemPurchasePrice = [];
   List<String> itemSalePrice = [];
+
   String? selectedItemName;
   String? selectedItemQuantity;
   String? selectedItemPurchasePrice;
@@ -40,15 +46,6 @@ class ItemsDataProvider extends ChangeNotifier {
   ];
 
   String? selectCashMethod;
-
-  dynamic selectedItem(value) {
-    selectedItemName = value;
-    int itemIndex = itemName.indexOf(value!);
-    selectedItemNameId = itemsID[itemIndex];
-    selectedItemQuantity = itemQuantity[itemIndex];
-    selectedItemSalePrice = itemSalePrice[itemIndex];
-    selectedItemPurchasePrice = itemPurchasePrice[itemIndex];
-  }
 
   Future<void> fetchCategory() async {
     try {
@@ -137,7 +134,7 @@ class ItemsDataProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchItemName() async {
+  Future<void> fetchAllItemElements() async {
     try {
       final snapshot =
           await firestore.collection(Constant.COLLECTION_ITEMS).get();
@@ -156,11 +153,20 @@ class ItemsDataProvider extends ChangeNotifier {
       itemSalePrice = snapshot.docs
           .map((doc) => doc.data()[Constant.KEY_ITEM_SALE_PRICE] as String)
           .toList();
+      itemStock = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_ITEM_STOCK] as String)
+          .toList();
+      uom = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_ITEM_UOM] as String)
+          .toList();
       selectedItemName = itemName[0];
       selectedItemNameId = itemsID[0];
       selectedItemQuantity = itemQuantity[0];
       selectedItemPurchasePrice = itemPurchasePrice[0];
       selectedItemSalePrice = itemSalePrice[0];
+      selectedItemStock = itemStock[0];
+      selectedUom = uom[0];
+
       print('Selected Item Name: $selectedItemName');
       print('Selected Item ID: $selectedItemNameId');
       notifyListeners();

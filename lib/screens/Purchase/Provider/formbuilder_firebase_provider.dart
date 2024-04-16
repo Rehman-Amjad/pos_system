@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_system/constants.dart';
+import 'package:pos_system/provider/count_value_provider.dart';
+import 'package:provider/provider.dart';
 import '../components/build_text_field.dart';
 
 class FormBuilderProvider with ChangeNotifier {
@@ -75,6 +77,9 @@ class FormBuilderProvider with ChangeNotifier {
         String saleRate = controllers.saleRateController.text;
         String discount = controllers.discountController.text;
         String total = controllers.totalController.text;
+        String plusStock = controllers.stockController.text +
+            "+" +
+            controllers.quantityController.text;
         String id = DateTime.now().millisecondsSinceEpoch.toString();
 
         await fireStore
@@ -93,14 +98,44 @@ class FormBuilderProvider with ChangeNotifier {
           'total': total,
           'uom': selectedUom,
           'stock': selectedStock,
+          'plusStock': plusStock,
           Constant.KEY_PURCHASE_TIMESTAMP:
               DateTime.now().millisecondsSinceEpoch.toString(),
-        }).whenComplete(() {});
+        }).whenComplete(() {
+          saveStock();
+        });
       }
       print('Data saved to Firestore successfully');
     } catch (error) {
       print('Error saving data to Firestore: $error');
     }
+  }
+
+  Future<void> saveStock() async {
+    try {
+      for (int i = 0; i < _items.length; i++) {
+        FormControllers controllers = _controllers[i];
+        String itemCode = controllers.itemCodeController.text;
+        double stock = double.tryParse(controllers.stockController.text) ?? 0;
+        double quantity =
+            double.tryParse(controllers.quantityController.text) ?? 0;
+        double additionalStock = stock + quantity;
+
+        await fireStore
+            .collection(Constant.COLLECTION_ITEMS)
+            .doc(itemCode.toString())
+            .update({
+          'stock': additionalStock.toString(),
+          Constant.KEY_PURCHASE_TIMESTAMP:
+              DateTime.now().millisecondsSinceEpoch.toString(),
+        }).whenComplete(() {
+          print('Stock Saved');
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    notifyListeners();
   }
 
   datePicker(BuildContext context) async {

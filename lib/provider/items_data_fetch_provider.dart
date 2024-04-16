@@ -19,6 +19,26 @@ class ItemsDataProvider extends ChangeNotifier {
   String? selectedItemStockId;
   Map<String, String> itemStockDocumentIds = {};
 
+  List<String> itemDiscount = [];
+  String? selectedItemDiscount;
+  String? selectedItemDiscountId;
+  Map<String, String> itemDiscountDocumentIds = {};
+
+  List<String> itemAmount = [];
+  String? selectedItemAmount;
+  String? selectedItemAmountId;
+  Map<String, String> itemAmountDocumentIds = {};
+
+  List<String> itemTotalAmount = [];
+  String? selectedItemTotalAmount;
+  String? selectedItemTotalAmountId;
+  Map<String, String> itemTotalAmountDocumentIds = {};
+
+  List<String> plusStock = [];
+  String? selectedPlusStock;
+  String? selectedPlusStockId;
+  Map<String, String> plusStockDocumentIds = {};
+
   List<String> vendor = [];
   String? selectedVendor;
   String? selectedVendorId;

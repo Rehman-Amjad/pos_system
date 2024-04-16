@@ -18,4 +18,5 @@ class Routes {
   static const ADD_ITEMS_REGISTRATION = 14;
   static const PURCHASE = 15;
   static const ADD_PURCHASE = 16;
+  static const ADD_PURCHASE_PDF = 17;
 }

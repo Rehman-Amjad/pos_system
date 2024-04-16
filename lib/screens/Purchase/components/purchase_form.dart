@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
 import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
+import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../controllers/vendor_dropdown.dart';
@@ -51,7 +52,7 @@ class PurchaseForm extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextHelper().mNormalText(
-                          text: "Serial Number:",
+                          text: "Invoice Number:",
                           color: Colors.white,
                           size: 14.0),
                       const SizedBox(
@@ -258,27 +259,89 @@ class PurchaseForm extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: IconButton(
-              onPressed: () {
-                provider.saveDataToFireStore(
-                  context,
-                  purchaseCode: provider1.countValue.toString(),
-                  paymentVia: AllController.cash,
-                  remarks: _remarksController.text.toString(),
-                  vendor: AllController.vendor,
-                  date: provider.joiningDate,
-                  time: DateTime.now(),
-                );
-                provider1.fetchCountValue();
-                int newCountValue = provider1.countValue;
-                provider1.updateCountValue(count: newCountValue + 1);
-                _remarksController.text = '';
-              },
-              icon: Icon(
-                Icons.save,
-                color: Colors.green,
-                size: 22,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    provider.saveDataToFireStore(
+                      context,
+                      purchaseCode: provider1.countValue.toString(),
+                      paymentVia: AllController.cash,
+                      remarks: _remarksController.text.toString(),
+                      vendor: AllController.vendor,
+                      date: provider.joiningDate,
+                      time: DateTime.now(),
+                    );
+                    provider1.fetchCountValue();
+                    int newCountValue = provider1.countValue;
+                    provider1.updateCountValue(count: newCountValue + 1);
+                    _remarksController.text = '';
+                  },
+                  child: Text(
+                    'Save',
+                    style: TextStyle(color: hoverColor),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    List<Map<String, String>> rowsData = [];
+                    for (int i = 0; i < provider.items.length; i++) {
+                      FormControllers controllers = provider.controllers[i];
+
+                      String selectedItemName =
+                          controllers.itemNameController.text;
+                      String selectedItemCode =
+                          controllers.itemCodeController.text;
+                      String selectedUom = controllers.uomController.text;
+                      String selectedStock = controllers.stockController.text;
+                      String totalAmount =
+                          controllers.totalAmountController.text;
+                      String quantity = controllers.quantityController.text;
+                      String priceRate = controllers.priceRateController.text;
+                      String saleRate = controllers.saleRateController.text;
+                      String discount = controllers.discountController.text;
+                      String total = controllers.totalController.text;
+                      String plusStock = controllers.stockController.text +
+                          "+" +
+                          controllers.quantityController.text;
+
+                      rowsData.add({
+                        'SerialNumber': (i + 1).toString(),
+                        'ItemName': selectedItemName,
+                        'ItemCode': selectedItemCode,
+                        'ItemPriceRate': priceRate,
+                        'ItemSalePrice': saleRate,
+                        'Amount': total,
+                        'TotalAmount': totalAmount,
+                        'Discount': discount,
+                        'Quantity': quantity,
+                        'Uom': selectedUom,
+                        'Stock': selectedStock,
+                        'PlusStock': plusStock,
+                      });
+                    }
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PurchasePdf(
+                          cash: MultiController.cash1.toString(),
+                          joinDate: provider.joiningDate,
+                          remarks: _remarksController.text,
+                          vendor: MultiController.vendor1.toString(),
+                          rowsData: rowsData,
+                          invoiceNumber: provider1.countValue.toString(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Preview',
+                    style: TextStyle(color: hoverColor),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(
@@ -371,4 +434,9 @@ class PurchaseForm extends StatelessWidget {
       ),
     );
   }
+}
+
+class MultiController {
+  static dynamic cash1 = TextEditingController();
+  static dynamic vendor1 = TextEditingController();
 }

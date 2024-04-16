@@ -2,7 +2,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pos_system/controllers/MenuAppController.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
+import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../provider/items_data_fetch_provider.dart';
@@ -19,13 +21,24 @@ class BuildTextField extends StatefulWidget {
   State<BuildTextField> createState() => _BuildTextFieldState();
 }
 
-FormControllers _formControllers = FormControllers();
+// FormControllers _formControllers = FormControllers();
 
 class _BuildTextFieldState extends State<BuildTextField> {
+  late FormControllers _formControllers;
+
+  MultiController multiController = MultiController();
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
         .controllers[widget.index];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
+    //     .controllers[widget.index];
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Column(
@@ -57,6 +70,24 @@ class _BuildTextFieldState extends State<BuildTextField> {
                   style: TextStyle(color: hoverColor),
                 );
               },
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 2),
+              child: Text('Total Stock: '),
+            ),
+            Expanded(
+              child: TextFormField(
+                cursorColor: hoverColor,
+                controller: _formControllers.plusStockController,
+                decoration: InputDecoration(
+                  hintText: _formControllers.stockController.text.isNotEmpty
+                      ? _formControllers.plusStockController.text
+                      : '0',
+                  hintStyle: TextStyle(fontSize: 12, color: hoverColor),
+                  border: InputBorder.none,
+                ),
+              ),
             ),
             Spacer(),
             Padding(
@@ -162,8 +193,6 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                               provider.itemName.indexOf(value!);
                                           provider.selectedItemNameId =
                                               provider.itemsID[itemIndex];
-                                          provider.selectedItemQuantity =
-                                              provider.itemQuantity[itemIndex];
                                           provider.selectedItemSalePrice =
                                               provider.itemSalePrice[itemIndex];
                                           provider.selectedItemPurchasePrice =
@@ -171,8 +200,12 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                                   .itemPurchasePrice[itemIndex];
                                           provider.selectedItemStock =
                                               provider.itemStock[itemIndex];
+                                          provider.selectedItemStock =
+                                              provider.itemStock[itemIndex];
                                           provider.selectedUom =
                                               provider.uom[itemIndex];
+                                          _formControllers
+                                              .itemNameController.text = value!;
                                           _formControllers
                                               .itemNameController.text = value;
                                           _formControllers
@@ -183,6 +216,37 @@ class _BuildTextFieldState extends State<BuildTextField> {
                                           _formControllers
                                                   .stockController.text =
                                               provider.itemStock[itemIndex];
+                                          _formControllers
+                                                  .saleRateController.text =
+                                              provider.itemSalePrice[itemIndex];
+                                          _formControllers
+                                                  .priceRateController.text =
+                                              provider
+                                                  .itemPurchasePrice[itemIndex];
+                                          // _formControllers
+                                          //         .totalController.text =
+                                          //     provider
+                                          //         .itemTotalAmount[itemIndex];
+                                          updateAmount();
+                                          updateTotal();
+                                          // MultiController.itemNameList.add(
+                                          //     _formControllers
+                                          //         .itemNameController.text);
+                                          // MultiController.itemCodeList.add(
+                                          //     _formControllers
+                                          //         .itemCodeController.text);
+                                          // MultiController.itemPriceRateList.add(
+                                          //     _formControllers
+                                          //         .priceRateController.text);
+                                          // MultiController.itemSaleRateList.add(
+                                          //     _formControllers
+                                          //         .saleRateController.text);
+                                          // MultiController.itemAmountList.add(
+                                          //     _formControllers
+                                          //         .totalController.text);
+                                          // MultiController.itemTotalAmountList
+                                          //     .add(_formControllers
+                                          //         .totalAmountController.text);
                                         });
                                       },
                                       buttonStyleData: const ButtonStyleData(
@@ -286,7 +350,11 @@ class _BuildTextFieldState extends State<BuildTextField> {
                       ),
                       textAlign: TextAlign.start,
                       onChanged: (value) {
-                        updateTotal();
+                        setState(() {
+                          updateQuantityForIndex(widget.index);
+                          // MultiController.itemQuantityList
+                          //     .add(_formControllers.quantityController.text);
+                        });
                       },
                     ),
                   ],
@@ -369,7 +437,10 @@ class _BuildTextFieldState extends State<BuildTextField> {
                       cursorColor: hoverColor,
                       controller: _formControllers.discountController,
                       decoration: InputDecoration(
-                        hintText: 'Discount',
+                        hintText:
+                            _formControllers.totalAmountController.text.isEmpty
+                                ? _formControllers.discountController.text = '0'
+                                : _formControllers.discountController.text,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: hoverColor),
                         ),
@@ -450,31 +521,76 @@ class _BuildTextFieldState extends State<BuildTextField> {
   }
 
   void updateTotal() {
-    double discount =
-        double.tryParse(_formControllers.discountController.text) ?? 0;
+    updateQuantity();
+    updateAmount();
+    updateTotalAmount();
+    updatePlusStock();
+  }
+
+  void updateQuantity() {
     double quantity =
         double.tryParse(_formControllers.quantityController.text) ?? 0;
-    double totalAmount = calculateTotalAmount(discount);
-    double amount = calculateAmount(quantity);
-    _formControllers.totalAmountController.text = totalAmount.toString();
+    _formControllers.quantityController.text = quantity.toString();
+    // MultiController.itemDiscountList
+    //     .add(_formControllers.discountController.text);
+    // print('Item Name:' + _formControllers.itemNameController.text);
+    // print('Item Code:' + _formControllers.itemCodeController.text);
+    // print('Quantity:' + _formControllers.quantityController.text);
+    // print('Purchase Price:' + _formControllers.priceRateController.text);
+    // print('Sale Rate:' + _formControllers.saleRateController.text);
+    // print('Discount:' + _formControllers.discountController.text);
+    // print('Total Amount:' + _formControllers.totalController.text);
+  }
+
+  void updateAmount() {
+    final provider = Provider.of<ItemsDataProvider>(context, listen: false);
+    double priceRate =
+        double.tryParse(provider.selectedItemPurchasePrice ?? '0') ?? 0;
+    double quantity =
+        double.tryParse(_formControllers.quantityController.text) ?? 0;
+    double amount = priceRate * quantity;
     _formControllers.totalController.text = amount.toString();
   }
 
-  double calculateTotalAmount(double discount) {
-    double originalAmount =
-        double.tryParse(_formControllers.priceRateController.text) ?? 0;
-    double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
-    double amount = (originalAmount * quantity);
-    double discountedAmount = amount - (amount * (discount / 100));
-    return discountedAmount;
+  void updateTotalAmount() {
+    double discount =
+        double.tryParse(_formControllers.discountController.text) ?? 0;
+    double amount = double.tryParse(_formControllers.totalController.text) ?? 0;
+    double totalAmount = amount - (amount * (discount / 100));
+    _formControllers.totalAmountController.text = totalAmount.toString();
   }
 
-  double calculateAmount(double quantity) {
-    double originalAmount =
-        double.tryParse(_formControllers.priceRateController.text) ?? 0;
-    double amount = (originalAmount * quantity);
-    return amount;
+  void updatePlusStock() {
+    final provider = Provider.of<ItemsDataProvider>(context, listen: false);
+    double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
+    double quantity =
+        double.tryParse(_formControllers.quantityController.text) ?? 0;
+    double stockAddition = stock + quantity;
+    _formControllers.plusStockController.text = stockAddition.toString();
+  }
+
+  void updateQuantityForIndex(index) {
+    // Convert newValue to double, check if it's not empty, and set to 0 if empty
+    double quantity =
+        double.tryParse(_formControllers.quantityController.text) ?? 0;
+
+    // Check if the updated quantity is for the current index
+    if (index == widget.index) {
+      // Set quantity to the corresponding controller only for the current index
+      _formControllers.quantityController.text = quantity.toString();
+
+      // MultiController.itemNameList
+      //     .add(_formControllers.itemNameController.text);
+      // MultiController.itemCodeList
+      //     .add(_formControllers.itemCodeController.text);
+      // MultiController.itemQuantityList
+      //     .add(_formControllers.quantityController.text);
+
+      // Update amount, total amount, and plus stock only for the current index
+      updateAmount();
+      updateTotalAmount();
+      updatePlusStock();
+    }
   }
 }
 
@@ -490,4 +606,5 @@ class FormControllers {
   TextEditingController discountController = TextEditingController();
   TextEditingController totalController = TextEditingController();
   TextEditingController totalAmountController = TextEditingController();
+  TextEditingController plusStockController = TextEditingController();
 }

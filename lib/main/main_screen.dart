@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pos_system/route/routes.dart';
+import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
 import 'package:pos_system/screens/category/add_category_screen.dart';
 import 'package:pos_system/screens/customer/add_customer_screen.dart';
 import 'package:pos_system/screens/saleman/saleman_screen.dart';
@@ -81,6 +82,9 @@ class MainScreen extends StatelessWidget {
 
       case Routes.ADD_PURCHASE:
         screen = AddPurchaseScreen();
+
+      // case Routes.ADD_PURCHASE_PDF:
+      //   screen = PurchasePdf();
 
       default:
         screen = DashboardScreen();

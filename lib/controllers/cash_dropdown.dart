@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/constants.dart';
+import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/items_data_fetch_provider.dart';
@@ -54,6 +55,7 @@ class _CashDropDownState extends State<CashDropDown> {
                 setState(() {
                   dataProvider.selectCashMethod = value;
                   AllController.cash = value;
+                  MultiController.cash1 = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(

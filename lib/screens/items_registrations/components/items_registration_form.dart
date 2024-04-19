@@ -70,8 +70,6 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Provider.of<CountValueProvider>(context, listen: false)
-    //     .fetchCountValue();
     Provider.of<CountValueProvider>(context, listen: false).fetchCountValue();
   }
 

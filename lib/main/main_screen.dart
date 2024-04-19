@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../controllers/MenuAppController.dart';
 import '../responsive.dart';
 import '../screens/Purchase/add_purchase_screen.dart';
+import '../screens/Purchase/purchase_mobile_view.dart';
 import '../screens/Purchase/purchase_screen.dart';
 import '../screens/category/category_screen.dart';
 import '../screens/customer/customer_screen.dart';
@@ -83,8 +84,8 @@ class MainScreen extends StatelessWidget {
       case Routes.ADD_PURCHASE:
         screen = AddPurchaseScreen();
 
-      // case Routes.ADD_PURCHASE_PDF:
-      //   screen = PurchasePdf();
+      case Routes.ADD_PURCHASE_MOBILE:
+        screen = PurchaseMobileView();
 
       default:
         screen = DashboardScreen();

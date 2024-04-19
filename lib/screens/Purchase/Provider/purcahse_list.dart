@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pos_system/controllers/MenuAppController.dart';
-import 'package:pos_system/helper/text_widget.dart';
-import 'package:pos_system/responsive.dart';
-import 'package:pos_system/screens/items_registrations/provider/register_firebase_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:pos_system/screens/Purchase/Provider/purchase_items_list.dart';
 import '../../../constants.dart';
-import '../../../route/routes.dart';
+import '../../../helper/text_widget.dart';
+import '../../../responsive.dart';
 
 class PurchaseList extends StatelessWidget {
   const PurchaseList({Key? key}) : super(key: key);
@@ -79,7 +76,7 @@ class PurchaseList extends StatelessWidget {
                               ),
                               DataColumn(
                                 label: TextWidget(
-                                  text: "Name",
+                                  text: "Date",
                                   color: Colors.black,
                                   size: 14,
                                   isBold: true,
@@ -87,7 +84,7 @@ class PurchaseList extends StatelessWidget {
                               ),
                               DataColumn(
                                 label: TextWidget(
-                                  text: "Category",
+                                  text: "Vendor",
                                   color: Colors.black,
                                   size: 14,
                                   isBold: true,
@@ -95,7 +92,7 @@ class PurchaseList extends StatelessWidget {
                               ),
                               DataColumn(
                                 label: TextWidget(
-                                  text: "UOM",
+                                  text: "Payment Via",
                                   color: Colors.black,
                                   size: 14,
                                   isBold: true,
@@ -103,7 +100,7 @@ class PurchaseList extends StatelessWidget {
                               ),
                               DataColumn(
                                 label: TextWidget(
-                                  text: "Stock",
+                                  text: "Remarks",
                                   color: Colors.black,
                                   size: 14,
                                   isBold: true,
@@ -111,39 +108,7 @@ class PurchaseList extends StatelessWidget {
                               ),
                               DataColumn(
                                 label: TextWidget(
-                                  text: "Quantity",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Purchase Price",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Sale Price",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Joining Date",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Status",
+                                  text: "Invoice Type",
                                   color: Colors.black,
                                   size: 14,
                                   isBold: true,
@@ -190,155 +155,70 @@ class DataTableSourceImpl extends DataTableSource {
       cells: [
         DataCell(
           TextWidget(
-            text: '',
+            text: items[index]['purchaseCode'].toString(),
             color: Colors.white,
             size: 14.0,
             isBold: false,
           ),
         ),
-        DataCell(Row(
-          children: [
-            Container(
-              width: 30,
-              height: 30,
-              margin: EdgeInsets.only(left: 2.0, top: 5.0, bottom: 10.0),
-              decoration: BoxDecoration(
-                  color: hoverColor, borderRadius: BorderRadius.circular(3)),
-              child: const Center(child: Icon(Icons.shopping_basket)),
+        DataCell(
+          TextWidget(
+            text: items[index]['date'].toString(),
+            color: Colors.white,
+            size: 14.0,
+            isBold: false,
+          ),
+        ),
+        DataCell(
+          TextWidget(
+            text: items[index]['vendor'].toString(),
+            color: Colors.white,
+            size: 14.0,
+            isBold: false,
+          ),
+        ),
+        DataCell(
+          TextWidget(
+            text: items[index]['paymentVia'].toString(),
+            color: Colors.white,
+            size: 14.0,
+            isBold: false,
+          ),
+        ),
+        DataCell(
+          TextWidget(
+            text: items[index]['remarks'].toString(),
+            color: Colors.white,
+            size: 14.0,
+            isBold: false,
+          ),
+        ),
+        DataCell(
+          TextWidget(
+            text: items[index]['invoiceType'].toString(),
+            color: Colors.white,
+            size: 14.0,
+            isBold: false,
+          ),
+        ),
+        DataCell(
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PurchaseItemList(
+                            purchaseCode: items[index]['purchaseCode'],
+                          )));
+            },
+            child: TextWidget(
+              text: 'View',
+              color: Colors.white,
+              size: 14.0,
+              isBold: false,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 10, right: 5.0, bottom: 5.0, top: 5.0),
-              child: TextWidget(
-                text: '',
-                color: Colors.white,
-                size: 14.0,
-                isBold: false,
-              ),
-            ),
-          ],
-        )),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
           ),
         ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: '',
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-                onTap: () {
-                  // Provider.of<MenuAppController>(context, listen: false)
-                  //     .changeScreenWithParams(Routes.ADD_ITEMS_REGISTRATION,
-                  //         parameters: {
-                  //       'edit': 'true',
-                  //       Constant.KEY_ITEM_CODE.toString():
-                  //           items[index][Constant.KEY_ITEM_CODE].toString(),
-                  //       Constant.KEY_ITEM_NAME.toString():
-                  //           items[index][Constant.KEY_ITEM_NAME].toString(),
-                  //       Constant.KEY_ITEM_CATEGORY.toString():
-                  //           items[index][Constant.KEY_ITEM_CATEGORY].toString(),
-                  //       Constant.KEY_ITEM_STOCK.toString():
-                  //           items[index][Constant.KEY_ITEM_STOCK].toString(),
-                  //       Constant.KEY_ITEM_UOM.toString():
-                  //           items[index][Constant.KEY_ITEM_UOM].toString(),
-                  //       Constant.KEY_ITEM_QUANTITY.toString():
-                  //           items[index][Constant.KEY_ITEM_QUANTITY].toString(),
-                  //       Constant.KEY_ITEM_PURCHASE_PRICE.toString():
-                  //           items[index][Constant.KEY_ITEM_PURCHASE_PRICE]
-                  //               .toString(),
-                  //       Constant.KEY_ITEM_SALE_PRICE.toString(): items[index]
-                  //               [Constant.KEY_ITEM_SALE_PRICE]
-                  //           .toString(),
-                  //       Constant.KEY_ITEM_JOIN_DATE.toString(): items[index]
-                  //               [Constant.KEY_ITEM_JOIN_DATE]
-                  //           .toString(),
-                  //       Constant.KEY_STATUS.toString():
-                  //           items[index][Constant.KEY_STATUS].toString(),
-                  //     });
-                },
-                child: Icon(
-                  Icons.edit,
-                  color: hoverColor,
-                  size: Responsive.isMobile(context) ? 24.0 : 30.0,
-                )),
-            const SizedBox(
-              width: 5.0,
-            ),
-            GestureDetector(
-                onTap: () {
-                  // Provider.of<RegisterFirebaseProvider>(context, listen: false)
-                  //     .deleteRegistrationData(
-                  //         id: items[index][Constant.KEY_ITEM_CODE].toString(),
-                  //         collection: Constant.COLLECTION_ITEMS);
-                },
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: Responsive.isMobile(context) ? 24.0 : 30.0,
-                )),
-          ],
-        )),
       ],
     );
   }

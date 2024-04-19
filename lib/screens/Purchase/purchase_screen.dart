@@ -44,6 +44,7 @@ class PurchaseScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: defaultDrawerHeadHeight + 20.0),
+            PurchaseList(),
           ],
         ),
       ),

@@ -19,4 +19,5 @@ class Routes {
   static const PURCHASE = 15;
   static const ADD_PURCHASE = 16;
   static const ADD_PURCHASE_PDF = 17;
+  static const ADD_PURCHASE_MOBILE = 18;
 }

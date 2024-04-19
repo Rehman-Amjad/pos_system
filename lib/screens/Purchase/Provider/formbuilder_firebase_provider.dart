@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_system/constants.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
+import 'package:pos_system/responsive.dart';
+import 'package:pos_system/screens/Purchase/components/build_mobile_field.dart';
+import 'package:pos_system/screens/Purchase/purchase_mobile_view.dart';
 import 'package:provider/provider.dart';
 import '../components/build_text_field.dart';
 
@@ -17,11 +20,20 @@ class FormBuilderProvider with ChangeNotifier {
   List<BuildTextField> _items = [];
   List<BuildTextField> get items => _items;
 
+  List<BuildMobileField> _buildItems = [];
+  List<BuildMobileField> get buildItems => _buildItems;
+
   List<FormControllers> _controllers = [];
   List<FormControllers> get controllers => _controllers;
 
-  void addItem() {
+  void addItem(BuildContext context) {
     _items.add(BuildTextField(index: _items.length));
+    _controllers.add(FormControllers());
+    notifyListeners();
+  }
+
+  void addBuildItem() {
+    _buildItems.add(BuildMobileField(index: _buildItems.length));
     _controllers.add(FormControllers());
     notifyListeners();
   }
@@ -48,7 +60,7 @@ class FormBuilderProvider with ChangeNotifier {
         'purchaseCode': purchaseCode,
         'date': date,
         'p.date&time': time,
-        'timestamp': id,
+        Constant.KEY_PURCHASE_TIMESTAMP: id,
         'vendor': vendor,
         'remarks': remarks,
         'paymentVia': paymentVia,
@@ -99,8 +111,7 @@ class FormBuilderProvider with ChangeNotifier {
           'uom': selectedUom,
           'stock': selectedStock,
           'plusStock': plusStock,
-          Constant.KEY_PURCHASE_TIMESTAMP:
-              DateTime.now().millisecondsSinceEpoch.toString(),
+          Constant.KEY_ITEM_TIMESTAMP: id,
         }).whenComplete(() {
           saveStock();
         });

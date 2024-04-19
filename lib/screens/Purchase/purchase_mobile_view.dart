@@ -1,24 +1,21 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:pos_system/controllers/cash_dropdown.dart';
-import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
-import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
 import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
 import 'package:provider/provider.dart';
-import '../../../constants.dart';
-import '../../../controllers/vendor_dropdown.dart';
-import '../../../helper/custom_textfield.dart';
-import '../../../helper/text_helper.dart';
-import '../../../helper/text_widget.dart';
-import '../../../provider/count_value_provider.dart';
-import '../../../provider/items_data_fetch_provider.dart';
-import '../../../responsive.dart';
+import '../../constants.dart';
+import '../../controllers/cash_dropdown.dart';
+import '../../controllers/vendor_dropdown.dart';
+import '../../helper/custom_textfield.dart';
+import '../../helper/text_helper.dart';
+import '../../helper/text_widget.dart';
+import '../../provider/count_value_provider.dart';
+import '../../provider/items_data_fetch_provider.dart';
+import '../../responsive.dart';
+import 'Provider/formbuilder_firebase_provider.dart';
+import 'components/build_text_field.dart';
 
-class PurchaseForm extends StatelessWidget {
+class PurchaseMobileView extends StatelessWidget {
   int index;
-  PurchaseForm({super.key, this.index = 0});
+  PurchaseMobileView({super.key, this.index = 0});
 
   TextEditingController _remarksController = TextEditingController();
 
@@ -283,10 +280,7 @@ class PurchaseForm extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 18.0),
-                      value.items[index],
-                      // Responsive.isMobile(context)
-                      //     ? value.buildItems[index]
-                      //     : value.items[index],
+                      value.buildItems[index],
                       SizedBox(height: 10.0),
                       if (index == value.items.length - 1)
                         Center(

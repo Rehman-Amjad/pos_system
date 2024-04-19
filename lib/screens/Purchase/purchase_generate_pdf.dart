@@ -82,13 +82,16 @@ class PurchasePdf extends StatelessWidget {
         header: (context) {
           return topBar();
         },
-        // footer: (context) {
-        //   return pw.Container(
-        //       width: Get.width,
-        //       color: PdfColors.deepPurple,
-        //       padding: pw.EdgeInsets.all(10.0),
-        //       child: pw.Text("Powered By Rehman Amjad"));
-        // },
+        footer: (context) {
+          return pw.Container(
+              width: Get.width,
+              color: PdfColors.black,
+              padding: pw.EdgeInsets.all(10.0),
+              child: pw.Text("Powered By",
+                  style: pw.TextStyle(
+                    color: PdfColors.white,
+                  )));
+        },
         build: (context) => widgets));
 
     Get.to(PreviewScreen(

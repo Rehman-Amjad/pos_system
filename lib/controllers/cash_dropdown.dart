@@ -5,6 +5,7 @@ import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/items_data_fetch_provider.dart';
+import '../screens/Sales/component/sales_form.dart';
 
 class CashDropDown extends StatefulWidget {
   const CashDropDown({Key? key}) : super(key: key);
@@ -55,7 +56,9 @@ class _CashDropDownState extends State<CashDropDown> {
                 setState(() {
                   dataProvider.selectCashMethod = value;
                   AllController.cash = value;
+                  SaleAllController.saleCash = value;
                   MultiController.cash1 = value;
+                  SaleMultiController.saleCash1 = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(
@@ -125,4 +128,12 @@ class _CashDropDownState extends State<CashDropDown> {
 class AllController {
   static dynamic cash = TextEditingController();
   static dynamic vendor = TextEditingController();
+}
+
+class SaleAllController {
+  static dynamic saleCash = TextEditingController();
+  static dynamic saleVendor = TextEditingController();
+  static dynamic saleCustomer = TextEditingController();
+  static dynamic saleSupplyMan = TextEditingController();
+  static dynamic saleSalesMan = TextEditingController();
 }

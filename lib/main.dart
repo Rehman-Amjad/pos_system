@@ -6,8 +6,9 @@ import 'package:pos_system/provider/count_value_provider.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
 import 'package:pos_system/screens/Purchase/add_purchase_screen.dart';
 import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
-import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
+import 'package:pos_system/screens/Purchase/PDF/purchase_generate_pdf.dart';
 import 'package:pos_system/screens/Purchase/purchase_screen.dart';
+import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
 import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
 import 'package:pos_system/provider/items_data_fetch_provider.dart';
 import 'package:pos_system/screens/dashboard/dashboard_screen.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(create: (_) => RegisterFirebaseProvider()),
           ChangeNotifierProvider(create: (_) => FormBuilderProvider()),
+          ChangeNotifierProvider(create: (_) => SaleBuilderProvider()),
         ],
         child: MainScreen(),
       ),

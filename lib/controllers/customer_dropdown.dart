@@ -2,25 +2,24 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
+import 'package:pos_system/screens/Sales/component/sales_form.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/items_data_fetch_provider.dart';
-import '../screens/Sales/component/sales_form.dart';
 
-class VendorDropdown extends StatefulWidget {
-  const VendorDropdown({Key? key}) : super(key: key);
+class CustomerDropDown extends StatefulWidget {
+  const CustomerDropDown({Key? key}) : super(key: key);
 
   @override
-  _VendorDropdownState createState() => _VendorDropdownState();
+  _CustomerDropDownState createState() => _CustomerDropDownState();
 }
 
-class _VendorDropdownState extends State<VendorDropdown> {
-  late TextEditingController _vendorController;
+class _CustomerDropDownState extends State<CustomerDropDown> {
+  late TextEditingController _customerController;
 
   @override
   void initState() {
     super.initState();
-    _vendorController = TextEditingController();
+    _customerController = TextEditingController();
   }
 
   @override
@@ -34,13 +33,13 @@ class _VendorDropdownState extends State<VendorDropdown> {
             child: DropdownButton2<String>(
               isExpanded: true,
               hint: Text(
-                'Select Vendor',
+                'Select Customer',
                 style: TextStyle(
                   fontSize: 14.0,
                   color: Theme.of(context).hintColor,
                 ),
               ),
-              items: dataProvider.vendor
+              items: dataProvider.customer
                   .map((item) => DropdownMenuItem(
                         value: item,
                         child: Text(
@@ -51,14 +50,11 @@ class _VendorDropdownState extends State<VendorDropdown> {
                         ),
                       ))
                   .toList(),
-              value: dataProvider.selectedVendor,
+              value: dataProvider.selectedCustomer,
               onChanged: (value) {
                 setState(() {
-                  dataProvider.selectedVendor = value;
-                  AllController.vendor = value;
-                  MultiController.vendor1 = value;
-                  SaleAllController.saleVendor = value;
-                  SaleMultiController.saleVendor1 = value;
+                  dataProvider.selectedCustomer = value;
+                  SaleAllController.saleCustomer = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(
@@ -73,7 +69,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
                 height: 40.0,
               ),
               dropdownSearchData: DropdownSearchData(
-                searchController: _vendorController,
+                searchController: _customerController,
                 searchInnerWidgetHeight: 50.0,
                 searchInnerWidget: Container(
                   height: 57.0,
@@ -86,14 +82,14 @@ class _VendorDropdownState extends State<VendorDropdown> {
                   child: TextFormField(
                     expands: true,
                     maxLines: null,
-                    controller: _vendorController,
+                    controller: _customerController,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10.0,
                         vertical: 8.0,
                       ),
-                      hintText: 'Search for Vendor...',
+                      hintText: 'Search for Customer Name...',
                       hintStyle: const TextStyle(fontSize: 12.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -108,7 +104,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
               //This to clear the search value when you close the menu
               onMenuStateChange: (isOpen) {
                 if (!isOpen) {
-                  _vendorController.clear();
+                  _customerController.clear();
                 }
               },
             ),
@@ -120,7 +116,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
 
   @override
   void dispose() {
-    _vendorController.dispose();
+    _customerController.dispose();
     super.dispose();
   }
 }

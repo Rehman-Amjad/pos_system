@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pos_system/route/routes.dart';
-import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
+import 'package:pos_system/screens/Sales/add_sales_screen.dart';
+import 'package:pos_system/screens/Sales/sales_screen.dart';
 import 'package:pos_system/screens/category/add_category_screen.dart';
 import 'package:pos_system/screens/customer/add_customer_screen.dart';
 import 'package:pos_system/screens/saleman/saleman_screen.dart';
@@ -11,7 +12,6 @@ import 'package:provider/provider.dart';
 import '../controllers/MenuAppController.dart';
 import '../responsive.dart';
 import '../screens/Purchase/add_purchase_screen.dart';
-import '../screens/Purchase/purchase_mobile_view.dart';
 import '../screens/Purchase/purchase_screen.dart';
 import '../screens/category/category_screen.dart';
 import '../screens/customer/customer_screen.dart';
@@ -84,8 +84,11 @@ class MainScreen extends StatelessWidget {
       case Routes.ADD_PURCHASE:
         screen = AddPurchaseScreen();
 
-      case Routes.ADD_PURCHASE_MOBILE:
-        screen = PurchaseMobileView();
+      case Routes.SALES:
+        screen = SalesScreen();
+
+      case Routes.ADD_SALES:
+        screen = AddSalesScreen();
 
       default:
         screen = DashboardScreen();

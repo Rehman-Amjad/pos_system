@@ -1,28 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
+import 'package:flutter/widgets.dart';
+import 'package:pos_system/controllers/cash_dropdown.dart';
+import 'package:pos_system/controllers/customer_dropdown.dart';
+import 'package:pos_system/controllers/salesman_dropdown.dart';
+import 'package:pos_system/controllers/supplyman_dropdown.dart';
+import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
+import 'package:pos_system/screens/Purchase/PDF/purchase_generate_pdf.dart';
+import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
+import 'package:pos_system/screens/Sales/component/sale_build_text_field.dart';
 import 'package:provider/provider.dart';
-import '../../constants.dart';
-import '../../controllers/cash_dropdown.dart';
-import '../../controllers/vendor_dropdown.dart';
-import '../../helper/custom_textfield.dart';
-import '../../helper/text_helper.dart';
-import '../../helper/text_widget.dart';
-import '../../provider/count_value_provider.dart';
-import '../../provider/items_data_fetch_provider.dart';
-import '../../responsive.dart';
-import 'Provider/formbuilder_firebase_provider.dart';
-import 'components/build_text_field.dart';
+import '../../../constants.dart';
+import '../../../controllers/vendor_dropdown.dart';
+import '../../../helper/custom_textfield.dart';
+import '../../../helper/text_helper.dart';
+import '../../../helper/text_widget.dart';
+import '../../../provider/count_value_provider.dart';
+import '../../../provider/items_data_fetch_provider.dart';
+import '../../../responsive.dart';
+import '../PDF/sale_generate_pdf.dart';
 
-class PurchaseMobileView extends StatelessWidget {
+class SalesForm extends StatelessWidget {
   int index;
-  PurchaseMobileView({super.key, this.index = 0});
+  SalesForm({super.key, this.index = 0});
 
   TextEditingController _remarksController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<FormBuilderProvider>(context, listen: false);
-    final provider1 = Provider.of<CountValueProvider>(context, listen: false);
+    final saleProvider =
+        Provider.of<SaleBuilderProvider>(context, listen: false);
+    final saleProvider1 =
+        Provider.of<CountValueProvider>(context, listen: false);
     Provider.of<CountValueProvider>(context, listen: false).fetchCountValue();
     final size = MediaQuery.of(context).size;
     return Container(
@@ -91,11 +100,11 @@ class PurchaseMobileView extends StatelessWidget {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      Consumer<FormBuilderProvider>(
+                      Consumer<SaleBuilderProvider>(
                         builder: (context, value, child) {
                           return GestureDetector(
                             onTap: () {
-                              value.datePicker(context);
+                              value.saleDatePicker(context);
                             },
                             child: Container(
                               width: Responsive.isMobile(context)
@@ -113,7 +122,7 @@ class PurchaseMobileView extends StatelessWidget {
                                       top: 20.0,
                                       bottom: 20.0),
                                   child: TextWidget(
-                                    text: value.joiningDate,
+                                    text: value.saleJoiningDate,
                                     color: hoverColor,
                                     size: 14.0,
                                     isBold: false,
@@ -156,7 +165,7 @@ class PurchaseMobileView extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "No Items Found",
+                        "No Vendor Found",
                         style: TextStyle(
                             fontSize: Responsive.isMobile(context) ? 12 : 18,
                             fontWeight: FontWeight.bold),
@@ -165,6 +174,123 @@ class PurchaseMobileView extends StatelessWidget {
                   );
                 } else {
                   return VendorDropdown();
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            height: 35.0,
+          ),
+          TextHelper().mNormalText(
+              text: "Customer Name:", color: Colors.white, size: 14.0),
+          const SizedBox(
+            height: 15.0,
+          ),
+          Container(
+            height: 60.0,
+            width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.white),
+                borderRadius: BorderRadius.circular(5)),
+            child: Consumer<ItemsDataProvider>(
+              builder: (context, value, child) {
+                if (value.customer.isEmpty) {
+                  value.fetchCustomerName();
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: secondaryColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "No Customer Found",
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 12 : 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                } else {
+                  return CustomerDropDown();
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            height: 35.0,
+          ),
+          TextHelper().mNormalText(
+              text: "Sales Man Name:", color: Colors.white, size: 14.0),
+          const SizedBox(
+            height: 15.0,
+          ),
+          Container(
+            height: 60.0,
+            width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.white),
+                borderRadius: BorderRadius.circular(5)),
+            child: Consumer<ItemsDataProvider>(
+              builder: (context, value, child) {
+                if (value.salesMan.isEmpty) {
+                  value.fetchSalesManName();
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: secondaryColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "No Sales Man Found",
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 12 : 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                } else {
+                  return SalesManDropdown();
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            height: 35.0,
+          ),
+          TextHelper().mNormalText(
+              text: "Supply Man Name:", color: Colors.white, size: 14.0),
+          const SizedBox(
+            height: 15.0,
+          ),
+          Container(
+            height: 60.0,
+            width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.white),
+                borderRadius: BorderRadius.circular(5)),
+            child: Consumer<ItemsDataProvider>(
+              builder: (context, value, child) {
+                if (value.supplyMan.isEmpty) {
+                  value.fetchSupplyManName();
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: secondaryColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "No Supply Man Found",
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 12 : 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                } else {
+                  return SupplyManDropdown();
                 }
               },
             ),
@@ -253,11 +379,11 @@ class PurchaseMobileView extends StatelessWidget {
           SizedBox(
             height: 45.0,
           ),
-          Consumer<FormBuilderProvider>(
+          Consumer<SaleBuilderProvider>(
             builder: (context, value, child) {
               return ListView.builder(
                 shrinkWrap: true,
-                itemCount: value.items.length,
+                itemCount: value.saleItems.length,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
@@ -279,10 +405,10 @@ class PurchaseMobileView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 18.0),
-                      value.buildItems[index],
+                      SizedBox(height: 15.0),
+                      value.saleItems[index],
                       SizedBox(height: 10.0),
-                      if (index == value.items.length - 1)
+                      if (index == value.saleItems.length - 1)
                         Center(
                           child: Container(
                             height: 32.0,
@@ -299,9 +425,9 @@ class PurchaseMobileView extends StatelessWidget {
                                 size: 16.0,
                               ),
                               onPressed: () {
-                                Provider.of<FormBuilderProvider>(context,
+                                Provider.of<SaleBuilderProvider>(context,
                                         listen: false)
-                                    .deleteItem(index, context);
+                                    .saleDeleteItem(index, context);
                                 print('indexToDelete: $index');
                               },
                             ),
@@ -333,36 +459,38 @@ class PurchaseMobileView extends StatelessWidget {
                     size: 18.0,
                   ),
                   onPressed: () {
-                    Provider.of<FormBuilderProvider>(context, listen: false)
-                        .addItem(context);
+                    Provider.of<SaleBuilderProvider>(context, listen: false)
+                        .saleAddItem(context);
                   },
                 ),
               ),
               SizedBox(width: 8.0),
               TextButton(
                 onPressed: () {
-                  // save data:
-                  List<Map<String, String>> rowsData = [];
-                  for (int i = 0; i < provider.items.length; i++) {
-                    FormControllers controllers = provider.controllers[i];
+                  // preview data:
+                  List<Map<String, String>> saleRowsData = [];
+                  for (int i = 0; i < saleProvider.saleItems.length; i++) {
+                    SaleFormControllers saleControllers =
+                        saleProvider.saleControllers[i];
 
                     String selectedItemName =
-                        controllers.itemNameController.text;
+                        saleControllers.itemNameController.text;
                     String selectedItemCode =
-                        controllers.itemCodeController.text;
-                    String selectedUom = controllers.uomController.text;
-                    String selectedStock = controllers.stockController.text;
-                    String totalAmount = controllers.totalAmountController.text;
-                    String quantity = controllers.quantityController.text;
-                    String priceRate = controllers.priceRateController.text;
-                    String saleRate = controllers.saleRateController.text;
-                    String discount = controllers.discountController.text;
-                    String total = controllers.totalController.text;
-                    String plusStock = controllers.stockController.text +
+                        saleControllers.itemCodeController.text;
+                    String selectedUom = saleControllers.uomController.text;
+                    String selectedStock = saleControllers.stockController.text;
+                    String totalAmount =
+                        saleControllers.totalAmountController.text;
+                    String quantity = saleControllers.quantityController.text;
+                    String priceRate = saleControllers.priceRateController.text;
+                    String saleRate = saleControllers.saleRateController.text;
+                    String discount = saleControllers.discountController.text;
+                    String total = saleControllers.totalController.text;
+                    String plusStock = saleControllers.stockController.text +
                         "+" +
-                        controllers.quantityController.text;
+                        saleControllers.quantityController.text;
 
-                    rowsData.add({
+                    saleRowsData.add({
                       'SerialNumber': (i + 1).toString(),
                       'ItemName': selectedItemName,
                       'ItemCode': selectedItemCode,
@@ -377,33 +505,38 @@ class PurchaseMobileView extends StatelessWidget {
                       'PlusStock': plusStock,
                     });
                   }
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PurchasePdf(
-                        cash: MultiController.cash1.toString(),
-                        joinDate: provider.joiningDate,
+                      builder: (context) => SalePdf(
+                        cash: SaleMultiController.saleCash1.toString(),
+                        joinDate: saleProvider.saleJoiningDate,
                         remarks: _remarksController.text,
-                        vendor: MultiController.vendor1.toString(),
-                        rowsData: rowsData,
-                        invoiceNumber: provider1.countValue.toString(),
+                        vendor: SaleMultiController.saleVendor1.toString(),
+                        rowsData: saleRowsData,
+                        invoiceNumber: saleProvider1.countValue.toString(),
+                        customer: SaleAllController.saleCustomer,
+                        salesMan: SaleAllController.saleSalesMan,
+                        supplyMan: SaleAllController.saleSupplyMan,
                       ),
                     ),
                   );
-                  // preview:
-                  provider.saveDataToFireStore(
+                  // save
+                  saleProvider.saleSaveDataToFireStore(
                     context,
-                    purchaseCode: provider1.countValue.toString(),
-                    paymentVia: AllController.cash,
+                    purchaseCode: saleProvider1.countValue.toString(),
+                    paymentVia: SaleAllController.saleCash,
                     remarks: _remarksController.text.toString(),
-                    vendor: AllController.vendor,
-                    date: provider.joiningDate,
+                    vendor: SaleAllController.saleVendor,
+                    customer: SaleAllController.saleCustomer,
+                    salesMan: SaleAllController.saleSalesMan,
+                    supplyMan: SaleAllController.saleSupplyMan,
+                    date: saleProvider.saleJoiningDate,
                     time: DateTime.now(),
                   );
-                  provider1.fetchCountValue();
-                  int newCountValue = provider1.countValue;
-                  provider1.updateCountValue(count: newCountValue + 1);
+                  saleProvider1.fetchCountValue();
+                  int newCountValue = saleProvider1.countValue;
+                  saleProvider1.updateCountValue(count: newCountValue + 1);
                 },
                 child: Container(
                   height: 36.0,
@@ -423,27 +556,29 @@ class PurchaseMobileView extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  List<Map<String, String>> rowsData = [];
-                  for (int i = 0; i < provider.items.length; i++) {
-                    FormControllers controllers = provider.controllers[i];
+                  List<Map<String, String>> saleRowsData = [];
+                  for (int i = 0; i < saleProvider.saleItems.length; i++) {
+                    SaleFormControllers saleControllers =
+                        saleProvider.saleControllers[i];
 
                     String selectedItemName =
-                        controllers.itemNameController.text;
+                        saleControllers.itemNameController.text;
                     String selectedItemCode =
-                        controllers.itemCodeController.text;
-                    String selectedUom = controllers.uomController.text;
-                    String selectedStock = controllers.stockController.text;
-                    String totalAmount = controllers.totalAmountController.text;
-                    String quantity = controllers.quantityController.text;
-                    String priceRate = controllers.priceRateController.text;
-                    String saleRate = controllers.saleRateController.text;
-                    String discount = controllers.discountController.text;
-                    String total = controllers.totalController.text;
-                    String plusStock = controllers.stockController.text +
+                        saleControllers.itemCodeController.text;
+                    String selectedUom = saleControllers.uomController.text;
+                    String selectedStock = saleControllers.stockController.text;
+                    String totalAmount =
+                        saleControllers.totalAmountController.text;
+                    String quantity = saleControllers.quantityController.text;
+                    String priceRate = saleControllers.priceRateController.text;
+                    String saleRate = saleControllers.saleRateController.text;
+                    String discount = saleControllers.discountController.text;
+                    String total = saleControllers.totalController.text;
+                    String plusStock = saleControllers.stockController.text +
                         "+" +
-                        controllers.quantityController.text;
+                        saleControllers.quantityController.text;
 
-                    rowsData.add({
+                    saleRowsData.add({
                       'SerialNumber': (i + 1).toString(),
                       'ItemName': selectedItemName,
                       'ItemCode': selectedItemCode,
@@ -462,13 +597,16 @@ class PurchaseMobileView extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PurchasePdf(
-                        cash: MultiController.cash1.toString(),
-                        joinDate: provider.joiningDate,
+                      builder: (context) => SalePdf(
+                        cash: SaleMultiController.saleCash1.toString(),
+                        joinDate: saleProvider.saleJoiningDate,
                         remarks: _remarksController.text,
-                        vendor: MultiController.vendor1.toString(),
-                        rowsData: rowsData,
-                        invoiceNumber: provider1.countValue.toString(),
+                        vendor: SaleMultiController.saleVendor1.toString(),
+                        rowsData: saleRowsData,
+                        invoiceNumber: saleProvider1.countValue.toString(),
+                        customer: SaleAllController.saleCustomer,
+                        salesMan: SaleAllController.saleSalesMan,
+                        supplyMan: SaleAllController.saleSupplyMan,
                       ),
                     ),
                   );
@@ -497,7 +635,7 @@ class PurchaseMobileView extends StatelessWidget {
   }
 }
 
-class MultiController {
-  static dynamic cash1 = TextEditingController();
-  static dynamic vendor1 = TextEditingController();
+class SaleMultiController {
+  static dynamic saleCash1 = TextEditingController();
+  static dynamic saleVendor1 = TextEditingController();
 }

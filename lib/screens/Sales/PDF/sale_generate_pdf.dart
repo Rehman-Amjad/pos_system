@@ -4,20 +4,20 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
-import 'package:pos_system/helper/app_text.dart';
-import 'package:pos_system/screens/Purchase/components/pdf_widget.dart';
+import 'package:pos_system/screens/Sales/PDF/sale_invoice_pdf.dart';
 
-import 'PDF/purchase_invoice_pdf.dart';
-
-class PurchasePdf extends StatelessWidget {
+class SalePdf extends StatelessWidget {
   final String? remarks;
   final String? joinDate;
   final String? cash;
   final String? vendor;
+  final String? customer;
+  final String? salesMan;
+  final String? supplyMan;
   final String? invoiceNumber;
   final List<Map<String, String>> rowsData;
 
-  PurchasePdf({
+  SalePdf({
     Key? key,
     required this.remarks,
     required this.joinDate,
@@ -25,9 +25,10 @@ class PurchasePdf extends StatelessWidget {
     required this.vendor,
     required this.rowsData,
     required this.invoiceNumber,
+    required this.customer,
+    required this.salesMan,
+    required this.supplyMan,
   }) : super(key: key);
-
-  PdfWidget pdfWidget = PdfWidget();
 
   double defaultRowPadding = 4.0;
 
@@ -94,7 +95,7 @@ class PurchasePdf extends StatelessWidget {
         },
         build: (context) => widgets));
 
-    Get.to(PreviewScreen(
+    Get.to(SalePreviewScreen(
       doc: pdf,
     ));
   }
@@ -148,14 +149,51 @@ class PurchasePdf extends StatelessWidget {
       width: Get.width,
       margin: pw.EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
       child: pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          pw.Text(
-            'Invoice# ' + invoiceNumber.toString(),
-            style: pw.TextStyle(
-              color: PdfColors.black,
-              fontSize: 16.0,
-            ),
+          pw.Row(
+            children: [
+              pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    'Invoice# ' + invoiceNumber.toString(),
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  pw.SizedBox(height: 5.0),
+                  pw.Text(
+                    'Customer: ' + customer.toString(),
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+              pw.Spacer(),
+              pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    'Sale Man: ' + salesMan.toString(),
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  pw.SizedBox(height: 5.0),
+                  pw.Text(
+                    'Supply Man: ' + supplyMan.toString(),
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

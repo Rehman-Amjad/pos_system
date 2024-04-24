@@ -5,22 +5,21 @@ import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/items_data_fetch_provider.dart';
-import '../screens/Sales/component/sales_form.dart';
 
-class VendorDropdown extends StatefulWidget {
-  const VendorDropdown({Key? key}) : super(key: key);
+class SupplyManDropdown extends StatefulWidget {
+  const SupplyManDropdown({Key? key}) : super(key: key);
 
   @override
-  _VendorDropdownState createState() => _VendorDropdownState();
+  _SupplyManDropdownState createState() => _SupplyManDropdownState();
 }
 
-class _VendorDropdownState extends State<VendorDropdown> {
-  late TextEditingController _vendorController;
+class _SupplyManDropdownState extends State<SupplyManDropdown> {
+  late TextEditingController _supplyManController;
 
   @override
   void initState() {
     super.initState();
-    _vendorController = TextEditingController();
+    _supplyManController = TextEditingController();
   }
 
   @override
@@ -34,13 +33,13 @@ class _VendorDropdownState extends State<VendorDropdown> {
             child: DropdownButton2<String>(
               isExpanded: true,
               hint: Text(
-                'Select Vendor',
+                'Select SupplyMan',
                 style: TextStyle(
                   fontSize: 14.0,
                   color: Theme.of(context).hintColor,
                 ),
               ),
-              items: dataProvider.vendor
+              items: dataProvider.supplyMan
                   .map((item) => DropdownMenuItem(
                         value: item,
                         child: Text(
@@ -51,14 +50,11 @@ class _VendorDropdownState extends State<VendorDropdown> {
                         ),
                       ))
                   .toList(),
-              value: dataProvider.selectedVendor,
+              value: dataProvider.selectedSupplyMan,
               onChanged: (value) {
                 setState(() {
-                  dataProvider.selectedVendor = value;
-                  AllController.vendor = value;
-                  MultiController.vendor1 = value;
-                  SaleAllController.saleVendor = value;
-                  SaleMultiController.saleVendor1 = value;
+                  dataProvider.selectedSupplyMan = value;
+                  SaleAllController.saleSupplyMan = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(
@@ -73,7 +69,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
                 height: 40.0,
               ),
               dropdownSearchData: DropdownSearchData(
-                searchController: _vendorController,
+                searchController: _supplyManController,
                 searchInnerWidgetHeight: 50.0,
                 searchInnerWidget: Container(
                   height: 57.0,
@@ -86,14 +82,14 @@ class _VendorDropdownState extends State<VendorDropdown> {
                   child: TextFormField(
                     expands: true,
                     maxLines: null,
-                    controller: _vendorController,
+                    controller: _supplyManController,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10.0,
                         vertical: 8.0,
                       ),
-                      hintText: 'Search for Vendor...',
+                      hintText: 'Search for SupplyMan...',
                       hintStyle: const TextStyle(fontSize: 12.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -108,7 +104,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
               //This to clear the search value when you close the menu
               onMenuStateChange: (isOpen) {
                 if (!isOpen) {
-                  _vendorController.clear();
+                  _supplyManController.clear();
                 }
               },
             ),
@@ -120,7 +116,7 @@ class _VendorDropdownState extends State<VendorDropdown> {
 
   @override
   void dispose() {
-    _vendorController.dispose();
+    _supplyManController.dispose();
     super.dispose();
   }
 }

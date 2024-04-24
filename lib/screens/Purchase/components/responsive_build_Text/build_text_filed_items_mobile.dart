@@ -1,96 +1,81 @@
-import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
-import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
+import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
 import 'package:provider/provider.dart';
-import '../../../constants.dart';
-import '../../../provider/items_data_fetch_provider.dart';
-import '../../../responsive.dart';
-import 'build_text_field.dart';
+import '../../../../constants.dart';
+import '../../../../provider/items_data_fetch_provider.dart';
+import '../../../../responsive.dart';
 
-class BuildMobileField extends StatefulWidget {
+class BuildTextFieldItemsMobile extends StatefulWidget {
   final int index;
-  const BuildMobileField({
-    super.key,
-    required this.index,
-  });
+  final FormControllers formControllers;
+  const BuildTextFieldItemsMobile(
+      {super.key, required this.formControllers, required this.index});
 
   @override
-  State<BuildMobileField> createState() => _BuildMobileFieldState();
+  State<BuildTextFieldItemsMobile> createState() =>
+      _BuildTextFieldItemsMobileState();
 }
 
-class _BuildMobileFieldState extends State<BuildMobileField> {
-  late FormControllers _formControllers;
-
-  MultiController multiController = MultiController();
-
-  @override
-  void initState() {
-    super.initState();
-    _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
-        .controllers[widget.index];
-  }
-
+class _BuildTextFieldItemsMobileState extends State<BuildTextFieldItemsMobile> {
   @override
   Widget build(BuildContext context) {
-    // _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
-    //     .controllers[widget.index];
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           children: [
-            // Row(
-            //   children: [
-            //     Padding(
-            //       padding: const EdgeInsets.only(right: 2),
-            //       child: Text('Item Code: '),
-            //     ),
-            //     Consumer<ItemsDataProvider>(
-            //       builder: (context, value, child) {
-            //         return Text(
-            //           value.selectedItemNameId.toString(),
-            //           style: TextStyle(color: hoverColor),
-            //         );
-            //       },
-            //     ),
-            //     Spacer(),
-            //     Padding(
-            //       padding: const EdgeInsets.only(right: 2),
-            //       child: Text('Stock: '),
-            //     ),
-            //     Consumer<ItemsDataProvider>(
-            //       builder: (context, value, child) {
-            //         return Text(
-            //           value.selectedItemStock.toString(),
-            //           style: TextStyle(color: hoverColor),
-            //         );
-            //       },
-            //     ),
-            //     Spacer(),
-            //     Padding(
-            //       padding: const EdgeInsets.only(right: 2),
-            //       child: Text('Total Stock: '),
-            //     ),
-            //     Expanded(
-            //       child: TextFormField(
-            //         cursorColor: hoverColor,
-            //         controller: _formControllers.plusStockController,
-            //         decoration: InputDecoration(
-            //           hintText: _formControllers.stockController.text.isNotEmpty
-            //               ? _formControllers.plusStockController.text
-            //               : '0',
-            //           hintStyle: TextStyle(fontSize: 12, color: hoverColor),
-            //           border: InputBorder.none,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 2),
+                  child: Text('Item Code: '),
+                ),
+                Consumer<ItemsDataProvider>(
+                  builder: (context, value, child) {
+                    return Text(
+                      value.selectedItemNameId.toString(),
+                      style: TextStyle(color: hoverColor),
+                    );
+                  },
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 2),
+                  child: Text('Stock: '),
+                ),
+                Consumer<ItemsDataProvider>(
+                  builder: (context, value, child) {
+                    return Text(
+                      value.selectedItemStock.toString(),
+                      style: TextStyle(color: hoverColor),
+                    );
+                  },
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 2),
+                  child: Text('Total Stock: '),
+                ),
+                Expanded(
+                  child: TextFormField(
+                    cursorColor: hoverColor,
+                    controller: widget.formControllers.plusStockController,
+                    decoration: InputDecoration(
+                      hintText:
+                          widget.formControllers.stockController.text.isNotEmpty
+                              ? widget.formControllers.plusStockController.text
+                              : '0',
+                      hintStyle: TextStyle(fontSize: 12, color: hoverColor),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Row(
               children: [
                 Padding(
@@ -105,7 +90,7 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     );
                   },
                 ),
-                Spacer(),
+                SizedBox(width: 70.0),
                 Padding(
                   padding: const EdgeInsets.only(right: 2),
                   child: Text(
@@ -116,13 +101,11 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                   'Vendor',
                   style: TextStyle(color: hoverColor),
                 ),
-                Spacer(),
-                Spacer(),
               ],
             ),
-            SizedBox(height: 14.0),
           ],
         ),
+        SizedBox(height: 6.0),
         Row(
           children: [
             Expanded(
@@ -130,6 +113,7 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Items Name',
@@ -211,22 +195,22 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                                               provider.itemStock[itemIndex];
                                           provider.selectedUom =
                                               provider.uom[itemIndex];
-                                          _formControllers
+                                          widget.formControllers
                                               .itemNameController.text = value!;
-                                          _formControllers
+                                          widget.formControllers
                                               .itemNameController.text = value;
-                                          _formControllers
+                                          widget.formControllers
                                                   .itemCodeController.text =
                                               provider.itemsID[itemIndex];
-                                          _formControllers.uomController.text =
-                                              provider.uom[itemIndex];
-                                          _formControllers
-                                                  .stockController.text =
+                                          widget.formControllers.uomController
+                                              .text = provider.uom[itemIndex];
+                                          widget.formControllers.stockController
+                                                  .text =
                                               provider.itemStock[itemIndex];
-                                          _formControllers
+                                          widget.formControllers
                                                   .saleRateController.text =
                                               provider.itemSalePrice[itemIndex];
-                                          _formControllers
+                                          widget.formControllers
                                                   .priceRateController.text =
                                               provider
                                                   .itemPurchasePrice[itemIndex];
@@ -249,8 +233,8 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                                         height: 40.0,
                                       ),
                                       dropdownSearchData: DropdownSearchData(
-                                        searchController:
-                                            _formControllers.itemController,
+                                        searchController: widget
+                                            .formControllers.itemController,
                                         searchInnerWidgetHeight: 50.0,
                                         searchInnerWidget: Container(
                                           height: 57.0,
@@ -263,8 +247,8 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                                           child: TextFormField(
                                             expands: true,
                                             maxLines: null,
-                                            controller:
-                                                _formControllers.itemController,
+                                            controller: widget
+                                                .formControllers.itemController,
                                             decoration: InputDecoration(
                                               isDense: true,
                                               contentPadding:
@@ -291,7 +275,7 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                                       ),
                                       onMenuStateChange: (isOpen) {
                                         if (!isOpen) {
-                                          _formControllers.itemController
+                                          widget.formControllers.itemController
                                               .clear();
                                         }
                                       },
@@ -308,6 +292,11 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                 ),
               ),
             ),
+          ],
+        ),
+        SizedBox(height: 6.0),
+        Row(
+          children: [
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -320,12 +309,13 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     SizedBox(height: 12.0),
                     TextFormField(
                       cursorColor: hoverColor,
-                      controller: _formControllers.quantityController,
+                      controller: widget.formControllers.quantityController,
                       decoration: InputDecoration(
-                        hintText:
-                            _formControllers.quantityController.text.isEmpty
-                                ? _formControllers.quantityController.text = '1'
-                                : _formControllers.quantityController.text,
+                        hintText: widget
+                                .formControllers.quantityController.text.isEmpty
+                            ? widget.formControllers.quantityController.text =
+                                '1'
+                            : widget.formControllers.quantityController.text,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: hoverColor),
                         ),
@@ -356,10 +346,10 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     SizedBox(height: 12.0),
                     TextFormField(
                       cursorColor: hoverColor,
-                      controller: _formControllers.priceRateController,
+                      controller: widget.formControllers.priceRateController,
                       decoration: InputDecoration(
                         hintText: provider.selectedItemPurchasePrice != null
-                            ? _formControllers.priceRateController.text =
+                            ? widget.formControllers.priceRateController.text =
                                 provider.selectedItemPurchasePrice!
                             : "0",
                         enabledBorder: OutlineInputBorder(
@@ -375,6 +365,11 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                 ),
               ),
             ),
+          ],
+        ),
+        SizedBox(height: 6.0),
+        Row(
+          children: [
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -387,10 +382,10 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     SizedBox(height: 12.0),
                     TextFormField(
                       cursorColor: hoverColor,
-                      controller: _formControllers.saleRateController,
+                      controller: widget.formControllers.saleRateController,
                       decoration: InputDecoration(
                         hintText: provider.selectedItemSalePrice != null
-                            ? _formControllers.saleRateController.text =
+                            ? widget.formControllers.saleRateController.text =
                                 provider.selectedItemSalePrice!
                             : "0",
                         enabledBorder: OutlineInputBorder(
@@ -418,12 +413,13 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     SizedBox(height: 12.0),
                     TextFormField(
                       cursorColor: hoverColor,
-                      controller: _formControllers.discountController,
+                      controller: widget.formControllers.discountController,
                       decoration: InputDecoration(
-                        hintText:
-                            _formControllers.totalAmountController.text.isEmpty
-                                ? _formControllers.discountController.text = '0'
-                                : _formControllers.discountController.text,
+                        hintText: widget.formControllers.totalAmountController
+                                .text.isEmpty
+                            ? widget.formControllers.discountController.text =
+                                '0'
+                            : widget.formControllers.discountController.text,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: hoverColor),
                         ),
@@ -440,6 +436,11 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                 ),
               ),
             ),
+          ],
+        ),
+        SizedBox(height: 6.0),
+        Row(
+          children: [
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -452,7 +453,7 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     SizedBox(height: 12.0),
                     TextFormField(
                       cursorColor: hoverColor,
-                      controller: _formControllers.totalController,
+                      controller: widget.formControllers.totalController,
                       decoration: InputDecoration(
                         hintText: 'Amount',
                         enabledBorder: OutlineInputBorder(
@@ -480,7 +481,7 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
                     SizedBox(height: 12.0),
                     TextFormField(
                       cursorColor: hoverColor,
-                      controller: _formControllers.totalAmountController,
+                      controller: widget.formControllers.totalAmountController,
                       decoration: InputDecoration(
                         hintText: 'T.Amount',
                         enabledBorder: OutlineInputBorder(
@@ -498,7 +499,6 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
             ),
           ],
         ),
-        SizedBox(height: 16),
       ],
     );
   }
@@ -512,8 +512,8 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
 
   void updateQuantity() {
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
-    _formControllers.quantityController.text = quantity.toString();
+        double.tryParse(widget.formControllers.quantityController.text) ?? 0;
+    widget.formControllers.quantityController.text = quantity.toString();
   }
 
   void updateAmount() {
@@ -521,33 +521,34 @@ class _BuildMobileFieldState extends State<BuildMobileField> {
     double priceRate =
         double.tryParse(provider.selectedItemPurchasePrice ?? '0') ?? 0;
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
+        double.tryParse(widget.formControllers.quantityController.text) ?? 0;
     double amount = priceRate * quantity;
-    _formControllers.totalController.text = amount.toString();
+    widget.formControllers.totalController.text = amount.toString();
   }
 
   void updateTotalAmount() {
     double discount =
-        double.tryParse(_formControllers.discountController.text) ?? 0;
-    double amount = double.tryParse(_formControllers.totalController.text) ?? 0;
+        double.tryParse(widget.formControllers.discountController.text) ?? 0;
+    double amount =
+        double.tryParse(widget.formControllers.totalController.text) ?? 0;
     double totalAmount = amount - (amount * (discount / 100));
-    _formControllers.totalAmountController.text = totalAmount.toString();
+    widget.formControllers.totalAmountController.text = totalAmount.toString();
   }
 
   void updatePlusStock() {
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
     double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
+        double.tryParse(widget.formControllers.quantityController.text) ?? 0;
     double stockAddition = stock + quantity;
-    _formControllers.plusStockController.text = stockAddition.toString();
+    widget.formControllers.plusStockController.text = stockAddition.toString();
   }
 
   void updateQuantityForIndex(index) {
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
+        double.tryParse(widget.formControllers.quantityController.text) ?? 0;
     if (index == widget.index) {
-      _formControllers.quantityController.text = quantity.toString();
+      widget.formControllers.quantityController.text = quantity.toString();
       updateAmount();
       updateTotalAmount();
       updatePlusStock();

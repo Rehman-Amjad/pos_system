@@ -4,10 +4,9 @@ import '../../../constants.dart';
 import '../../../helper/text_widget.dart';
 import '../../../responsive.dart';
 
-class PurchaseItemList extends StatelessWidget {
+class SalesItemList extends StatelessWidget {
   final String purchaseCode;
-  const PurchaseItemList({Key? key, required this.purchaseCode})
-      : super(key: key);
+  const SalesItemList({Key? key, required this.purchaseCode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +22,9 @@ class PurchaseItemList extends StatelessWidget {
           children: [
             StreamBuilder(
               stream: firestore
-                  .collection('purchase')
+                  .collection('sale')
                   .doc(purchaseCode)
-                  .collection("items")
+                  .collection("saleItems")
                   .orderBy(Constant.KEY_ITEM_TIMESTAMP, descending: false)
                   .snapshots(),
               builder: (context, snapshot) {
@@ -44,7 +43,7 @@ class PurchaseItemList extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "No Purchase Found",
+                                "No Sales Found",
                                 style: TextStyle(
                                     fontSize:
                                         Responsive.isMobile(context) ? 12 : 18,
@@ -59,7 +58,7 @@ class PurchaseItemList extends StatelessWidget {
                             child: PaginatedDataTable(
                                 header: TextWidget(
                                   text:
-                                      "Total Purchases: ${snapshot.data!.docs.length}",
+                                      "Total Sales: ${snapshot.data!.docs.length}",
                                   size: 20,
                                   color: Colors.white,
                                   isBold: false,

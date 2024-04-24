@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
 import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
-import 'package:pos_system/screens/Purchase/purchase_generate_pdf.dart';
+import 'package:pos_system/screens/Purchase/PDF/purchase_generate_pdf.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../controllers/vendor_dropdown.dart';
@@ -282,7 +282,7 @@ class PurchaseForm extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 18.0),
+                      SizedBox(height: 15.0),
                       value.items[index],
                       // Responsive.isMobile(context)
                       //     ? value.buildItems[index]
@@ -347,7 +347,7 @@ class PurchaseForm extends StatelessWidget {
               SizedBox(width: 8.0),
               TextButton(
                 onPressed: () {
-                  // save data:
+                  // preview:
                   List<Map<String, String>> rowsData = [];
                   for (int i = 0; i < provider.items.length; i++) {
                     FormControllers controllers = provider.controllers[i];
@@ -397,7 +397,7 @@ class PurchaseForm extends StatelessWidget {
                       ),
                     ),
                   );
-                  // preview:
+                  // save:
                   provider.saveDataToFireStore(
                     context,
                     purchaseCode: provider1.countValue.toString(),

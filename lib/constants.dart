@@ -83,6 +83,9 @@ class Constant {
   // Purchase
   static const COLLECTION_PURCHASE = 'purchase';
   static const KEY_PURCHASE_CODE = 'code';
-  static const KEY_PURCHASE_JOIN_DATE = 'joiningDate';
   static const KEY_PURCHASE_TIMESTAMP = 'timestamp';
+
+  // Sales
+  static const COLLECTION_SALES = 'purchase';
+  static const KEY_SALES_TIMESTAMP = 'timestamp';
 }

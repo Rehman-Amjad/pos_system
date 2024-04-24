@@ -2,39 +2,42 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_system/constants.dart';
-import '../components/build_text_field.dart';
+import 'package:pos_system/screens/Sales/component/sale_build_text_field.dart';
 
-class FormBuilderProvider with ChangeNotifier {
+class SaleBuilderProvider with ChangeNotifier {
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
   static CollectionReference ref =
-      FirebaseFirestore.instance.collection('purchase');
+      FirebaseFirestore.instance.collection('sale');
 
-  String joiningDate = 'Select Joining Date';
+  String saleJoiningDate = 'Select Joining Date';
 
-  List<BuildTextField> _items = [];
-  List<BuildTextField> get items => _items;
+  List<SaleBuildTextField> _saleItems = [];
+  List<SaleBuildTextField> get saleItems => _saleItems;
 
-  List<FormControllers> _controllers = [];
-  List<FormControllers> get controllers => _controllers;
+  List<SaleFormControllers> _saleControllers = [];
+  List<SaleFormControllers> get saleControllers => _saleControllers;
 
-  void addItem(BuildContext context) {
-    _items.add(BuildTextField(index: _items.length));
-    _controllers.add(FormControllers());
+  void saleAddItem(BuildContext context) {
+    _saleItems.add(SaleBuildTextField(index: _saleItems.length));
+    _saleControllers.add(SaleFormControllers());
     notifyListeners();
   }
 
-  void deleteItem(int index, BuildContext context) {
-    _items.removeAt(index);
+  void saleDeleteItem(int index, BuildContext context) {
+    _saleItems.removeAt(index);
     notifyListeners();
   }
 
-  Future<void> saveDataToFireStore(
+  Future<void> saleSaveDataToFireStore(
     BuildContext context, {
     required purchaseCode,
     purchaseDate,
     time,
     vendor,
+    customer,
+    salesMan,
+    supplyMan,
     vendorID,
     remarks,
     paymentVia,
@@ -42,18 +45,21 @@ class FormBuilderProvider with ChangeNotifier {
   }) async {
     try {
       String id = DateTime.now().millisecondsSinceEpoch.toString();
-      await fireStore.collection('purchase').doc(purchaseCode).set({
-        'purchaseCode': purchaseCode,
+      await fireStore.collection('sale').doc(purchaseCode).set({
+        'saleCode': purchaseCode,
         'date': date,
-        'p.date&time': time,
-        Constant.KEY_PURCHASE_TIMESTAMP: id,
+        's.date&time': time,
+        Constant.KEY_SALES_TIMESTAMP: id,
         'vendor': vendor,
+        'customer': customer,
+        'supplyMan': supplyMan,
+        'salesMan': salesMan,
         'remarks': remarks,
         'paymentVia': paymentVia,
         'invoiceType': 'purchase'
       }).whenComplete(() {
-        print("Running");
-        saveItems(context, purchaseCode);
+        print("Sales Running");
+        saleSaveItems(context, purchaseCode);
       });
       print('Data saved to Firestore successfully');
     } catch (error) {
@@ -61,29 +67,29 @@ class FormBuilderProvider with ChangeNotifier {
     }
   }
 
-  Future<void> saveItems(BuildContext context, String purchaseCode) async {
+  Future<void> saleSaveItems(BuildContext context, String purchaseCode) async {
     try {
-      for (int i = 0; i < _items.length; i++) {
-        FormControllers controllers = _controllers[i];
-        String selectedItemName = controllers.itemNameController.text;
-        String selectedItemCode = controllers.itemCodeController.text;
-        String selectedUom = controllers.uomController.text;
-        String selectedStock = controllers.stockController.text;
-        String totalAmount = controllers.totalAmountController.text;
-        String quantity = controllers.quantityController.text;
-        String priceRate = controllers.priceRateController.text;
-        String saleRate = controllers.saleRateController.text;
-        String discount = controllers.discountController.text;
-        String total = controllers.totalController.text;
-        String plusStock = controllers.stockController.text +
+      for (int i = 0; i < _saleItems.length; i++) {
+        SaleFormControllers saleControllers = _saleControllers[i];
+        String selectedItemName = saleControllers.itemNameController.text;
+        String selectedItemCode = saleControllers.itemCodeController.text;
+        String selectedUom = saleControllers.uomController.text;
+        String selectedStock = saleControllers.stockController.text;
+        String totalAmount = saleControllers.totalAmountController.text;
+        String quantity = saleControllers.quantityController.text;
+        String priceRate = saleControllers.priceRateController.text;
+        String saleRate = saleControllers.saleRateController.text;
+        String discount = saleControllers.discountController.text;
+        String total = saleControllers.totalController.text;
+        String plusStock = saleControllers.stockController.text +
             "+" +
-            controllers.quantityController.text;
+            saleControllers.quantityController.text;
         String id = DateTime.now().millisecondsSinceEpoch.toString();
 
         await fireStore
-            .collection('purchase')
+            .collection('sale')
             .doc(purchaseCode)
-            .collection("items")
+            .collection("saleItems")
             .doc(id)
             .set({
           'itemName': selectedItemName,
@@ -99,7 +105,7 @@ class FormBuilderProvider with ChangeNotifier {
           'plusStock': plusStock,
           Constant.KEY_ITEM_TIMESTAMP: id,
         }).whenComplete(() {
-          saveStock();
+          saleSaveStock();
         });
       }
       print('Data saved to Firestore successfully');
@@ -108,14 +114,15 @@ class FormBuilderProvider with ChangeNotifier {
     }
   }
 
-  Future<void> saveStock() async {
+  Future<void> saleSaveStock() async {
     try {
-      for (int i = 0; i < _items.length; i++) {
-        FormControllers controllers = _controllers[i];
-        String itemCode = controllers.itemCodeController.text;
-        double stock = double.tryParse(controllers.stockController.text) ?? 0;
+      for (int i = 0; i < _saleItems.length; i++) {
+        SaleFormControllers saleControllers = _saleControllers[i];
+        String itemCode = saleControllers.itemCodeController.text;
+        double stock =
+            double.tryParse(saleControllers.stockController.text) ?? 0;
         double quantity =
-            double.tryParse(controllers.quantityController.text) ?? 0;
+            double.tryParse(saleControllers.quantityController.text) ?? 0;
         double additionalStock = stock + quantity;
 
         await fireStore
@@ -135,13 +142,13 @@ class FormBuilderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  datePicker(BuildContext context) async {
+  saleDatePicker(BuildContext context) async {
     DateTime? picDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(1980),
         lastDate: DateTime(2050));
-    joiningDate = DateFormat('dd-MM-yyyy').format(picDate!);
+    saleJoiningDate = DateFormat('dd-MM-yyyy').format(picDate!);
     notifyListeners();
   }
 }

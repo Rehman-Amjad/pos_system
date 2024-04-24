@@ -18,6 +18,6 @@ class Routes {
   static const ADD_ITEMS_REGISTRATION = 14;
   static const PURCHASE = 15;
   static const ADD_PURCHASE = 16;
-  static const ADD_PURCHASE_PDF = 17;
-  static const ADD_PURCHASE_MOBILE = 18;
+  static const SALES = 17;
+  static const ADD_SALES = 18;
 }

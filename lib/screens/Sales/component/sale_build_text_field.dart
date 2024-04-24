@@ -1,35 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
 import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
-import 'package:pos_system/screens/Purchase/components/responsive_build_Text/build_text_filed_items_mobile.dart';
-import 'package:pos_system/screens/Purchase/components/responsive_build_Text/build_text_filed_items_web.dart';
+import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
+import 'package:pos_system/screens/Sales/component/responsive_sale_build_text/sale_build_text_field_mobile.dart';
+import 'package:pos_system/screens/Sales/component/responsive_sale_build_text/sale_build_text_field_web.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/items_data_fetch_provider.dart';
 import '../../../responsive.dart';
 
-class BuildTextField extends StatefulWidget {
+class SaleBuildTextField extends StatefulWidget {
   final int index;
-  BuildTextField({
+  SaleBuildTextField({
     Key? key,
     required this.index,
   });
 
   @override
-  State<BuildTextField> createState() => _BuildTextFieldState();
+  State<SaleBuildTextField> createState() => _SaleBuildTextFieldState();
 }
 
-class _BuildTextFieldState extends State<BuildTextField> {
-  late FormControllers _formControllers;
+class _SaleBuildTextFieldState extends State<SaleBuildTextField> {
+  late SaleFormControllers _saleFormControllers;
 
   MultiController multiController = MultiController();
 
   @override
   void initState() {
     super.initState();
-    _formControllers = Provider.of<FormBuilderProvider>(context, listen: false)
-        .controllers[widget.index];
+    _saleFormControllers =
+        Provider.of<SaleBuilderProvider>(context, listen: false)
+            .saleControllers[widget.index];
   }
 
   @override
@@ -37,19 +38,13 @@ class _BuildTextFieldState extends State<BuildTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Responsive.isMobile(context)
-        //     ? BuildTextFieldHeadMobile(formControllers: _formControllers)
-        //     :
-        //     // run web on desktop or tablet mode
-        //     BuildTextFieldHeadWeb(formControllers: _formControllers),
-        // SizedBox(height: 14.0),
         Responsive.isMobile(context)
-            ? BuildTextFieldItemsMobile(
-                formControllers: _formControllers, index: widget.index)
+            ? SaleBuildTextFieldMobile(
+                saleFormControllers: _saleFormControllers, index: widget.index)
             :
             // for desktop
-            BuildTextFieldItemsWeb(
-                formControllers: _formControllers, index: widget.index),
+            SaleBuildTextFieldWeb(
+                saleFormControllers: _saleFormControllers, index: widget.index),
         SizedBox(height: 16),
       ],
     );
@@ -64,8 +59,8 @@ class _BuildTextFieldState extends State<BuildTextField> {
 
   void updateQuantity() {
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
-    _formControllers.quantityController.text = quantity.toString();
+        double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
+    _saleFormControllers.quantityController.text = quantity.toString();
   }
 
   void updateAmount() {
@@ -73,33 +68,34 @@ class _BuildTextFieldState extends State<BuildTextField> {
     double priceRate =
         double.tryParse(provider.selectedItemPurchasePrice ?? '0') ?? 0;
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
+        double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
     double amount = priceRate * quantity;
-    _formControllers.totalController.text = amount.toString();
+    _saleFormControllers.totalController.text = amount.toString();
   }
 
   void updateTotalAmount() {
     double discount =
-        double.tryParse(_formControllers.discountController.text) ?? 0;
-    double amount = double.tryParse(_formControllers.totalController.text) ?? 0;
+        double.tryParse(_saleFormControllers.discountController.text) ?? 0;
+    double amount =
+        double.tryParse(_saleFormControllers.totalController.text) ?? 0;
     double totalAmount = amount - (amount * (discount / 100));
-    _formControllers.totalAmountController.text = totalAmount.toString();
+    _saleFormControllers.totalAmountController.text = totalAmount.toString();
   }
 
   void updatePlusStock() {
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
     double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
+        double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
     double stockAddition = stock + quantity;
-    _formControllers.plusStockController.text = stockAddition.toString();
+    _saleFormControllers.plusStockController.text = stockAddition.toString();
   }
 
   void updateQuantityForIndex(index) {
     double quantity =
-        double.tryParse(_formControllers.quantityController.text) ?? 0;
+        double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
     if (index == widget.index) {
-      _formControllers.quantityController.text = quantity.toString();
+      _saleFormControllers.quantityController.text = quantity.toString();
       updateAmount();
       updateTotalAmount();
       updatePlusStock();
@@ -107,7 +103,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
   }
 }
 
-class FormControllers {
+class SaleFormControllers {
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemCodeController = TextEditingController();
   TextEditingController itemController = TextEditingController();

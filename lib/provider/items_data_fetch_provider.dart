@@ -19,11 +19,6 @@ class ItemsDataProvider extends ChangeNotifier {
   String? selectedItemStockId;
   Map<String, String> itemStockDocumentIds = {};
 
-  List<String> itemDiscount = [];
-  String? selectedItemDiscount;
-  String? selectedItemDiscountId;
-  Map<String, String> itemDiscountDocumentIds = {};
-
   List<String> itemAmount = [];
   String? selectedItemAmount;
   String? selectedItemAmountId;
@@ -34,16 +29,29 @@ class ItemsDataProvider extends ChangeNotifier {
   String? selectedItemTotalAmountId;
   Map<String, String> itemTotalAmountDocumentIds = {};
 
-  List<String> plusStock = [];
-  String? selectedPlusStock;
-  String? selectedPlusStockId;
-  Map<String, String> plusStockDocumentIds = {};
-
   List<String> vendor = [];
   String? selectedVendor;
   String? selectedVendorId;
   Map<String, String> vendorDocumentIds = {};
   void Function(String, String)? onSelectedVendorChanged;
+
+  List<String> customer = [];
+  String? selectedCustomer;
+  String? selectedCustomerId;
+  Map<String, String> customerDocumentIds = {};
+  void Function(String, String)? onSelectedCustomerChanged;
+
+  List<String> salesMan = [];
+  String? selectedSalesMan;
+  String? selectedSalesManId;
+  Map<String, String> salesManDocumentIds = {};
+  void Function(String, String)? onSelectedSalesManChanged;
+
+  List<String> supplyMan = [];
+  String? selectedSupplyMan;
+  String? selectedSupplyManId;
+  Map<String, String> supplyManDocumentIds = {};
+  void Function(String, String)? onSelectedSupplyManChanged;
 
   List<String> itemName = [];
   List<String> itemsID = [];
@@ -144,13 +152,57 @@ class ItemsDataProvider extends ChangeNotifier {
     }
   }
 
-  void setSelectedVendorName(String newValue) {
-    selectedVendor = newValue;
-    selectedVendorId = vendorDocumentIds[newValue];
-    notifyListeners();
-    if (onSelectedVendorChanged != null) {
-      onSelectedVendorChanged!(newValue,
-          selectedVendorId!); // Pass document ID along with item value
+  Future<void> fetchCustomerName() async {
+    try {
+      final snapshot =
+          await firestore.collection(Constant.COLLECTION_CUSTOMER).get();
+      customer = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_CUSTOMER_NAME] as String)
+          .toList();
+      customerDocumentIds = {
+        for (var doc in snapshot.docs)
+          (doc.data())[Constant.KEY_CUSTOMER_NAME] as String: doc.id
+      };
+      selectedCustomer = customer[0];
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
+
+  Future<void> fetchSalesManName() async {
+    try {
+      final snapshot =
+          await firestore.collection(Constant.COLLECTION_SALESMAN).get();
+      salesMan = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_SALESMAN_NAME] as String)
+          .toList();
+      salesManDocumentIds = {
+        for (var doc in snapshot.docs)
+          (doc.data())[Constant.KEY_SALESMAN_NAME] as String: doc.id
+      };
+      selectedSalesMan = salesMan[0];
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
+
+  Future<void> fetchSupplyManName() async {
+    try {
+      final snapshot =
+          await firestore.collection(Constant.COLLECTION_SUPPLYMAN).get();
+      supplyMan = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_SUPPLYMAN_NAME] as String)
+          .toList();
+      supplyManDocumentIds = {
+        for (var doc in snapshot.docs)
+          (doc.data())[Constant.KEY_SUPPLYMAN_NAME] as String: doc.id
+      };
+      selectedSupplyMan = supplyMan[0];
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching data: $error');
     }
   }
 

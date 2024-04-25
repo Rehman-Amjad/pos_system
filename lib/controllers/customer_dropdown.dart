@@ -55,6 +55,7 @@ class _CustomerDropDownState extends State<CustomerDropDown> {
                 setState(() {
                   dataProvider.selectedCustomer = value;
                   SaleAllController.saleCustomer = value;
+                  SaleMultiController.saleCustomer1 = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(

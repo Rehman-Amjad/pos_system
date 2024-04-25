@@ -56,7 +56,7 @@ class SaleBuilderProvider with ChangeNotifier {
         'salesMan': salesMan,
         'remarks': remarks,
         'paymentVia': paymentVia,
-        'invoiceType': 'purchase'
+        'invoiceType': 'purchase',
       }).whenComplete(() {
         print("Sales Running");
         saleSaveItems(context, purchaseCode);

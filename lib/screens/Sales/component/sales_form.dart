@@ -515,9 +515,9 @@ class SalesForm extends StatelessWidget {
                         vendor: SaleMultiController.saleVendor1.toString(),
                         rowsData: saleRowsData,
                         invoiceNumber: saleProvider1.countValue.toString(),
-                        customer: SaleAllController.saleCustomer,
-                        salesMan: SaleAllController.saleSalesMan,
-                        supplyMan: SaleAllController.saleSupplyMan,
+                        customer: SaleMultiController.saleCustomer1,
+                        salesMan: SaleMultiController.saleSalesMan1,
+                        supplyMan: SaleMultiController.saleSupplyMan1,
                       ),
                     ),
                   );
@@ -604,9 +604,10 @@ class SalesForm extends StatelessWidget {
                         vendor: SaleMultiController.saleVendor1.toString(),
                         rowsData: saleRowsData,
                         invoiceNumber: saleProvider1.countValue.toString(),
-                        customer: SaleAllController.saleCustomer,
-                        salesMan: SaleAllController.saleSalesMan,
-                        supplyMan: SaleAllController.saleSupplyMan,
+                        customer: SaleMultiController.saleCustomer1.toString(),
+                        salesMan: SaleMultiController.saleSalesMan1.toString(),
+                        supplyMan:
+                            SaleMultiController.saleSupplyMan1.toString(),
                       ),
                     ),
                   );
@@ -638,4 +639,7 @@ class SalesForm extends StatelessWidget {
 class SaleMultiController {
   static dynamic saleCash1 = TextEditingController();
   static dynamic saleVendor1 = TextEditingController();
+  static dynamic saleCustomer1 = TextEditingController();
+  static dynamic saleSalesMan1 = TextEditingController();
+  static dynamic saleSupplyMan1 = TextEditingController();
 }

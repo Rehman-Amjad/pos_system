@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
+import 'package:pos_system/screens/Sales/component/sales_form.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/items_data_fetch_provider.dart';
@@ -55,6 +56,7 @@ class _SupplyManDropdownState extends State<SupplyManDropdown> {
                 setState(() {
                   dataProvider.selectedSupplyMan = value;
                   SaleAllController.saleSupplyMan = value;
+                  SaleMultiController.saleSupplyMan1 = value;
                 });
               },
               buttonStyleData: const ButtonStyleData(

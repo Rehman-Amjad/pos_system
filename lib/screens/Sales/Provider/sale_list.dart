@@ -203,7 +203,7 @@ class DataTableSourceImpl extends DataTableSource {
         ),
         DataCell(
           TextWidget(
-            text: '',
+            text: items[index]['customer'].toString(),
             color: Colors.white,
             size: 14.0,
             isBold: false,
@@ -211,7 +211,7 @@ class DataTableSourceImpl extends DataTableSource {
         ),
         DataCell(
           TextWidget(
-            text: '',
+            text: items[index]['supplyMan'].toString(),
             color: Colors.white,
             size: 14.0,
             isBold: false,
@@ -219,7 +219,7 @@ class DataTableSourceImpl extends DataTableSource {
         ),
         DataCell(
           TextWidget(
-            text: '',
+            text: items[index]['salesMan'].toString(),
             color: Colors.white,
             size: 14.0,
             isBold: false,

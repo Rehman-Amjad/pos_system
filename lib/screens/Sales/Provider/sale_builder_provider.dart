@@ -82,7 +82,7 @@ class SaleBuilderProvider with ChangeNotifier {
         String discount = saleControllers.discountController.text;
         String total = saleControllers.totalController.text;
         String plusStock = saleControllers.stockController.text +
-            "+" +
+            "-" +
             saleControllers.quantityController.text;
         String id = DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -108,6 +108,8 @@ class SaleBuilderProvider with ChangeNotifier {
           saleSaveStock();
         });
       }
+      _saleItems.clear();
+      _saleControllers.clear();
       print('Data saved to Firestore successfully');
     } catch (error) {
       print('Error saving data to Firestore: $error');
@@ -123,7 +125,7 @@ class SaleBuilderProvider with ChangeNotifier {
             double.tryParse(saleControllers.stockController.text) ?? 0;
         double quantity =
             double.tryParse(saleControllers.quantityController.text) ?? 0;
-        double additionalStock = stock + quantity;
+        double additionalStock = stock - quantity;
 
         await fireStore
             .collection(Constant.COLLECTION_ITEMS)

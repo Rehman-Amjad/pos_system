@@ -102,6 +102,8 @@ class FormBuilderProvider with ChangeNotifier {
           saveStock();
         });
       }
+      _items.clear();
+      _controllers.clear();
       print('Data saved to Firestore successfully');
     } catch (error) {
       print('Error saving data to Firestore: $error');

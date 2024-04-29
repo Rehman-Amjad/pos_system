@@ -528,7 +528,7 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
     double quantity =
         double.tryParse(widget.saleFormControllers.quantityController.text) ??
             0;
-    double stockAddition = stock + quantity;
+    double stockAddition = stock - quantity;
     widget.saleFormControllers.plusStockController.text =
         stockAddition.toString();
   }

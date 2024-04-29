@@ -79,6 +79,7 @@ class Constant {
   static const KEY_ITEM_SALE_PRICE = "salePrice";
   static const KEY_ITEM_JOIN_DATE = 'joiningDate';
   static const KEY_ITEM_TIMESTAMP = "timestamp";
+  static const KEY_ITEM_LOW_STOCK = "lowStock";
 
   // Purchase
   static const COLLECTION_PURCHASE = 'purchase';

@@ -13,7 +13,8 @@ class RegisterFirebaseProvider with ChangeNotifier {
       required purchasePrice,
       required salePrice,
       required joiningDate,
-      required status}) async {
+      required status,
+      required lowStock}) async {
     DateTime dateTime = DateTime.now();
     try {
       await firestore.collection(collection).doc(count.toString()).set({
@@ -27,6 +28,7 @@ class RegisterFirebaseProvider with ChangeNotifier {
         Constant.KEY_ITEM_SALE_PRICE: salePrice.toString(),
         Constant.KEY_ITEM_JOIN_DATE: joiningDate.toString(),
         Constant.KEY_STATUS: status.toString(),
+        Constant.KEY_ITEM_LOW_STOCK: lowStock.toString(),
         Constant.KEY_ITEM_TIMESTAMP: dateTime.millisecondsSinceEpoch.toString(),
       });
       notifyListeners();

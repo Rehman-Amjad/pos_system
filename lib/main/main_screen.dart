@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pos_system/route/routes.dart';
 import 'package:pos_system/screens/Sales/add_sales_screen.dart';
 import 'package:pos_system/screens/Sales/sales_screen.dart';
+import 'package:pos_system/screens/Stock/low_stock_screen.dart';
 import 'package:pos_system/screens/category/add_category_screen.dart';
 import 'package:pos_system/screens/customer/add_customer_screen.dart';
 import 'package:pos_system/screens/saleman/saleman_screen.dart';
@@ -89,6 +90,9 @@ class MainScreen extends StatelessWidget {
 
       case Routes.ADD_SALES:
         screen = AddSalesScreen();
+
+      case Routes.LOW_STOCK:
+        screen = LowStockScreen();
 
       default:
         screen = DashboardScreen();

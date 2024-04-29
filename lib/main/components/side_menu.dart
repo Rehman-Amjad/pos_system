@@ -43,9 +43,6 @@ class SideMenu extends StatelessWidget {
               screenIndex: Routes.DASHBOARD_ROUTE,
               title: "Dashboard",
               svgSrc: DASHBOARD_SVG,
-              // press: () {
-              //
-              // },
             ),
 
             const Divider(
@@ -133,26 +130,26 @@ class SideMenu extends StatelessWidget {
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            const DrawerListTile(
-              index: 9,
-              screenIndex: 9,
-              title: "P. History",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // const DrawerListTile(
+            //   index: 9,
+            //   screenIndex: 9,
+            //   title: "P. History",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
-            const DrawerListTile(
-              index: 10,
-              screenIndex: 10,
-              title: "P. Returns",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // const DrawerListTile(
+            //   index: 10,
+            //   screenIndex: 10,
+            //   title: "P. Returns",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
-            DrawerListTile(
-              index: 11,
-              screenIndex: 11,
-              title: "P. Returns History",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 11,
+            //   screenIndex: 11,
+            //   title: "P. Returns History",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
             //Sale LIST
             Divider(
@@ -176,26 +173,26 @@ class SideMenu extends StatelessWidget {
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
-            DrawerListTile(
-              index: 13,
-              screenIndex: 13,
-              title: "Sale History",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 13,
+            //   screenIndex: 13,
+            //   title: "Sale History",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
-            DrawerListTile(
-              index: 14,
-              screenIndex: 14,
-              title: "Sale Returns",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
-
-            DrawerListTile(
-              index: 15,
-              screenIndex: 15,
-              title: "Sale Returns History",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 14,
+            //   screenIndex: 14,
+            //   title: "Sale Returns",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
+            //
+            // DrawerListTile(
+            //   index: 15,
+            //   screenIndex: 15,
+            //   title: "Sale Returns History",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
             //Reports LIST
             Divider(
@@ -212,30 +209,30 @@ class SideMenu extends StatelessWidget {
             SizedBox(
               height: defaultDrawerHeadHeight - 5,
             ),
-            DrawerListTile(
-              index: 16,
-              screenIndex: 16,
-              title: "Stock",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 16,
+            //   screenIndex: 16,
+            //   title: "Stock",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
-            DrawerListTile(
-              index: 17,
-              screenIndex: 17,
-              title: "Opening Stock",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 17,
+            //   screenIndex: 17,
+            //   title: "Opening Stock",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
-            DrawerListTile(
-              index: 18,
-              screenIndex: 18,
-              title: "Items List",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 18,
+            //   screenIndex: 18,
+            //   title: "Items List",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
 
             DrawerListTile(
               index: 19,
-              screenIndex: 19,
+              screenIndex: Routes.LOW_STOCK,
               title: "Low Stock",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),

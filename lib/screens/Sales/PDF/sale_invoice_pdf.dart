@@ -19,7 +19,7 @@ class SalePreviewScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_outlined),
         ),
         centerTitle: true,
-        title: Text("Preview"),
+        title: Text("Your Invoice Preview"),
       ),
       body: Container(
         margin: EdgeInsets.all(20.0),

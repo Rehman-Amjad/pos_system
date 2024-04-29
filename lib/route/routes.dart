@@ -20,4 +20,5 @@ class Routes {
   static const ADD_PURCHASE = 16;
   static const SALES = 17;
   static const ADD_SALES = 18;
+  static const LOW_STOCK = 19;
 }

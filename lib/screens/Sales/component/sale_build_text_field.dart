@@ -87,7 +87,7 @@ class _SaleBuildTextFieldState extends State<SaleBuildTextField> {
     double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
     double quantity =
         double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
-    double stockAddition = stock + quantity;
+    double stockAddition = stock - quantity;
     _saleFormControllers.plusStockController.text = stockAddition.toString();
   }
 

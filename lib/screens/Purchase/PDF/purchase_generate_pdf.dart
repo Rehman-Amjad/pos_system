@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
+import 'package:pos_system/constants.dart';
 import 'purchase_invoice_pdf.dart';
 
 class PurchasePdf extends StatelessWidget {
@@ -40,13 +41,38 @@ class PurchasePdf extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: GestureDetector(
-            onTap: () {
-              generatePDF(context);
-            },
-            child: Text(
-              'PDF',
-              style: TextStyle(color: Colors.white),
-            )),
+          onTap: () {
+            generatePDF(context);
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                height: 220.0,
+                "assets/images/invoice.png",
+              ),
+              SizedBox(height: 8.0),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 360.0),
+                height: 40.0,
+                decoration: BoxDecoration(
+                  color: hoverColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'PDF',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -97,42 +123,46 @@ class PurchasePdf extends StatelessWidget {
   pw.Container topBar() {
     return pw.Container(
       width: Get.width,
-      color: PdfColors.black,
       child: pw.Column(
         mainAxisAlignment: pw.MainAxisAlignment.center,
         children: [
           pw.Center(
             child: pw.Padding(
-              padding: pw.EdgeInsets.only(top: 10.0, bottom: 5.0),
+              padding: pw.EdgeInsets.only(top: 10.0),
               child: pw.Text(
                 'WAQAS HASSAN',
                 style: pw.TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 16.0,
                   fontWeight: pw.FontWeight.bold,
-                  color: PdfColors.white,
+                  color: PdfColors.black,
                 ),
               ),
             ),
           ),
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 20.0, right: 20.0),
-            child: pw.Divider(
-              thickness: 0.2,
-              color: PdfColors.white,
+            child: pw.Container(
+              height: 1.0,
+              color: PdfColors.black,
             ),
           ),
-          pw.Padding(
-            padding: pw.EdgeInsets.only(bottom: 10.0, top: 5.0),
-            child: pw.Center(
-              child: pw.Text(
-                'General Order Supplier',
-                style: pw.TextStyle(
-                  fontSize: 16.0,
-                  color: PdfColors.white,
-                ),
+          pw.Center(
+            child: pw.Text(
+              'General Order Supplier',
+              style: pw.TextStyle(
+                fontSize: 14.0,
+                color: PdfColors.black,
               ),
             ),
           ),
+          pw.Padding(
+            padding: pw.EdgeInsets.only(left: 20.0, right: 20.0),
+            child: pw.Container(
+              height: 1.0,
+              color: PdfColors.black,
+            ),
+          ),
+          pw.Text('Montgumery Bazar Faisalabad , Telephone # 0322-7655125'),
         ],
       ),
     );

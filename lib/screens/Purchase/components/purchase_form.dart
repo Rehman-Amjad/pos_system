@@ -198,7 +198,7 @@ class PurchaseForm extends StatelessWidget {
                             : size.width / 3.9,
                         child: CustomizeTextField(
                           controller: _remarksController,
-                          hintText: 'Edit Text',
+                          hintText: '',
                         ),
                       ),
                     ],

@@ -61,6 +61,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
   var quantityController = TextEditingController();
   var purchasePriceController = TextEditingController();
   var salePriceController = TextEditingController();
+  var lowStockController = TextEditingController();
 
   String selectedStatus = "";
   var statusList = ['Running', 'Close'];
@@ -516,6 +517,11 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               stockController.text.isNotEmpty) {
                             countProvider.fetchCountValue();
                             int newCountValue = countProvider.countValue;
+                            // Check if stock is less than 50
+                            if (int.parse(stockController.text) < 5) {
+                              // If stock is less than 50, set its value to lowStockController
+                              lowStockController.text = stockController.text;
+                            }
                             registerProvider.uploadRegistrationData(
                               collection: Constant.COLLECTION_ITEMS,
                               count: newCountValue,
@@ -529,6 +535,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                                   purchasePriceController.text.toString(),
                               salePrice: salePriceController.text.toString(),
                               status: selectedStatus,
+                              lowStock: lowStockController.text.toString(),
                             );
                             // dataProvider.uploadPersonData(
                             //     collection: Constant.COLLECTION_SALESMAN,

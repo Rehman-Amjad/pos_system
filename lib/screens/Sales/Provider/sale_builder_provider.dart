@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_system/constants.dart';
+import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'package:pos_system/screens/Sales/component/sale_build_text_field.dart';
 
 class SaleBuilderProvider with ChangeNotifier {
@@ -45,6 +46,7 @@ class SaleBuilderProvider with ChangeNotifier {
   }) async {
     try {
       String id = DateTime.now().millisecondsSinceEpoch.toString();
+      String month = DateFormat('MMMM').format(DateTime.now());
       await fireStore.collection('sale').doc(purchaseCode).set({
         'saleCode': purchaseCode,
         'date': date,
@@ -56,7 +58,8 @@ class SaleBuilderProvider with ChangeNotifier {
         'salesMan': salesMan,
         'remarks': remarks,
         'paymentVia': paymentVia,
-        'invoiceType': 'purchase',
+        'invoiceType': 'sale',
+        'month': month,
       }).whenComplete(() {
         print("Sales Running");
         saleSaveItems(context, purchaseCode);
@@ -105,6 +108,9 @@ class SaleBuilderProvider with ChangeNotifier {
           'plusStock': plusStock,
           Constant.KEY_ITEM_TIMESTAMP: id,
         }).whenComplete(() {
+          fireStore.collection('sale').doc(purchaseCode).update({
+            'totalSale': MultiController.totalSale,
+          });
           saleSaveStock();
         });
       }

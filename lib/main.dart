@@ -4,14 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
-import 'package:pos_system/screens/Purchase/add_purchase_screen.dart';
-import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
-import 'package:pos_system/screens/Purchase/PDF/purchase_generate_pdf.dart';
-import 'package:pos_system/screens/Purchase/purchase_screen.dart';
 import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
 import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
 import 'package:pos_system/provider/items_data_fetch_provider.dart';
-import 'package:pos_system/screens/dashboard/dashboard_screen.dart';
 import 'package:pos_system/screens/items_registrations/provider/register_firebase_provider.dart';
 import 'package:pos_system/screens/saleman/provider/salesman_firebase_provider.dart';
 import 'package:pos_system/provider/text_color_provider.dart';
@@ -19,7 +14,6 @@ import 'package:pos_system/screens/supplyman/provider/supplyman_firebase_provide
 import 'package:pos_system/screens/uom/provider/uom_provider.dart';
 import 'package:pos_system/screens/vendorman/provider/vendorman_firebase_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'constants.dart';
 import 'controllers/MenuAppController.dart';
 import 'firebase_options.dart';

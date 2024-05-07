@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -20,7 +19,7 @@ class CloudStorageInfo {
 
 List demoMyFiles = [
   CloudStorageInfo(
-    title: "Documents",
+    title: "Items Length",
     numOfFiles: 1328,
     svgSrc: "assets/icons/Documents.svg",
     totalStorage: "1.9GB",
@@ -28,7 +27,7 @@ List demoMyFiles = [
     percentage: 35,
   ),
   CloudStorageInfo(
-    title: "Google Drive",
+    title: "Vendor Length",
     numOfFiles: 1328,
     svgSrc: "assets/icons/google_drive.svg",
     totalStorage: "2.9GB",
@@ -36,7 +35,7 @@ List demoMyFiles = [
     percentage: 35,
   ),
   CloudStorageInfo(
-    title: "One Drive",
+    title: "Vendor Name",
     numOfFiles: 1328,
     svgSrc: "assets/icons/one_drive.svg",
     totalStorage: "1GB",

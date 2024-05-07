@@ -5,8 +5,6 @@ import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/controllers/customer_dropdown.dart';
 import 'package:pos_system/controllers/salesman_dropdown.dart';
 import 'package:pos_system/controllers/supplyman_dropdown.dart';
-import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
-import 'package:pos_system/screens/Purchase/PDF/purchase_generate_pdf.dart';
 import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
 import 'package:pos_system/screens/Sales/component/sale_build_text_field.dart';
 import 'package:provider/provider.dart';

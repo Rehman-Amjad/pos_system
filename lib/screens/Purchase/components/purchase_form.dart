@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
 import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
@@ -504,6 +505,9 @@ class PurchaseForm extends StatelessWidget {
 }
 
 class MultiController {
+  static double totalPurchase = 0.0;
+  static double totalP = 0.0;
+  static dynamic totalSale = TextEditingController();
   static dynamic cash1 = TextEditingController();
   static dynamic vendor1 = TextEditingController();
 }

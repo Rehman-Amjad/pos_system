@@ -7,6 +7,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pos_system/screens/Sales/PDF/sale_invoice_pdf.dart';
 
 import '../../../constants.dart';
+import '../../Purchase/components/purchase_form.dart';
 
 class SalePdf extends StatelessWidget {
   final String? remarks;
@@ -545,6 +546,7 @@ class SalePdf extends StatelessWidget {
       amount += double.parse(row['Amount'].toString());
       payableAmount += double.parse(row['TotalAmount'].toString());
     }
+    MultiController.totalSale = payableAmount;
     totalDiscount = ((amount - payableAmount) / amount) * 100;
   }
 

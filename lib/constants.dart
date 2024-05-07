@@ -7,7 +7,7 @@ const bgColor = Color(0xFF212332);
 const drawerBackground = Color(0xFF212332);
 const hoverColor = Color(0xFFfe9f42);
 
-const defaultPadding = 16.0;
+const defaultPadding = 18.0;
 const defaultBorderRadius = 10.0;
 const defaultDrawerHeadHeight = 20.0;
 
@@ -87,6 +87,6 @@ class Constant {
   static const KEY_PURCHASE_TIMESTAMP = 'timestamp';
 
   // Sales
-  static const COLLECTION_SALES = 'purchase';
+  static const COLLECTION_SALES = 'sale';
   static const KEY_SALES_TIMESTAMP = 'timestamp';
 }

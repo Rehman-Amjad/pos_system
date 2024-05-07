@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_system/constants.dart';
+import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import '../components/build_text_field.dart';
 
 class FormBuilderProvider with ChangeNotifier {
@@ -42,6 +43,7 @@ class FormBuilderProvider with ChangeNotifier {
   }) async {
     try {
       String id = DateTime.now().millisecondsSinceEpoch.toString();
+      String month = DateFormat('MMMM').format(DateTime.now());
       await fireStore.collection('purchase').doc(purchaseCode).set({
         'purchaseCode': purchaseCode,
         'date': date,
@@ -50,7 +52,8 @@ class FormBuilderProvider with ChangeNotifier {
         'vendor': vendor,
         'remarks': remarks,
         'paymentVia': paymentVia,
-        'invoiceType': 'purchase'
+        'invoiceType': 'purchase',
+        'month': month,
       }).whenComplete(() {
         print("Running");
         saveItems(context, purchaseCode);
@@ -99,6 +102,9 @@ class FormBuilderProvider with ChangeNotifier {
           'plusStock': plusStock,
           Constant.KEY_ITEM_TIMESTAMP: id,
         }).whenComplete(() {
+          fireStore.collection("purchase").doc(purchaseCode).update({
+            'totalPurchase': MultiController.totalPurchase,
+          });
           saveStock();
         });
       }

@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:pos_system/constants.dart';
+import 'package:pos_system/controllers/cash_dropdown.dart';
+import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'purchase_invoice_pdf.dart';
 
 class PurchasePdf extends StatelessWidget {
@@ -501,6 +503,7 @@ class PurchasePdf extends StatelessWidget {
       amount += double.parse(row['Amount'].toString());
       payableAmount += double.parse(row['TotalAmount'].toString());
     }
+    MultiController.totalPurchase = payableAmount;
     totalDiscount = ((amount - payableAmount) / amount) * 100;
   }
 

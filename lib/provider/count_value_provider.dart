@@ -46,7 +46,7 @@ class CountValueProvider with ChangeNotifier {
         Constant.KEY_CATEGORY_ID: count.toString(),
         Constant.KEY_CATEGORY_NAME: name.toString().toLowerCase(),
         Constant.KEY_CATEGORY_DESC: description.toString(),
-        "timeStamp": time.millisecondsSinceEpoch.toString(),
+        "timestamp": time.millisecondsSinceEpoch.toString(),
       });
       notifyListeners();
     } catch (e) {

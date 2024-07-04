@@ -54,7 +54,7 @@ class _SaleBuildTextFieldState extends State<SaleBuildTextField> {
     updateQuantity();
     updateAmount();
     updateTotalAmount();
-    updatePlusStock();
+    // updatePlusStock();
   }
 
   void updateQuantity() {
@@ -65,11 +65,11 @@ class _SaleBuildTextFieldState extends State<SaleBuildTextField> {
 
   void updateAmount() {
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
-    double priceRate =
-        double.tryParse(provider.selectedItemPurchasePrice ?? '0') ?? 0;
+    double saleRate =
+        double.tryParse(provider.selectedItemSalePrice ?? '0') ?? 0;
     double quantity =
         double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
-    double amount = priceRate * quantity;
+    double amount = saleRate * quantity;
     _saleFormControllers.totalController.text = amount.toString();
   }
 
@@ -82,14 +82,14 @@ class _SaleBuildTextFieldState extends State<SaleBuildTextField> {
     _saleFormControllers.totalAmountController.text = totalAmount.toString();
   }
 
-  void updatePlusStock() {
-    final provider = Provider.of<ItemsDataProvider>(context, listen: false);
-    double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
-    double quantity =
-        double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
-    double stockAddition = stock - quantity;
-    _saleFormControllers.plusStockController.text = stockAddition.toString();
-  }
+  // void updatePlusStock() {
+  //   final provider = Provider.of<ItemsDataProvider>(context, listen: false);
+  //   double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
+  //   double quantity =
+  //       double.tryParse(_saleFormControllers.quantityController.text) ?? 0;
+  //   double stockAddition = stock - quantity;
+  //   _saleFormControllers.plusStockController.text = stockAddition.toString();
+  // }
 
   void updateQuantityForIndex(index) {
     double quantity =
@@ -98,7 +98,7 @@ class _SaleBuildTextFieldState extends State<SaleBuildTextField> {
       _saleFormControllers.quantityController.text = quantity.toString();
       updateAmount();
       updateTotalAmount();
-      updatePlusStock();
+      // updatePlusStock();
     }
   }
 }

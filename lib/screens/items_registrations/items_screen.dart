@@ -15,32 +15,33 @@ import '../dashboard/components/header.dart';
 import 'components/items_list.dart';
 
 class ItemsScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    final provider  =  Provider.of<MenuAppController>(context, listen: false);
+    final provider = Provider.of<MenuAppController>(context, listen: false);
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-          const  Header(),
-          const  SizedBox(height: defaultDrawerHeadHeight + 20.0),
+            const Header(),
+            const SizedBox(height: defaultDrawerHeadHeight + 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextHelper().mNormalText(text: "Items List",color: Colors.white,
+                TextHelper().mNormalText(
+                    text: "Items List",
+                    color: Colors.white,
                     size: Responsive.isMobile(context) ? 14.0 : 18.0),
-                CustomNeumorphicButton(
-                  width: Responsive.isMobile(context) ? 150.0 : 200.0,
-                  height: 50.0,
-                  isIcon: false,
-                  label: 'Add New',
-                  press: (){
-                   provider.parameters?.clear();
-                   provider.changeScreen(Routes.ADD_ITEMS_REGISTRATION);
-                  },),
+                // CustomNeumorphicButton(
+                //   width: Responsive.isMobile(context) ? 150.0 : 200.0,
+                //   height: 50.0,
+                //   isIcon: false,
+                //   label: 'Add New',
+                //   press: (){
+                //    provider.parameters?.clear();
+                //    provider.changeScreen(Routes.ADD_ITEMS_REGISTRATION);
+                //   },),
                 // ButtonWidget(text: "Add New", width: 120, height: 50,backgroundColor: hoverColor,icons: true,
                 //     onClicked: (){
                 //       Provider.of<MenuAppController>(context, listen: false)
@@ -49,8 +50,8 @@ class ItemsScreen extends StatelessWidget {
                 // )
               ],
             ),
-           const SizedBox(height: defaultDrawerHeadHeight + 20.0),
-           const ItemsList()
+            const SizedBox(height: defaultDrawerHeadHeight + 20.0),
+            const ItemsList()
           ],
         ),
       ),

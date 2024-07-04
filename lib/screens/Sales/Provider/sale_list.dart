@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
 import 'package:pos_system/screens/Sales/Provider/sale_items_list.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../helper/text_widget.dart';
 import '../../../responsive.dart';
+import '../../Purchase/Provider/formbuilder_firebase_provider.dart';
 
 class SaleList extends StatelessWidget {
   const SaleList({Key? key}) : super(key: key);
@@ -55,8 +59,8 @@ class SaleList extends StatelessWidget {
                               isBold: false,
                             ),
                             headingRowColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
+                                WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
                                 return hoverColor; // Default color
                               },
                             ),
@@ -82,14 +86,14 @@ class SaleList extends StatelessWidget {
                                   isBold: true,
                                 ),
                               ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Vendor",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
+                              // DataColumn(
+                              //   label: TextWidget(
+                              //     text: "Vendor",
+                              //     color: Colors.black,
+                              //     size: 14,
+                              //     isBold: true,
+                              //   ),
+                              // ),
                               DataColumn(
                                 label: TextWidget(
                                   text: "Customer",
@@ -140,6 +144,14 @@ class SaleList extends StatelessWidget {
                               ),
                               DataColumn(
                                 label: TextWidget(
+                                  text: "View",
+                                  color: Colors.black,
+                                  size: 14,
+                                  isBold: true,
+                                ),
+                              ),
+                              DataColumn(
+                                label: TextWidget(
                                   text: "Action",
                                   color: Colors.black,
                                   size: 14,
@@ -163,6 +175,7 @@ class DataTableSourceImpl extends DataTableSource {
   final items;
   final length;
   final context;
+  bool _isSecurityCodeValidated = false;
 
   DataTableSourceImpl(
       {required this.items, required this.length, required this.context});
@@ -171,8 +184,8 @@ class DataTableSourceImpl extends DataTableSource {
   DataRow? getRow(int index) {
     return DataRow.byIndex(
       index: index,
-      color: MaterialStateProperty.resolveWith<Color>(
-        (Set<MaterialState> states) {
+      color: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
           return bgColor; // Default color
         },
       ),
@@ -193,14 +206,14 @@ class DataTableSourceImpl extends DataTableSource {
             isBold: false,
           ),
         ),
-        DataCell(
-          TextWidget(
-            text: items[index]['vendor'].toString(),
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
+        // DataCell(
+        //   TextWidget(
+        //     text: items[index]['vendor'].toString(),
+        //     color: Colors.white,
+        //     size: 14.0,
+        //     isBold: false,
+        //   ),
+        // ),
         DataCell(
           TextWidget(
             text: items[index]['customer'].toString(),
@@ -267,8 +280,131 @@ class DataTableSourceImpl extends DataTableSource {
             ),
           ),
         ),
+        DataCell(Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // GestureDetector(
+            //     onTap: () {
+            //       Provider.of<MenuAppController>(context, listen: false)
+            //           .changeScreenWithParams(Routes.ADD_PURCHASE, parameters: {
+            //         'edit': 'true',
+            //         "purchaseCode": items[index]["purchaseCode"].toString(),
+            //         "date": items[index]["date"].toString(),
+            //         "vendor": items[index]["vendor"].toString(),
+            //         "remarks": items[index]["remarks"].toString(),
+            //         "paymentVia": items[index]["paymentVia"].toString(),
+            //         "invoiceType": items[index]["invoiceType"].toString(),
+            //       });
+            //     },
+            //     child: Icon(
+            //       Icons.edit,
+            //       color: hoverColor,
+            //       size: Responsive.isMobile(context) ? 24.0 : 30.0,
+            //     )),
+            // const SizedBox(
+            //   width: 5.0,
+            // ),
+            GestureDetector(
+                onTap: () {
+                  if (_isSecurityCodeValidated) {
+                    _deleteSale(context, items[index]['saleCode']);
+                  } else {
+                    _showDeleteDialog(context, items[index]['saleCode']);
+                  }
+                },
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                  size: Responsive.isMobile(context) ? 24.0 : 30.0,
+                )),
+          ],
+        )),
       ],
     );
+  }
+
+  void _showDeleteDialog(BuildContext context, String saleCode) {
+    final _securityCodeController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Security Code'),
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Please enter your security code to delete this sale.'),
+                TextFormField(
+                  cursorColor: hoverColor,
+                  controller: _securityCodeController,
+                  decoration: InputDecoration(
+                    labelText: 'Security Code',
+                    // labelStyle: TextStyle(color: hoverColor),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter security code';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: hoverColor),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (_formKey.currentState?.validate() ?? false) {
+                  bool isValid =
+                      await _validateSecurityCode(_securityCodeController.text);
+                  if (isValid) {
+                    _isSecurityCodeValidated = true;
+                    Navigator.of(context).pop();
+                    _deleteSale(context, saleCode);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: hoverColor,
+                      content: Text(
+                        'Invalid security code',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ));
+                  }
+                }
+              },
+              child: Text(
+                'Submit',
+                style: TextStyle(color: hoverColor),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<bool> _validateSecurityCode(String code) async {
+    print("Validating security code: $code");
+    return code == '123456';
+  }
+
+  void _deleteSale(BuildContext context, String saleCode) {
+    Provider.of<SaleBuilderProvider>(context, listen: false)
+        .deleteSale(context, saleCode);
   }
 
   @override

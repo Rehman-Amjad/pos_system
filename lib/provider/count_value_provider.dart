@@ -44,8 +44,8 @@ class CountValueProvider with ChangeNotifier {
           .doc(count.toString())
           .set({
         Constant.KEY_CATEGORY_ID: count.toString(),
-        Constant.KEY_CATEGORY_NAME: name.toString().toLowerCase(),
-        Constant.KEY_CATEGORY_DESC: description.toString(),
+        Constant.KEY_CATEGORY_NAME: name.toString().toUpperCase(),
+        Constant.KEY_CATEGORY_DESC: description.toString().toUpperCase(),
         "timestamp": time.millisecondsSinceEpoch.toString(),
       });
       notifyListeners();
@@ -62,8 +62,8 @@ class CountValueProvider with ChangeNotifier {
           .collection(Constant.COLLECTION_CATEGORY)
           .doc(code.toString())
           .update({
-        Constant.KEY_CATEGORY_NAME: name.toString().toLowerCase(),
-        Constant.KEY_CATEGORY_DESC: description.toString(),
+        Constant.KEY_CATEGORY_NAME: name.toString().toUpperCase(),
+        Constant.KEY_CATEGORY_DESC: description.toString().toUpperCase(),
       });
       notifyListeners();
     } catch (e) {

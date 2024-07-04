@@ -189,10 +189,10 @@ class _BuildTextFieldItemsMobileState extends State<BuildTextFieldItemsMobile> {
                                           provider.selectedItemPurchasePrice =
                                               provider
                                                   .itemPurchasePrice[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
                                           provider.selectedUom =
                                               provider.uom[itemIndex];
                                           widget.formControllers
@@ -204,9 +204,9 @@ class _BuildTextFieldItemsMobileState extends State<BuildTextFieldItemsMobile> {
                                               provider.itemsID[itemIndex];
                                           widget.formControllers.uomController
                                               .text = provider.uom[itemIndex];
-                                          widget.formControllers.stockController
-                                                  .text =
-                                              provider.itemStock[itemIndex];
+                                          // widget.formControllers.stockController
+                                          //         .text =
+                                          //     provider.itemStock[itemIndex];
                                           widget.formControllers
                                                   .saleRateController.text =
                                               provider.itemSalePrice[itemIndex];

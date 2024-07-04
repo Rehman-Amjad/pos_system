@@ -31,16 +31,16 @@ class SalesScreen extends StatelessWidget {
                   color: Colors.white,
                   size: Responsive.isMobile(context) ? 14.0 : 18.0,
                 ),
-                CustomNeumorphicButton(
-                  press: () {
-                    provider.parameters?.clear();
-                    provider.changeScreen(Routes.ADD_SALES);
-                  },
-                  width: Responsive.isMobile(context) ? 150.0 : 200.0,
-                  height: 50.0,
-                  label: "Add New",
-                  isIcon: false,
-                ),
+                // CustomNeumorphicButton(
+                //   press: () {
+                //     provider.parameters?.clear();
+                //     provider.changeScreen(Routes.ADD_SALES);
+                //   },
+                //   width: Responsive.isMobile(context) ? 150.0 : 200.0,
+                //   height: 50.0,
+                //   label: "Add New",
+                //   isIcon: false,
+                // ),
               ],
             ),
             SizedBox(height: defaultDrawerHeadHeight + 20.0),

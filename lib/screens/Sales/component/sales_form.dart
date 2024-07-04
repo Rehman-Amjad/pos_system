@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/controllers/customer_dropdown.dart';
 import 'package:pos_system/controllers/salesman_dropdown.dart';
@@ -18,14 +19,37 @@ import '../../../provider/items_data_fetch_provider.dart';
 import '../../../responsive.dart';
 import '../PDF/sale_generate_pdf.dart';
 
-class SalesForm extends StatelessWidget {
+class SalesForm extends StatefulWidget {
   int index;
   SalesForm({super.key, this.index = 0});
 
+  @override
+  State<SalesForm> createState() => _SalesFormState();
+}
+
+class _SalesFormState extends State<SalesForm> {
   TextEditingController _remarksController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _remarksController.addListener(_onRemarksChanged);
+  }
+
+  @override
+  void dispose() {
+    _remarksController.removeListener(_onRemarksChanged);
+    _remarksController.dispose();
+    super.dispose();
+  }
+
+  void _onRemarksChanged() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    SaleFormControllers saleControllers = SaleFormControllers();
     final saleProvider =
         Provider.of<SaleBuilderProvider>(context, listen: false);
     final saleProvider1 =
@@ -137,84 +161,48 @@ class SalesForm extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            height: 35.0,
-          ),
-          TextHelper().mNormalText(
-              text: "Vendor Name:", color: Colors.white, size: 14.0),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Container(
-            height: 60.0,
-            width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
-            decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.white),
-                borderRadius: BorderRadius.circular(5)),
-            child: Consumer<ItemsDataProvider>(
-              builder: (context, value, child) {
-                if (value.vendor.isEmpty) {
-                  value.fetchVendorName();
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: secondaryColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "No Vendor Found",
-                        style: TextStyle(
-                            fontSize: Responsive.isMobile(context) ? 12 : 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  );
-                } else {
-                  return VendorDropdown();
-                }
-              },
-            ),
-          ),
-          SizedBox(
-            height: 35.0,
-          ),
-          TextHelper().mNormalText(
-              text: "Customer Name:", color: Colors.white, size: 14.0),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Container(
-            height: 60.0,
-            width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
-            decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.white),
-                borderRadius: BorderRadius.circular(5)),
-            child: Consumer<ItemsDataProvider>(
-              builder: (context, value, child) {
-                if (value.customer.isEmpty) {
-                  value.fetchCustomerName();
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: secondaryColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "No Customer Found",
-                        style: TextStyle(
-                            fontSize: Responsive.isMobile(context) ? 12 : 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  );
-                } else {
-                  return CustomerDropDown();
-                }
-              },
-            ),
-          ),
+          // const SizedBox(
+          //   height: 35.0,
+          // ),
+          // TextHelper().mNormalText(
+          //     text: "Vendor Name:", color: Colors.white, size: 14.0),
+          // const SizedBox(
+          //   height: 15.0,
+          // ),
+          // Container(
+          //   height: 60.0,
+          //   width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
+          //   decoration: BoxDecoration(
+          //       border: Border.all(width: 1, color: Colors.white),
+          //       borderRadius: BorderRadius.circular(5)),
+          //   child: Consumer<ItemsDataProvider>(
+          //     builder: (context, value, child) {
+          //       if (value.vendor.isEmpty) {
+          //         value.fetchVendorName();
+          //         return Container(
+          //           padding: EdgeInsets.all(10),
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(10),
+          //             color: secondaryColor,
+          //           ),
+          //           child: Center(
+          //             child: Text(
+          //               "No Vendor Found",
+          //               style: TextStyle(
+          //                   fontSize: Responsive.isMobile(context) ? 12 : 18,
+          //                   fontWeight: FontWeight.bold),
+          //             ),
+          //           ),
+          //         );
+          //       } else {
+          //         return VendorDropdown();
+          //       }
+          //     },
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 35.0,
+          // ),
           SizedBox(
             height: 35.0,
           ),
@@ -295,6 +283,45 @@ class SalesForm extends StatelessWidget {
           ),
           SizedBox(
             height: 35.0,
+          ),
+          TextHelper().mNormalText(
+              text: "Customer Name:", color: Colors.white, size: 14.0),
+          const SizedBox(
+            height: 15.0,
+          ),
+          Container(
+            height: 60.0,
+            width: Responsive.isMobile(context) ? size.width : size.width / 0.9,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.white),
+                borderRadius: BorderRadius.circular(5)),
+            child: Consumer<ItemsDataProvider>(
+              builder: (context, value, child) {
+                if (value.customer.isEmpty) {
+                  value.fetchCustomerName();
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: secondaryColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        "No Customer Found",
+                        style: TextStyle(
+                            fontSize: Responsive.isMobile(context) ? 12 : 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                } else {
+                  return CustomerDropDown();
+                }
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           Container(
             width: Responsive.isMobile(context) ? size.width : size.width / 1.9,
@@ -476,7 +503,7 @@ class SalesForm extends StatelessWidget {
                     String selectedItemCode =
                         saleControllers.itemCodeController.text;
                     String selectedUom = saleControllers.uomController.text;
-                    String selectedStock = saleControllers.stockController.text;
+                    // String selectedStock = saleControllers.stockController.text;
                     String totalAmount =
                         saleControllers.totalAmountController.text;
                     String quantity = saleControllers.quantityController.text;
@@ -484,9 +511,9 @@ class SalesForm extends StatelessWidget {
                     String saleRate = saleControllers.saleRateController.text;
                     String discount = saleControllers.discountController.text;
                     String total = saleControllers.totalController.text;
-                    String plusStock = saleControllers.stockController.text +
-                        "+" +
-                        saleControllers.quantityController.text;
+                    // String plusStock = saleControllers.stockController.text +
+                    //     "+" +
+                    //     saleControllers.quantityController.text;
 
                     saleRowsData.add({
                       'SerialNumber': (i + 1).toString(),
@@ -499,8 +526,8 @@ class SalesForm extends StatelessWidget {
                       'Discount': discount,
                       'Quantity': quantity,
                       'Uom': selectedUom,
-                      'Stock': selectedStock,
-                      'PlusStock': plusStock,
+                      // 'Stock': selectedStock,
+                      // 'PlusStock': plusStock,
                     });
                   }
                   Navigator.push(
@@ -509,13 +536,14 @@ class SalesForm extends StatelessWidget {
                       builder: (context) => SalePdf(
                         cash: SaleMultiController.saleCash1.toString(),
                         joinDate: saleProvider.saleJoiningDate,
-                        remarks: _remarksController.text,
-                        vendor: SaleMultiController.saleVendor1.toString(),
+                        remarks: _remarksController.text.toString(),
+                        // vendor: SaleMultiController.saleVendor1.toString(),
                         rowsData: saleRowsData,
                         invoiceNumber: saleProvider1.countValue.toString(),
-                        customer: SaleMultiController.saleCustomer1,
-                        salesMan: SaleMultiController.saleSalesMan1,
-                        supplyMan: SaleMultiController.saleSupplyMan1,
+                        customer: SaleMultiController.saleCustomer1.toString(),
+                        salesMan: SaleMultiController.saleSalesMan1.toString(),
+                        supplyMan:
+                            SaleMultiController.saleSupplyMan1.toString(),
                       ),
                     ),
                   );
@@ -525,10 +553,10 @@ class SalesForm extends StatelessWidget {
                     purchaseCode: saleProvider1.countValue.toString(),
                     paymentVia: SaleAllController.saleCash,
                     remarks: _remarksController.text.toString(),
-                    vendor: SaleAllController.saleVendor,
-                    customer: SaleAllController.saleCustomer,
-                    salesMan: SaleAllController.saleSalesMan,
-                    supplyMan: SaleAllController.saleSupplyMan,
+                    // vendor: SaleAllController.saleVendor,
+                    customer: SaleAllController.saleCustomer.toString(),
+                    salesMan: SaleAllController.saleSalesMan.toString(),
+                    supplyMan: SaleAllController.saleSupplyMan.toString(),
                     date: saleProvider.saleJoiningDate,
                     time: DateTime.now(),
                   );
@@ -564,31 +592,34 @@ class SalesForm extends StatelessWidget {
                     String selectedItemCode =
                         saleControllers.itemCodeController.text;
                     String selectedUom = saleControllers.uomController.text;
-                    String selectedStock = saleControllers.stockController.text;
+                    // String selectedStock =
+                    //     saleControllers.stockController.text;
                     String totalAmount =
                         saleControllers.totalAmountController.text;
                     String quantity = saleControllers.quantityController.text;
-                    String priceRate = saleControllers.priceRateController.text;
+                    // String priceRate =
+                    //     saleControllers.priceRateController.text;
                     String saleRate = saleControllers.saleRateController.text;
                     String discount = saleControllers.discountController.text;
                     String total = saleControllers.totalController.text;
-                    String plusStock = saleControllers.stockController.text +
-                        "+" +
-                        saleControllers.quantityController.text;
+                    // String plusStock =
+                    //     saleControllers.stockController.text +
+                    //         "+" +
+                    //         saleControllers.quantityController.text;
 
                     saleRowsData.add({
                       'SerialNumber': (i + 1).toString(),
                       'ItemName': selectedItemName,
                       'ItemCode': selectedItemCode,
-                      'ItemPriceRate': priceRate,
+                      // 'ItemPriceRate': priceRate,
                       'ItemSalePrice': saleRate,
                       'Amount': total,
                       'TotalAmount': totalAmount,
                       'Discount': discount,
                       'Quantity': quantity,
                       'Uom': selectedUom,
-                      'Stock': selectedStock,
-                      'PlusStock': plusStock,
+                      // 'Stock': selectedStock,
+                      // 'PlusStock': plusStock,
                     });
                   }
 
@@ -599,7 +630,7 @@ class SalesForm extends StatelessWidget {
                         cash: SaleMultiController.saleCash1.toString(),
                         joinDate: saleProvider.saleJoiningDate,
                         remarks: _remarksController.text,
-                        vendor: SaleMultiController.saleVendor1.toString(),
+                        // vendor: SaleMultiController.saleVendor1.toString(),
                         rowsData: saleRowsData,
                         invoiceNumber: saleProvider1.countValue.toString(),
                         customer: SaleMultiController.saleCustomer1.toString(),
@@ -621,6 +652,76 @@ class SalesForm extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'Preview',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  // saving
+                  saleProvider.saleSavingDataToFireStore(
+                    context,
+                    purchaseCode: saleProvider1.countValue.toString(),
+                    paymentVia: SaleAllController.saleCash,
+                    remarks: _remarksController.text.toString(),
+                    // vendor: SaleAllController.saleVendor,
+                    customer: SaleAllController.saleCustomer.toString(),
+                    salesMan: SaleAllController.saleSalesMan.toString(),
+                    supplyMan: SaleAllController.saleSupplyMan.toString(),
+                    date: saleProvider.saleJoiningDate,
+                    time: DateTime.now(),
+                  );
+                  saleProvider1.fetchCountValue();
+                  int newCountValue = saleProvider1.countValue;
+                  saleProvider1.updateCountValue(count: newCountValue + 1);
+                },
+                child: Container(
+                  height: 36.0,
+                  width: 70.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10),
+                    color: hoverColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  // save
+                  saleProvider.saleSaveDataToFireStore(
+                    context,
+                    purchaseCode: saleProvider1.countValue.toString(),
+                    paymentVia: SaleAllController.saleCash,
+                    remarks: _remarksController.text.toString(),
+                    // vendor: SaleAllController.saleVendor,
+                    customer: SaleAllController.saleCustomer.toString(),
+                    salesMan: SaleAllController.saleSalesMan.toString(),
+                    supplyMan: SaleAllController.saleSupplyMan.toString(),
+                    date: saleProvider.saleJoiningDate,
+                    time: DateTime.now(),
+                  );
+                  saleProvider1.fetchCountValue();
+                  int newCountValue = saleProvider1.countValue;
+                  saleProvider1.updateCountValue(count: newCountValue + 1);
+                },
+                child: Container(
+                  height: 36.0,
+                  width: 128.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10),
+                    color: hoverColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save & New',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

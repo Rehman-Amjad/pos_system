@@ -15,12 +15,12 @@ class SalesManDataProvider with ChangeNotifier {
     try {
       await firestore.collection(collection).doc(code.toString()).set({
         Constant.KEY_SALESMAN_CODE: code.toString(),
-        Constant.KEY_SALESMAN_NAME: name.toString().toLowerCase(),
+        Constant.KEY_SALESMAN_NAME: name.toString().toUpperCase(),
         Constant.KEY_SALESMAN_PHONE: phone.toString(),
-        Constant.KEY_SALESMAN_ADDRESS: address.toString(),
+        Constant.KEY_SALESMAN_ADDRESS: address.toString().toUpperCase(),
         Constant.KEY_SALESMAN_JOIN_DATE: joinDate.toString(),
         Constant.KEY_SALESMAN_TIMESTAMP: time.millisecondsSinceEpoch.toString(),
-        Constant.KEY_STATUS: status.toString(),
+        Constant.KEY_STATUS: status.toString().toUpperCase(),
       });
       notifyListeners();
     } catch (e) {
@@ -39,11 +39,11 @@ class SalesManDataProvider with ChangeNotifier {
       required status}) async {
     try {
       await firestore.collection(collection).doc(count.toString()).update({
-        Constant.KEY_SALESMAN_NAME: name.toString().toLowerCase(),
+        Constant.KEY_SALESMAN_NAME: name.toString().toUpperCase(),
         Constant.KEY_SALESMAN_PHONE: phone.toString(),
-        Constant.KEY_SALESMAN_ADDRESS: address.toString(),
+        Constant.KEY_SALESMAN_ADDRESS: address.toString().toUpperCase(),
         Constant.KEY_SALESMAN_JOIN_DATE: joinDate.toString(),
-        Constant.KEY_STATUS: status.toString(),
+        Constant.KEY_STATUS: status.toString().toUpperCase(),
       });
       notifyListeners();
     } catch (e) {

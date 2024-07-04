@@ -13,7 +13,7 @@ class SalePdf extends StatelessWidget {
   final String? remarks;
   final String? joinDate;
   final String? cash;
-  final String? vendor;
+  // final String? vendor;
   final String? customer;
   final String? salesMan;
   final String? supplyMan;
@@ -25,7 +25,7 @@ class SalePdf extends StatelessWidget {
     required this.remarks,
     required this.joinDate,
     required this.cash,
-    required this.vendor,
+    // required this.vendor,
     required this.rowsData,
     required this.invoiceNumber,
     required this.customer,
@@ -44,7 +44,7 @@ class SalePdf extends StatelessWidget {
     print('Remarks: $remarks');
     print('Join Date: $joinDate');
     print('Cash: $cash');
-    print('Vendor: $vendor');
+    // print('Vendor: $vendor');
     print('rowData: $rowsData');
     return Scaffold(
       body: Center(
@@ -93,7 +93,7 @@ class SalePdf extends StatelessWidget {
     // widgets.add(topBar());
     widgets.add(myCompany());
     widgets.add(divider(leftPadding: 20.0));
-    widgets.add(billInfo());
+    // widgets.add(billInfo());
     widgets.add(itemsHead());
     widgets.add(items());
     widgets.add(remarksContainer());
@@ -239,100 +239,100 @@ class SalePdf extends StatelessWidget {
         child: pw.Divider(thickness: 0.1, color: PdfColors.black));
   }
 
-  pw.Container billInfo() {
-    String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    return pw.Container(
-      width: Get.width,
-      margin:
-          pw.EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
-      child: pw.Row(
-        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-        children: [
-          pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Text(
-                'Bill To:',
-                style: pw.TextStyle(
-                  color: PdfColors.black,
-                  fontSize: 8.0,
-                  fontWeight: pw.FontWeight.bold,
-                ),
-              ),
-              pw.SizedBox(height: 5.0),
-              pw.Text(
-                vendor.toString(),
-                style: pw.TextStyle(
-                  color: PdfColors.black,
-                  fontSize: 16.0,
-                ),
-              ),
-              pw.SizedBox(height: 5.0),
-              pw.Row(
-                children: [
-                  pw.Text(
-                    'Payment Via: ',
-                    style: pw.TextStyle(
-                      fontSize: 12.0,
-                      color: PdfColors.black,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                  pw.Text(
-                    '${cash.toString()}',
-                    style: pw.TextStyle(
-                      fontSize: 12.0,
-                      color: PdfColors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.end,
-            children: [
-              pw.Row(children: [
-                pw.Text(
-                  'Date: ',
-                  style: pw.TextStyle(
-                    fontSize: 12.0,
-                    color: PdfColors.black,
-                    fontWeight: pw.FontWeight.bold,
-                  ),
-                ),
-                pw.Text(
-                  '${joinDate.toString()}',
-                  style: pw.TextStyle(
-                    fontSize: 12.0,
-                    color: PdfColors.black,
-                  ),
-                ),
-              ]),
-              pw.SizedBox(height: 5.0),
-              pw.Row(children: [
-                pw.Text(
-                  'Invoice Date: ',
-                  style: pw.TextStyle(
-                    fontSize: 12.0,
-                    color: PdfColors.black,
-                    fontWeight: pw.FontWeight.bold,
-                  ),
-                ),
-                pw.Text(
-                  '${currentDate.toString()}',
-                  style: pw.TextStyle(
-                    fontSize: 12.0,
-                    color: PdfColors.black,
-                  ),
-                ),
-              ]),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // pw.Container billInfo() {
+  //   String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  //   return pw.Container(
+  //     width: Get.width,
+  //     margin:
+  //         pw.EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
+  //     child: pw.Row(
+  //       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         pw.Column(
+  //           crossAxisAlignment: pw.CrossAxisAlignment.start,
+  //           children: [
+  //             pw.Text(
+  //               'Bill To:',
+  //               style: pw.TextStyle(
+  //                 color: PdfColors.black,
+  //                 fontSize: 8.0,
+  //                 fontWeight: pw.FontWeight.bold,
+  //               ),
+  //             ),
+  //             pw.SizedBox(height: 5.0),
+  //             pw.Text(
+  //               vendor.toString(),
+  //               style: pw.TextStyle(
+  //                 color: PdfColors.black,
+  //                 fontSize: 16.0,
+  //               ),
+  //             ),
+  //             pw.SizedBox(height: 5.0),
+  //             pw.Row(
+  //               children: [
+  //                 pw.Text(
+  //                   'Payment Via: ',
+  //                   style: pw.TextStyle(
+  //                     fontSize: 12.0,
+  //                     color: PdfColors.black,
+  //                     fontWeight: pw.FontWeight.bold,
+  //                   ),
+  //                 ),
+  //                 pw.Text(
+  //                   '${cash.toString()}',
+  //                   style: pw.TextStyle(
+  //                     fontSize: 12.0,
+  //                     color: PdfColors.black,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //         pw.Column(
+  //           crossAxisAlignment: pw.CrossAxisAlignment.end,
+  //           children: [
+  //             pw.Row(children: [
+  //               pw.Text(
+  //                 'Date: ',
+  //                 style: pw.TextStyle(
+  //                   fontSize: 12.0,
+  //                   color: PdfColors.black,
+  //                   fontWeight: pw.FontWeight.bold,
+  //                 ),
+  //               ),
+  //               pw.Text(
+  //                 '${joinDate.toString()}',
+  //                 style: pw.TextStyle(
+  //                   fontSize: 12.0,
+  //                   color: PdfColors.black,
+  //                 ),
+  //               ),
+  //             ]),
+  //             pw.SizedBox(height: 5.0),
+  //             pw.Row(children: [
+  //               pw.Text(
+  //                 'Invoice Date: ',
+  //                 style: pw.TextStyle(
+  //                   fontSize: 12.0,
+  //                   color: PdfColors.black,
+  //                   fontWeight: pw.FontWeight.bold,
+  //                 ),
+  //               ),
+  //               pw.Text(
+  //                 '${currentDate.toString()}',
+  //                 style: pw.TextStyle(
+  //                   fontSize: 12.0,
+  //                   color: PdfColors.black,
+  //                 ),
+  //               ),
+  //             ]),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   pw.Container itemsHead() {
     return pw.Container(
@@ -562,7 +562,7 @@ class SalePdf extends StatelessWidget {
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 380.0),
             child: pw.Text(
-              'Amount',
+              'Amount = ',
               style: pw.TextStyle(
                 fontSize: 12.0,
                 color: PdfColors.black,
@@ -594,7 +594,7 @@ class SalePdf extends StatelessWidget {
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 380.0),
             child: pw.Text(
-              'Discount',
+              'Discount = ',
               style: pw.TextStyle(
                 fontSize: 12.0,
                 color: PdfColors.black,
@@ -626,7 +626,7 @@ class SalePdf extends StatelessWidget {
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 380.0),
             child: pw.Text(
-              'Payable Amount',
+              'Payable Amount = ',
               style: pw.TextStyle(
                 fontSize: 12.0,
                 color: PdfColors.black,
@@ -660,7 +660,7 @@ class SalePdf extends StatelessWidget {
             padding: pw.EdgeInsets.only(left: 100.0),
             child: pw.Center(
               child: pw.Text(
-                'Balance Due',
+                'Balance Due = ',
                 style: pw.TextStyle(
                   fontSize: 12.0,
                   color: PdfColors.white,

@@ -2,8 +2,8 @@ class Routes {
   static const DASHBOARD_ROUTE = 0;
 
   // Registration Screen Routes
-  static const CATEGORY_ROUTE = 1;
-  static const ADD_CATEGORY_ROUTE = 2;
+  static const ADD_CATEGORY_ROUTE = 1;
+  static const CATEGORY_ROUTE = 2;
   static const SALESMAN = 3;
   static const ADD_SALESMAN = 4;
   static const SUPPLYMAN = 5;
@@ -21,4 +21,6 @@ class Routes {
   static const SALES = 17;
   static const ADD_SALES = 18;
   static const LOW_STOCK = 19;
+  static const AREA_SCREEN = 20;
+  static const ADD_AREA = 21;
 }

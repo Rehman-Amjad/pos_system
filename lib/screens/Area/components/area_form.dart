@@ -4,18 +4,21 @@ import 'package:get/route_manager.dart';
 import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:provider/provider.dart';
+
 import '../../../constants.dart';
 import '../../../controllers/MenuAppController.dart';
+import '../../../helper/custom_shadow_button.dart';
 import '../../../helper/custom_textfield.dart';
 import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
 import '../../../route/routes.dart';
+import '../provider/area_provider.dart';
 
-class CategoryForm extends StatefulWidget {
+class AreaForm extends StatefulWidget {
   final String code, name, desc;
   final String edit;
 
-  const CategoryForm({
+  AreaForm({
     super.key,
     required this.edit,
     required this.code,
@@ -24,10 +27,10 @@ class CategoryForm extends StatefulWidget {
   });
 
   @override
-  State<CategoryForm> createState() => _CategoryFormState();
+  State<AreaForm> createState() => _AreaFormState();
 }
 
-class _CategoryFormState extends State<CategoryForm> {
+class _AreaFormState extends State<AreaForm> {
   var categoryNameController = TextEditingController();
 
   var categoryDescriptionController = TextEditingController();
@@ -46,6 +49,7 @@ class _CategoryFormState extends State<CategoryForm> {
     final size = MediaQuery.of(context).size;
     final countProvider =
         Provider.of<CountValueProvider>(context, listen: false);
+    final provider = Provider.of<AreaProvider>(context, listen: false);
     return Container(
         width: size.width,
         padding: const EdgeInsets.all(defaultPadding),
@@ -60,7 +64,7 @@ class _CategoryFormState extends State<CategoryForm> {
             Row(
               children: [
                 TextHelper().mNormalText(
-                    text: "Category Code: ", color: Colors.white, size: 14.0),
+                    text: "Area Code: ", color: Colors.white, size: 14.0),
                 Consumer<CountValueProvider>(
                   builder: (context, countValue, child) {
                     return TextHelper().mNormalText(
@@ -77,7 +81,7 @@ class _CategoryFormState extends State<CategoryForm> {
               height: 15,
             ),
             TextHelper().mNormalText(
-                text: "Category Name", color: Colors.white, size: 14.0),
+                text: "Area Name", color: Colors.white, size: 14.0),
             const SizedBox(
               height: 15,
             ),
@@ -95,7 +99,7 @@ class _CategoryFormState extends State<CategoryForm> {
               height: 20,
             ),
             TextHelper().mNormalText(
-                text: "Category Description", color: Colors.white, size: 14.0),
+                text: "Area Description", color: Colors.white, size: 14.0),
             const SizedBox(
               height: 15,
             ),
@@ -125,14 +129,14 @@ class _CategoryFormState extends State<CategoryForm> {
                               if (categoryNameController.text.isNotEmpty &&
                                   categoryDescriptionController
                                       .text.isNotEmpty) {
-                                countProvider.updateCategory(
+                                provider.updateArea(
                                   code: widget.code,
                                   name: categoryNameController.text.toString(),
                                   description: categoryDescriptionController
                                       .text
                                       .toString(),
                                 );
-                                Get.snackbar("Category Updated...", "",
+                                Get.snackbar("Area Updated...", "",
                                     backgroundColor: hoverColor,
                                     colorText: Colors.white);
                               } else {
@@ -157,7 +161,7 @@ class _CategoryFormState extends State<CategoryForm> {
                                       .text.isNotEmpty) {
                                 countProvider.fetchCountValue();
                                 int newCountValue = countProvider.countValue;
-                                countProvider.uploadCategory(
+                                provider.uploadArea(
                                     count: newCountValue,
                                     name:
                                         categoryNameController.text.toString(),
@@ -169,7 +173,7 @@ class _CategoryFormState extends State<CategoryForm> {
                                 countProvider.fetchCountValue();
                                 categoryNameController.text = "";
                                 categoryDescriptionController.text = "";
-                                Get.snackbar("New Category Added", "",
+                                Get.snackbar("New Area Added", "",
                                     backgroundColor: hoverColor,
                                     colorText: Colors.white);
                               } else {
@@ -193,7 +197,7 @@ class _CategoryFormState extends State<CategoryForm> {
                       text: "Cancel",
                       onClicked: () {
                         Provider.of<MenuAppController>(context, listen: false)
-                            .changeScreen(Routes.CATEGORY_ROUTE);
+                            .changeScreen(Routes.AREA_SCREEN);
                       },
                       icons: false,
                       width: 50.0,

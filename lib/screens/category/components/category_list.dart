@@ -183,7 +183,7 @@ class DataTableSourceImpl extends DataTableSource {
         ),
         const DataCell(
           TextWidget(
-            text: "admin",
+            text: "ADMIN",
             color: Colors.white,
             size: 14.0,
             isBold: false,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
+import 'package:pos_system/controllers/area_dropdown.dart';
 import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
@@ -12,6 +13,7 @@ import '../../../controllers/MenuAppController.dart';
 import '../../../helper/custom_textfield.dart';
 import '../../../helper/text_helper.dart';
 import '../../../provider/count_value_provider.dart';
+import '../../../provider/items_data_fetch_provider.dart';
 import '../../../route/routes.dart';
 
 class CustomerForm extends StatefulWidget {
@@ -41,6 +43,7 @@ class _CustomerFormState extends State<CustomerForm> {
   }
 
   var nameController = TextEditingController();
+  var personNameController = TextEditingController();
   var phoneController = TextEditingController();
   var addressController = TextEditingController();
   String selectedStatus = "";
@@ -105,6 +108,46 @@ class _CustomerFormState extends State<CustomerForm> {
                 hintText: widget.edit == 'true'
                     ? nameController.text = widget.name
                     : widget.name,
+              ),
+            ),
+
+            SizedBox(
+              height: 15.0,
+            ),
+            TextHelper().mNormalText(
+                text: "Person Name: ", color: Colors.white, size: 14.0),
+            SizedBox(
+              height: 15.0,
+            ),
+            Container(
+              width:
+                  Responsive.isMobile(context) ? size.width : size.width / 1.9,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.white),
+                  borderRadius: BorderRadius.circular(5)),
+              child: Consumer<ItemsDataProvider>(
+                builder: (context, value, child) {
+                  if (value.area.isEmpty) {
+                    value.fetchArea();
+                    return Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: secondaryColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "No Area Found",
+                          style: TextStyle(
+                              fontSize: Responsive.isMobile(context) ? 12 : 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return AreaDropdown();
+                  }
+                },
               ),
             ),
 

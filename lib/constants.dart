@@ -58,6 +58,12 @@ class Constant {
   static const KEY_UOM_NAME = "name";
   static const KEY_UOM_DESC = "desc";
 
+  // Area
+  static const COLLECTION_AREA = "area";
+  static const KEY_AREA_ID = "id";
+  static const KEY_AREA_NAME = "name";
+  static const KEY_AREA_DESC = "desc";
+
   // Sales Man
   static const COLLECTION_SALESMAN = "SalesMan";
   static const KEY_SALESMAN_CODE = "code";
@@ -83,7 +89,6 @@ class Constant {
 
   // Purchase
   static const COLLECTION_PURCHASE = 'purchase';
-  static const KEY_PURCHASE_CODE = 'code';
   static const KEY_PURCHASE_TIMESTAMP = 'timestamp';
 
   // Sales

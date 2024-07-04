@@ -38,38 +38,38 @@ class _BuildTextFieldItemsWebState extends State<BuildTextFieldItemsWeb> {
                 );
               },
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 2),
-              child: Text('Stock: '),
-            ),
-            Consumer<ItemsDataProvider>(
-              builder: (context, value, child) {
-                return Text(
-                  value.selectedItemStock.toString(),
-                  style: TextStyle(color: hoverColor),
-                );
-              },
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 2),
-              child: Text('Total Stock: '),
-            ),
-            Expanded(
-              child: TextFormField(
-                cursorColor: hoverColor,
-                controller: widget.formControllers.plusStockController,
-                decoration: InputDecoration(
-                  hintText:
-                      widget.formControllers.stockController.text.isNotEmpty
-                          ? widget.formControllers.plusStockController.text
-                          : '0',
-                  hintStyle: TextStyle(fontSize: 12, color: hoverColor),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // Spacer(),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 2),
+            //   child: Text('Stock: '),
+            // ),
+            // Consumer<ItemsDataProvider>(
+            //   builder: (context, value, child) {
+            //     return Text(
+            //       value.selectedItemStock.toString(),
+            //       style: TextStyle(color: hoverColor),
+            //     );
+            //   },
+            // ),
+            // Spacer(),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 2),
+            //   child: Text('Total Stock: '),
+            // ),
+            // Expanded(
+            //   child: TextFormField(
+            //     cursorColor: hoverColor,
+            //     controller: widget.formControllers.plusStockController,
+            //     decoration: InputDecoration(
+            //       hintText:
+            //           widget.formControllers.stockController.text.isNotEmpty
+            //               ? widget.formControllers.plusStockController.text
+            //               : '0',
+            //       hintStyle: TextStyle(fontSize: 12, color: hoverColor),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 2),
@@ -179,10 +179,10 @@ class _BuildTextFieldItemsWebState extends State<BuildTextFieldItemsWeb> {
                                           provider.selectedItemPurchasePrice =
                                               provider
                                                   .itemPurchasePrice[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
                                           provider.selectedUom =
                                               provider.uom[itemIndex];
                                           widget.formControllers
@@ -194,9 +194,9 @@ class _BuildTextFieldItemsWebState extends State<BuildTextFieldItemsWeb> {
                                               provider.itemsID[itemIndex];
                                           widget.formControllers.uomController
                                               .text = provider.uom[itemIndex];
-                                          widget.formControllers.stockController
-                                                  .text =
-                                              provider.itemStock[itemIndex];
+                                          // widget.formControllers.stockController
+                                          //         .text =
+                                          //     provider.itemStock[itemIndex];
                                           widget.formControllers
                                                   .saleRateController.text =
                                               provider.itemSalePrice[itemIndex];

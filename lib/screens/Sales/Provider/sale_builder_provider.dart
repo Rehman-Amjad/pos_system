@@ -35,7 +35,7 @@ class SaleBuilderProvider with ChangeNotifier {
     required purchaseCode,
     purchaseDate,
     time,
-    vendor,
+    // vendor,
     customer,
     salesMan,
     supplyMan,
@@ -52,11 +52,11 @@ class SaleBuilderProvider with ChangeNotifier {
         'date': date,
         's.date&time': time,
         Constant.KEY_SALES_TIMESTAMP: id,
-        'vendor': vendor,
+        // 'vendor': vendor,
         'customer': customer,
         'supplyMan': supplyMan,
         'salesMan': salesMan,
-        'remarks': remarks,
+        'remarks': remarks.toString().toUpperCase(),
         'paymentVia': paymentVia,
         'invoiceType': 'sale',
         'month': month,
@@ -77,16 +77,16 @@ class SaleBuilderProvider with ChangeNotifier {
         String selectedItemName = saleControllers.itemNameController.text;
         String selectedItemCode = saleControllers.itemCodeController.text;
         String selectedUom = saleControllers.uomController.text;
-        String selectedStock = saleControllers.stockController.text;
+        // String selectedStock = saleControllers.stockController.text;
         String totalAmount = saleControllers.totalAmountController.text;
         String quantity = saleControllers.quantityController.text;
         String priceRate = saleControllers.priceRateController.text;
         String saleRate = saleControllers.saleRateController.text;
         String discount = saleControllers.discountController.text;
         String total = saleControllers.totalController.text;
-        String plusStock = saleControllers.stockController.text +
-            "-" +
-            saleControllers.quantityController.text;
+        // String plusStock = saleControllers.stockController.text +
+        //     "-" +
+        //     saleControllers.quantityController.text;
         String id = DateTime.now().millisecondsSinceEpoch.toString();
 
         await fireStore
@@ -104,8 +104,8 @@ class SaleBuilderProvider with ChangeNotifier {
           'discount': discount,
           'total': total,
           'uom': selectedUom,
-          'stock': selectedStock,
-          'plusStock': plusStock,
+          // 'stock': selectedStock,
+          // 'plusStock': plusStock,
           Constant.KEY_ITEM_TIMESTAMP: id,
         }).whenComplete(() {
           fireStore.collection('sale').doc(purchaseCode).update({
@@ -158,6 +158,108 @@ class SaleBuilderProvider with ChangeNotifier {
         lastDate: DateTime(2050));
     saleJoiningDate = DateFormat('dd-MM-yyyy').format(picDate!);
     notifyListeners();
+  }
+
+  Future<void> deleteSale(BuildContext context, String saleCode) async {
+    try {
+      await firestore.collection('sale').doc(saleCode).delete();
+
+      print('Data deleted from Firestore successfully');
+    } catch (error) {
+      print('Error deleting data from Firestore: $error');
+    }
+  }
+
+  Future<void> saleSavingDataToFireStore(
+    BuildContext context, {
+    required purchaseCode,
+    purchaseDate,
+    time,
+    // vendor,
+    customer,
+    salesMan,
+    supplyMan,
+    vendorID,
+    remarks,
+    paymentVia,
+    date,
+  }) async {
+    try {
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
+      String month = DateFormat('MMMM').format(DateTime.now());
+      await fireStore.collection('sale').doc(purchaseCode).set({
+        'saleCode': purchaseCode,
+        'date': date,
+        's.date&time': time,
+        Constant.KEY_SALES_TIMESTAMP: id,
+        // 'vendor': vendor,
+        'customer': customer,
+        'supplyMan': supplyMan,
+        'salesMan': salesMan,
+        'remarks': remarks.toString().toUpperCase(),
+        'paymentVia': paymentVia,
+        'invoiceType': 'sale',
+        'month': month,
+      }).whenComplete(() {
+        print("Sales Running");
+        saleSavingItems(context, purchaseCode);
+      });
+      print('Data saved to Firestore successfully');
+    } catch (error) {
+      print('Error saving data to Firestore: $error');
+    }
+  }
+
+  Future<void> saleSavingItems(
+      BuildContext context, String purchaseCode) async {
+    try {
+      for (int i = 0; i < _saleItems.length; i++) {
+        SaleFormControllers saleControllers = _saleControllers[i];
+        String selectedItemName = saleControllers.itemNameController.text;
+        String selectedItemCode = saleControllers.itemCodeController.text;
+        String selectedUom = saleControllers.uomController.text;
+        String selectedStock = saleControllers.stockController.text;
+        String totalAmount = saleControllers.totalAmountController.text;
+        String quantity = saleControllers.quantityController.text;
+        String priceRate = saleControllers.priceRateController.text;
+        String saleRate = saleControllers.saleRateController.text;
+        String discount = saleControllers.discountController.text;
+        String total = saleControllers.totalController.text;
+        String plusStock = saleControllers.stockController.text +
+            "-" +
+            saleControllers.quantityController.text;
+        String id = DateTime.now().millisecondsSinceEpoch.toString();
+
+        await fireStore
+            .collection('sale')
+            .doc(purchaseCode)
+            .collection("saleItems")
+            .doc(id)
+            .set({
+          'itemName': selectedItemName,
+          'itemCode': selectedItemCode,
+          'totalAmount': totalAmount,
+          'quantity': quantity,
+          'priceRate': priceRate,
+          'saleRate': saleRate,
+          'discount': discount,
+          'total': total,
+          'uom': selectedUom,
+          'stock': selectedStock,
+          'plusStock': plusStock,
+          Constant.KEY_ITEM_TIMESTAMP: id,
+        });
+        //     .whenComplete(() {
+        //   fireStore.collection('sale').doc(purchaseCode).update({
+        //     'totalSale': MultiController.totalSale,
+        //   });
+        //   saleSaveStock();
+        // });
+      }
+      print('Data saved to Firestore successfully');
+    } catch (error) {
+      print('Error saving data to Firestore: $error');
+    }
   }
 }
 

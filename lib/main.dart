@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
+import 'package:pos_system/screens/Area/provider/area_provider.dart';
 import 'package:pos_system/screens/Purchase/Provider/formbuilder_firebase_provider.dart';
 import 'package:pos_system/screens/Sales/Provider/sale_builder_provider.dart';
 import 'package:pos_system/screens/customer/provider/customer_firebase_provider.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => RegisterFirebaseProvider()),
           ChangeNotifierProvider(create: (_) => FormBuilderProvider()),
           ChangeNotifierProvider(create: (_) => SaleBuilderProvider()),
+          ChangeNotifierProvider(create: (_) => AreaProvider()),
         ],
         child: MainScreen(),
       ),

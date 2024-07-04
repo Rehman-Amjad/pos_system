@@ -22,8 +22,8 @@ class ItemsRegistrationForm extends StatefulWidget {
       name,
       category,
       uom,
-      stock,
-      quantity,
+      // stock,
+      // quantity,
       status,
       joinDate,
       purchasePrice,
@@ -38,8 +38,8 @@ class ItemsRegistrationForm extends StatefulWidget {
     required this.name,
     required this.category,
     required this.uom,
-    required this.stock,
-    required this.quantity,
+    // required this.stock,
+    // required this.quantity,
     required this.purchasePrice,
     required this.salePrice,
     this.joinDate = "select Join date",
@@ -251,69 +251,69 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
             SizedBox(
               height: 20.0,
             ),
-            Container(
-              width:
-                  Responsive.isMobile(context) ? size.width : size.width / 1.9,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextHelper().mNormalText(
-                              text: "Items Stock",
-                              color: Colors.white,
-                              size: 14.0),
-                          const SizedBox(
-                            height: 15.0,
-                          ),
-                          Container(
-                              width: Responsive.isMobile(context)
-                                  ? size.width
-                                  : size.width / 1.9,
-                              child: CustomizeTextField(
-                                controller: stockController,
-                                hintText: widget.edit == 'true'
-                                    ? widget.stock
-                                    : "Enter Stock",
-                              )),
-                        ],
-                      )),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextHelper().mNormalText(
-                              text: "Items Quantity",
-                              color: Colors.white,
-                              size: 14.0),
-                          const SizedBox(
-                            height: 15.0,
-                          ),
-                          Container(
-                              width: Responsive.isMobile(context)
-                                  ? size.width
-                                  : size.width / 1.9,
-                              child: CustomizeTextField(
-                                controller: quantityController,
-                                hintText: widget.edit == 'true'
-                                    ? quantityController.text = widget.quantity
-                                    : widget.quantity,
-                              )),
-                        ],
-                      )),
-                ],
-              ),
-            ),
+            // Container(
+            //   width:
+            //       Responsive.isMobile(context) ? size.width : size.width / 1.9,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Expanded(
+            //           flex: 1,
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.start,
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               TextHelper().mNormalText(
+            //                   text: "Items Stock",
+            //                   color: Colors.white,
+            //                   size: 14.0),
+            //               const SizedBox(
+            //                 height: 15.0,
+            //               ),
+            //               Container(
+            //                   width: Responsive.isMobile(context)
+            //                       ? size.width
+            //                       : size.width / 1.9,
+            //                   child: CustomizeTextField(
+            //                     controller: stockController,
+            //                     hintText: widget.edit == 'true'
+            //                         ? widget.stock
+            //                         : "Enter Stock",
+            //                   )),
+            //             ],
+            //           )),
+            //       const SizedBox(
+            //         width: 10.0,
+            //       ),
+            //       Expanded(
+            //           flex: 1,
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.start,
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               TextHelper().mNormalText(
+            //                   text: "Items Quantity",
+            //                   color: Colors.white,
+            //                   size: 14.0),
+            //               const SizedBox(
+            //                 height: 15.0,
+            //               ),
+            //               Container(
+            //                   width: Responsive.isMobile(context)
+            //                       ? size.width
+            //                       : size.width / 1.9,
+            //                   child: CustomizeTextField(
+            //                     controller: quantityController,
+            //                     hintText: widget.edit == 'true'
+            //                         ? quantityController.text = widget.quantity
+            //                         : widget.quantity,
+            //                   )),
+            //             ],
+            //           )),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 20.0,
             ),
@@ -466,7 +466,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                         text: "Update",
                         onClicked: () {
                           if (nameController.text.isNotEmpty &&
-                              stockController.text.isNotEmpty) {
+                              salePriceController.text.isNotEmpty) {
                             registerProvider.updateRegistrationData(
                               collection: Constant.COLLECTION_ITEMS,
                               count: widget.code,
@@ -474,20 +474,20 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               name: nameController.text.toString(),
                               category: dataProvider.selectedCategory,
                               uom: dataProvider.selectedUom,
-                              stock: stockController.text.toString(),
-                              quantity: quantityController.text.toString(),
+                              // stock: stockController.text.toString(),
+                              // quantity: quantityController.text.toString(),
                               purchasePrice:
                                   purchasePriceController.text.toString(),
                               salePrice: salePriceController.text.toString(),
                               status: selectedStatus,
                             );
                             nameController.text = "";
-                            stockController.text = "";
+                            // stockController.text = "";
                             salePriceController.text = "";
                             purchasePriceController.text = "";
                             selectedStatus = "";
                             joinDate = "";
-                            quantityController.text = "";
+                            // quantityController.text = "";
                             // dataProvider.updateSalesManData(
                             //     collection: Constant.COLLECTION_SALESMAN,
                             //     code: widget.code,
@@ -514,14 +514,14 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                         text: "Save",
                         onClicked: () {
                           if (nameController.text.isNotEmpty &&
-                              stockController.text.isNotEmpty) {
+                              salePriceController.text.isNotEmpty) {
                             countProvider.fetchCountValue();
                             int newCountValue = countProvider.countValue;
                             // Check if stock is less than 50
-                            if (int.parse(stockController.text) < 5) {
-                              // If stock is less than 50, set its value to lowStockController
-                              lowStockController.text = stockController.text;
-                            }
+                            // if (int.parse(stockController.text) < 5) {
+                            //   // If stock is less than 50, set its value to lowStockController
+                            //   lowStockController.text = stockController.text;
+                            // }
                             registerProvider.uploadRegistrationData(
                               collection: Constant.COLLECTION_ITEMS,
                               count: newCountValue,
@@ -529,13 +529,13 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                               name: nameController.text.toString(),
                               category: dataProvider.selectedCategory,
                               uom: dataProvider.selectedUom,
-                              stock: stockController.text.toString(),
-                              quantity: quantityController.text.toString(),
+                              // stock: stockController.text.toString(),
+                              // quantity: quantityController.text.toString(),
                               purchasePrice:
                                   purchasePriceController.text.toString(),
                               salePrice: salePriceController.text.toString(),
                               status: selectedStatus,
-                              lowStock: lowStockController.text.toString(),
+                              // lowStock: lowStockController.text.toString(),
                             );
                             // dataProvider.uploadPersonData(
                             //     collection: Constant.COLLECTION_SALESMAN,
@@ -550,7 +550,7 @@ class _ItemsRegistrationFormState extends State<ItemsRegistrationForm> {
                                 count: newCountValue + 1);
                             countProvider.fetchCountValue();
                             nameController.text = "";
-                            stockController.text = "";
+                            // stockController.text = "";
                             salePriceController.text = "";
                             purchasePriceController.text = "";
                             selectedStatus = "";

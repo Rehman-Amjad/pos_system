@@ -42,7 +42,7 @@ class DashboardDetails extends StatelessWidget {
                     Column(
                       children: [
                         Text(title),
-                        SizedBox(width: 18.0),
+                        SizedBox(height: 5.0),
                         StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection(text)
@@ -53,8 +53,12 @@ class DashboardDetails extends StatelessWidget {
                               (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return CircularProgressIndicator(
-                                color: hoverColor,
+                              return Container(
+                                height: 18.0,
+                                width: 18.0,
+                                child: CircularProgressIndicator(
+                                  color: hoverColor,
+                                ),
                               );
                             } else {
                               int itemCount = snapshot.data!.docs.length;

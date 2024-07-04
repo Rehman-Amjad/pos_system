@@ -13,10 +13,9 @@ import '../../route/routes.dart';
 import '../dashboard/components/header.dart';
 
 class SupplyManScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    final provider  =  Provider.of<MenuAppController>(context, listen: false);
+    final provider = Provider.of<MenuAppController>(context, listen: false);
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,
@@ -28,17 +27,19 @@ class SupplyManScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextHelper().mNormalText(text: "Supply Man List",color: Colors.white,
-                    size: Responsive.isMobile(context) ? 14.0 :18.0),
-                CustomNeumorphicButton(
-                  width: Responsive.isMobile(context) ? 150 :200,
-                  height: 50,
-                  isIcon: false,
-                  label: 'Add New',
-                  press: (){
-                    provider.parameters?.clear();
-                    provider.changeScreen(Routes.ADD_SUPPLYMAN);
-                  },),
+                TextHelper().mNormalText(
+                    text: "Supply Man List",
+                    color: Colors.white,
+                    size: Responsive.isMobile(context) ? 14.0 : 18.0),
+                // CustomNeumorphicButton(
+                //   width: Responsive.isMobile(context) ? 150 :200,
+                //   height: 50,
+                //   isIcon: false,
+                //   label: 'Add New',
+                //   press: (){
+                //     provider.parameters?.clear();
+                //     provider.changeScreen(Routes.ADD_SUPPLYMAN);
+                //   },),
                 // ButtonWidget(text: "Add New", width: 120, height: 50,backgroundColor: hoverColor,icons: true,
                 //     onClicked: (){
                 //       Provider.of<MenuAppController>(context, listen: false)

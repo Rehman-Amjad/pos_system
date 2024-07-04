@@ -9,6 +9,7 @@ import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
 import 'package:pos_system/screens/Purchase/PDF/purchase_generate_pdf.dart';
 import 'package:provider/provider.dart';
 import '../../../constants.dart';
+import '../../../controllers/MenuAppController.dart';
 import '../../../controllers/vendor_dropdown.dart';
 import '../../../helper/custom_textfield.dart';
 import '../../../helper/text_helper.dart';
@@ -25,6 +26,7 @@ class PurchaseForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider2 = Provider.of<MenuAppController>(context, listen: false);
     final provider = Provider.of<FormBuilderProvider>(context, listen: false);
     final provider1 = Provider.of<CountValueProvider>(context, listen: false);
     Provider.of<CountValueProvider>(context, listen: false).fetchCountValue();
@@ -349,6 +351,7 @@ class PurchaseForm extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   // preview:
+
                   List<Map<String, String>> rowsData = [];
                   for (int i = 0; i < provider.items.length; i++) {
                     FormControllers controllers = provider.controllers[i];
@@ -491,6 +494,70 @@ class PurchaseForm extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'Preview',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  // saving:
+                  provider.savingDataToFireStore(
+                    context,
+                    purchaseCode: provider1.countValue.toString(),
+                    paymentVia: AllController.cash,
+                    remarks: _remarksController.text.toString(),
+                    vendor: AllController.vendor,
+                    date: provider.joiningDate,
+                    time: DateTime.now(),
+                  );
+                  provider1.fetchCountValue();
+                  int newCountValue = provider1.countValue;
+                  provider1.updateCountValue(count: newCountValue + 1);
+                },
+                child: Container(
+                  height: 36.0,
+                  width: 70.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10),
+                    color: hoverColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  // save:
+                  provider.saveDataToFireStore(
+                    context,
+                    purchaseCode: provider1.countValue.toString(),
+                    paymentVia: AllController.cash,
+                    remarks: _remarksController.text.toString(),
+                    vendor: AllController.vendor,
+                    date: provider.joiningDate,
+                    time: DateTime.now(),
+                  );
+                  provider1.fetchCountValue();
+                  int newCountValue = provider1.countValue;
+                  provider1.updateCountValue(count: newCountValue + 1);
+                },
+                child: Container(
+                  height: 36.0,
+                  width: 128.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10),
+                    color: hoverColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save & New',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

@@ -35,10 +35,10 @@ class AddItemsScreen extends StatelessWidget {
             category: provider.parameters?[Constant.KEY_ITEM_CATEGORY] ??
                 'Enter category',
             uom: provider.parameters?[Constant.KEY_ITEM_UOM] ?? 'Enter uom',
-            stock:
-                provider.parameters?[Constant.KEY_ITEM_STOCK] ?? 'Enter stock',
-            quantity: provider.parameters?[Constant.KEY_ITEM_QUANTITY] ??
-                'Enter quantity',
+            // stock:
+            //     provider.parameters?[Constant.KEY_ITEM_STOCK] ?? 'Enter stock',
+            // quantity: provider.parameters?[Constant.KEY_ITEM_QUANTITY] ??
+            //     'Enter quantity',
             purchasePrice:
                 provider.parameters?[Constant.KEY_ITEM_PURCHASE_PRICE] ??
                     'Enter Purchase Price',

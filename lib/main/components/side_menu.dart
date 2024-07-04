@@ -39,7 +39,7 @@ class SideMenu extends StatelessWidget {
                   .mNormalText(text: "Main", color: Colors.blue, size: 14.0),
             ),
             const DrawerListTile(
-              index: 0,
+              index: 22,
               screenIndex: Routes.DASHBOARD_ROUTE,
               title: "Dashboard",
               svgSrc: DASHBOARD_SVG,
@@ -60,51 +60,113 @@ class SideMenu extends StatelessWidget {
               height: defaultDrawerHeadHeight - 5,
             ),
             const DrawerListTile(
+              index: 0,
+              screenIndex: Routes.ADD_CATEGORY_ROUTE,
+              title: "ADD Category",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+            const DrawerListTile(
               index: 1,
               screenIndex: Routes.CATEGORY_ROUTE,
-              title: "Category",
+              title: "Category History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
             const DrawerListTile(
-              index: 2,
+              index: 20,
+              screenIndex: Routes.ADD_AREA,
+              title: "ADD Area",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 21,
+              screenIndex: Routes.AREA_SCREEN,
+              title: "Area History",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 14,
+              screenIndex: Routes.ADD_ITEMS_REGISTRATION,
+              title: "ADD Items",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 13,
               screenIndex: Routes.ITEMS_REGISTRATION,
-              title: "Items Registration",
+              title: "Items History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
             const DrawerListTile(
-              index: 3,
+              index: 11,
+              screenIndex: Routes.ADD_UOM,
+              title: "ADD UOM",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 12,
               screenIndex: Routes.UOM,
-              title: "UOM Registration",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
-
-            const DrawerListTile(
-              index: 4,
-              screenIndex: Routes.SUPPLYMAN,
-              title: "Supply Man",
+              title: "UOM History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
             const DrawerListTile(
               index: 5,
-              screenIndex: Routes.SALESMAN,
-              title: "Sales Man",
+              screenIndex: Routes.ADD_SUPPLYMAN,
+              title: "ADD Supply Man",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
             const DrawerListTile(
               index: 6,
-              screenIndex: Routes.VENDOR,
-              title: "Vendor",
+              screenIndex: Routes.SUPPLYMAN,
+              title: "Supply Man History",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 3,
+              screenIndex: Routes.ADD_SALESMAN,
+              title: "ADD Sales Man",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 4,
+              screenIndex: Routes.SALESMAN,
+              title: "Sales Man History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
             const DrawerListTile(
               index: 7,
+              screenIndex: Routes.ADD_VENDOR,
+              title: "ADD Vendor",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 8,
+              screenIndex: Routes.VENDOR,
+              title: "Vendor History",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 9,
+              screenIndex: Routes.ADD_CUSTOMER,
+              title: "ADD Customer",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 10,
               screenIndex: Routes.CUSTOMER,
-              title: "Customer",
+              title: "Customer History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
@@ -123,10 +185,18 @@ class SideMenu extends StatelessWidget {
             const SizedBox(
               height: defaultDrawerHeadHeight - 5,
             ),
+
             const DrawerListTile(
-              index: 8,
+              index: 15,
+              screenIndex: Routes.ADD_PURCHASE,
+              title: "ADD Purchase",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            const DrawerListTile(
+              index: 16,
               screenIndex: Routes.PURCHASE,
-              title: "Purchase",
+              title: "Purchase History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
@@ -166,10 +236,18 @@ class SideMenu extends StatelessWidget {
             SizedBox(
               height: defaultDrawerHeadHeight - 5,
             ),
+
             DrawerListTile(
-              index: 12,
+              index: 17,
+              screenIndex: Routes.ADD_SALES,
+              title: "ADD Sales",
+              svgSrc: "assets/icons/menu_dashboard.svg",
+            ),
+
+            DrawerListTile(
+              index: 18,
               screenIndex: Routes.SALES,
-              title: "Sales",
+              title: "Sales History",
               svgSrc: "assets/icons/menu_dashboard.svg",
             ),
 
@@ -195,20 +273,20 @@ class SideMenu extends StatelessWidget {
             // ),
 
             //Reports LIST
-            Divider(
-              thickness: 0.5,
-            ),
+            // Divider(
+            //   thickness: 0.5,
+            // ),
             SizedBox(
               height: defaultDrawerHeadHeight,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: defaultPadding),
-              child: TextHelper()
-                  .mNormalText(text: "Reports", color: Colors.blue, size: 14.0),
-            ),
-            SizedBox(
-              height: defaultDrawerHeadHeight - 5,
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: defaultPadding),
+            //   child: TextHelper()
+            //       .mNormalText(text: "Reports", color: Colors.blue, size: 14.0),
+            // ),
+            // SizedBox(
+            //   height: defaultDrawerHeadHeight - 5,
+            // ),
             // DrawerListTile(
             //   index: 16,
             //   screenIndex: 16,
@@ -230,12 +308,12 @@ class SideMenu extends StatelessWidget {
             //   svgSrc: "assets/icons/menu_dashboard.svg",
             // ),
 
-            DrawerListTile(
-              index: 19,
-              screenIndex: Routes.LOW_STOCK,
-              title: "Low Stock",
-              svgSrc: "assets/icons/menu_dashboard.svg",
-            ),
+            // DrawerListTile(
+            //   index: 19,
+            //   screenIndex: Routes.LOW_STOCK,
+            //   title: "Low Stock",
+            //   svgSrc: "assets/icons/menu_dashboard.svg",
+            // ),
           ],
         ),
       ),

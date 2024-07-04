@@ -10,10 +10,10 @@ import '../../../constants.dart';
 import '../../../controllers/MenuAppController.dart';
 import '../../../route/routes.dart';
 import '../../dashboard/components/header.dart';
-import '../provider/uom_provider.dart';
+import '../provider/area_provider.dart';
 
-class UomList extends StatelessWidget {
-  const UomList({Key? key}) : super(key: key);
+class AreaList extends StatelessWidget {
+  const AreaList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class UomList extends StatelessWidget {
       children: [
         StreamBuilder(
           stream: firestore
-              .collection(Constant.COLLECTION_UOM)
+              .collection(Constant.COLLECTION_AREA)
               .orderBy('timeStamp', descending: false)
               .snapshots(),
           builder: (context, snapshot) {
@@ -41,7 +41,7 @@ class UomList extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            "No Uom Found",
+                            "No Area Found",
                             style: TextStyle(
                                 fontSize:
                                     Responsive.isMobile(context) ? 12.0 : 18.0,
@@ -55,7 +55,7 @@ class UomList extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         child: PaginatedDataTable(
                             header: TextWidget(
-                              text: "Total UOM: ${snapshot.data!.docs.length}",
+                              text: "Total Area: ${snapshot.data!.docs.length}",
                               size: 20,
                               color: Colors.white,
                               isBold: false,
@@ -114,7 +114,7 @@ class UomList extends StatelessWidget {
                               ),
                             ],
                             source: DataTableSourceImpl(
-                                category: snapshot.data!.docs,
+                                area: snapshot.data!.docs,
                                 length: snapshot.data!.docs.length,
                                 context: context)),
                       );
@@ -126,12 +126,12 @@ class UomList extends StatelessWidget {
 }
 
 class DataTableSourceImpl extends DataTableSource {
-  final category;
+  final area;
   final length;
   final context;
 
   DataTableSourceImpl(
-      {required this.category, required this.length, required this.context});
+      {required this.area, required this.length, required this.context});
 
   @override
   DataRow? getRow(int index) {
@@ -145,7 +145,7 @@ class DataTableSourceImpl extends DataTableSource {
       cells: [
         DataCell(
           TextWidget(
-            text: category[index][Constant.KEY_UOM_ID].toString(),
+            text: area[index][Constant.KEY_AREA_ID].toString(),
             color: Colors.white,
             size: 14.0,
             isBold: false,
@@ -165,7 +165,7 @@ class DataTableSourceImpl extends DataTableSource {
               padding: const EdgeInsets.only(
                   left: 10, right: 5.0, bottom: 5.0, top: 5.0),
               child: TextWidget(
-                text: category[index][Constant.KEY_UOM_NAME].toString(),
+                text: area[index][Constant.KEY_AREA_NAME].toString(),
                 color: Colors.white,
                 size: 14.0,
                 isBold: false,
@@ -175,7 +175,7 @@ class DataTableSourceImpl extends DataTableSource {
         )),
         DataCell(
           TextWidget(
-            text: category[index][Constant.KEY_UOM_DESC].toString(),
+            text: area[index][Constant.KEY_AREA_DESC].toString(),
             color: Colors.white,
             size: 14.0,
             isBold: false,
@@ -194,14 +194,14 @@ class DataTableSourceImpl extends DataTableSource {
             GestureDetector(
                 onTap: () {
                   Provider.of<MenuAppController>(context, listen: false)
-                      .changeScreenWithParams(Routes.ADD_UOM, parameters: {
+                      .changeScreenWithParams(Routes.ADD_AREA, parameters: {
                     'edit': 'true',
-                    Constant.KEY_UOM_ID.toString():
-                        category[index][Constant.KEY_UOM_ID].toString(),
-                    Constant.KEY_UOM_NAME.toString():
-                        category[index][Constant.KEY_UOM_NAME].toString(),
-                    Constant.KEY_UOM_DESC.toString():
-                        category[index][Constant.KEY_UOM_DESC].toString(),
+                    Constant.KEY_AREA_ID.toString():
+                        area[index][Constant.KEY_AREA_ID].toString(),
+                    Constant.KEY_AREA_NAME.toString():
+                        area[index][Constant.KEY_AREA_NAME].toString(),
+                    Constant.KEY_AREA_DESC.toString():
+                        area[index][Constant.KEY_AREA_DESC].toString(),
                   });
                 },
                 child: Icon(
@@ -214,8 +214,8 @@ class DataTableSourceImpl extends DataTableSource {
             ),
             GestureDetector(
                 onTap: () {
-                  Provider.of<UomProvider>(context, listen: false).deleteUom(
-                      id: category[index][Constant.KEY_UOM_ID].toString());
+                  Provider.of<AreaProvider>(context, listen: false).deleteArea(
+                      id: area[index][Constant.KEY_AREA_ID].toString());
                 },
                 child: Icon(
                   Icons.delete,

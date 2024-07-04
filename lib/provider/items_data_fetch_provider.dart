@@ -5,9 +5,14 @@ import '../constants.dart';
 class ItemsDataProvider extends ChangeNotifier {
   List<String> category = [];
   String? selectedCategory;
-  String? selectedCategoryId;
+  // String? selectedCategoryId;
   Map<String, String> itemDocumentIds = {};
   void Function(String, String)? onSelectedItemChanged;
+
+  List<String> area = [];
+  String? selectedArea;
+  Map<String, String> areaDocumentIds = {};
+  void Function(String, String)? onSelectedAreaChanged;
 
   List<String> uom = [];
   String? selectedUom;
@@ -68,9 +73,9 @@ class ItemsDataProvider extends ChangeNotifier {
   void Function(String, String)? onSelectedItemNameChanged;
 
   List<String> cashMethods = [
-    'cash',
-    'credit',
-    'other',
+    'CASH',
+    'CREDIT',
+    'OTHER',
   ];
 
   String? selectCashMethod;
@@ -95,15 +100,35 @@ class ItemsDataProvider extends ChangeNotifier {
     }
   }
 
-  void setSelectedCategory(String newValue) {
-    selectedCategory = newValue;
-    selectedCategoryId = itemDocumentIds[newValue];
-    notifyListeners();
-    if (onSelectedItemChanged != null) {
-      onSelectedItemChanged!(newValue,
-          selectedCategoryId!); // Pass document ID along with item value
+  Future<void> fetchArea() async {
+    try {
+      final snapshot =
+          await firestore.collection(Constant.COLLECTION_AREA).get();
+      area = snapshot.docs
+          .map((doc) => doc.data()[Constant.KEY_AREA_NAME] as String)
+          .toList();
+
+      areaDocumentIds = {
+        for (var doc in snapshot.docs)
+          (doc.data())[Constant.KEY_AREA_NAME] as String: doc.id
+      };
+
+      selectedArea = area[0];
+      notifyListeners();
+    } catch (error) {
+      print('Error fetching data: $error');
     }
   }
+
+  // void setSelectedCategory(String newValue) {
+  //   selectedCategory = newValue;
+  //   selectedCategoryId = itemDocumentIds[newValue];
+  //   notifyListeners();
+  //   if (onSelectedItemChanged != null) {
+  //     onSelectedItemChanged!(newValue,
+  //         selectedCategoryId!); // Pass document ID along with item value
+  //   }
+  // }
 
   // UOM
   Future<void> fetchUom() async {
@@ -216,27 +241,27 @@ class ItemsDataProvider extends ChangeNotifier {
       itemsID = snapshot.docs
           .map((doc) => doc.data()[Constant.KEY_ITEM_CODE] as String)
           .toList();
-      itemQuantity = snapshot.docs
-          .map((doc) => doc.data()[Constant.KEY_ITEM_QUANTITY] as String)
-          .toList();
+      // itemQuantity = snapshot.docs
+      //     .map((doc) => doc.data()[Constant.KEY_ITEM_QUANTITY] as String)
+      //     .toList();
       itemPurchasePrice = snapshot.docs
           .map((doc) => doc.data()[Constant.KEY_ITEM_PURCHASE_PRICE] as String)
           .toList();
       itemSalePrice = snapshot.docs
           .map((doc) => doc.data()[Constant.KEY_ITEM_SALE_PRICE] as String)
           .toList();
-      itemStock = snapshot.docs
-          .map((doc) => doc.data()[Constant.KEY_ITEM_STOCK] as String)
-          .toList();
+      // itemStock = snapshot.docs
+      //     .map((doc) => doc.data()[Constant.KEY_ITEM_STOCK] as String)
+      //     .toList();
       uom = snapshot.docs
           .map((doc) => doc.data()[Constant.KEY_ITEM_UOM] as String)
           .toList();
       selectedItemName = itemName[0];
       selectedItemNameId = itemsID[0];
-      selectedItemQuantity = itemQuantity[0];
+      // selectedItemQuantity = itemQuantity[0];
       selectedItemPurchasePrice = itemPurchasePrice[0];
       selectedItemSalePrice = itemSalePrice[0];
-      selectedItemStock = itemStock[0];
+      // selectedItemStock = itemStock[0];
       selectedUom = uom[0];
 
       print('Selected Item Name: $selectedItemName');

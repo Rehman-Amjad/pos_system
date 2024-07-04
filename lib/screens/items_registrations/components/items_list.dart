@@ -101,22 +101,22 @@ class ItemsList extends StatelessWidget {
                                   isBold: true,
                                 ),
                               ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Stock",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
-                              DataColumn(
-                                label: TextWidget(
-                                  text: "Quantity",
-                                  color: Colors.black,
-                                  size: 14,
-                                  isBold: true,
-                                ),
-                              ),
+                              // DataColumn(
+                              //   label: TextWidget(
+                              //     text: "Stock",
+                              //     color: Colors.black,
+                              //     size: 14,
+                              //     isBold: true,
+                              //   ),
+                              // ),
+                              // DataColumn(
+                              //   label: TextWidget(
+                              //     text: "Quantity",
+                              //     color: Colors.black,
+                              //     size: 14,
+                              //     isBold: true,
+                              //   ),
+                              // ),
                               DataColumn(
                                 label: TextWidget(
                                   text: "Purchase Price",
@@ -182,8 +182,8 @@ class DataTableSourceImpl extends DataTableSource {
   DataRow? getRow(int index) {
     return DataRow.byIndex(
       index: index,
-      color: MaterialStateProperty.resolveWith<Color>(
-        (Set<MaterialState> states) {
+      color: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
           return bgColor; // Default color
         },
       ),
@@ -234,22 +234,22 @@ class DataTableSourceImpl extends DataTableSource {
             isBold: false,
           ),
         ),
-        DataCell(
-          TextWidget(
-            text: items[index][Constant.KEY_ITEM_STOCK].toString(),
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: items[index][Constant.KEY_ITEM_QUANTITY].toString(),
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
+        // DataCell(
+        //   TextWidget(
+        //     text: items[index][Constant.KEY_ITEM_STOCK].toString(),
+        //     color: Colors.white,
+        //     size: 14.0,
+        //     isBold: false,
+        //   ),
+        // ),
+        // DataCell(
+        //   TextWidget(
+        //     text: items[index][Constant.KEY_ITEM_QUANTITY].toString(),
+        //     color: Colors.white,
+        //     size: 14.0,
+        //     isBold: false,
+        //   ),
+        // ),
         DataCell(
           TextWidget(
             text: items[index][Constant.KEY_ITEM_PURCHASE_PRICE].toString(),
@@ -298,12 +298,12 @@ class DataTableSourceImpl extends DataTableSource {
                             items[index][Constant.KEY_ITEM_NAME].toString(),
                         Constant.KEY_ITEM_CATEGORY.toString():
                             items[index][Constant.KEY_ITEM_CATEGORY].toString(),
-                        Constant.KEY_ITEM_STOCK.toString():
-                            items[index][Constant.KEY_ITEM_STOCK].toString(),
+                        // Constant.KEY_ITEM_STOCK.toString():
+                        //     items[index][Constant.KEY_ITEM_STOCK].toString(),
                         Constant.KEY_ITEM_UOM.toString():
                             items[index][Constant.KEY_ITEM_UOM].toString(),
-                        Constant.KEY_ITEM_QUANTITY.toString():
-                            items[index][Constant.KEY_ITEM_QUANTITY].toString(),
+                        // Constant.KEY_ITEM_QUANTITY.toString():
+                        //     items[index][Constant.KEY_ITEM_QUANTITY].toString(),
                         Constant.KEY_ITEM_PURCHASE_PRICE.toString():
                             items[index][Constant.KEY_ITEM_PURCHASE_PRICE]
                                 .toString(),

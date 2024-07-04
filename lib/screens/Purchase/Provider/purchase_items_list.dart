@@ -124,23 +124,23 @@ class PurchaseItemList extends StatelessWidget {
                                       isBold: true,
                                     ),
                                   ),
-                                  DataColumn(
-                                    label: TextWidget(
-                                      text: "Stock",
-                                      color: Colors.black,
-                                      size: 14,
-                                      isBold: true,
-                                    ),
-                                  ),
-                                  //2
-                                  DataColumn(
-                                    label: TextWidget(
-                                      text: "Total Stock",
-                                      color: Colors.black,
-                                      size: 14,
-                                      isBold: true,
-                                    ),
-                                  ),
+                                  // DataColumn(
+                                  //   label: TextWidget(
+                                  //     text: "Stock",
+                                  //     color: Colors.black,
+                                  //     size: 14,
+                                  //     isBold: true,
+                                  //   ),
+                                  // ),
+                                  // //2
+                                  // DataColumn(
+                                  //   label: TextWidget(
+                                  //     text: "Total Stock",
+                                  //     color: Colors.black,
+                                  //     size: 14,
+                                  //     isBold: true,
+                                  //   ),
+                                  // ),
                                   //3
                                   DataColumn(
                                     label: TextWidget(
@@ -249,22 +249,22 @@ class DataTableSourceImpl extends DataTableSource {
             isBold: false,
           ),
         ),
-        DataCell(
-          TextWidget(
-            text: items[index]['stock'].toString(),
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
-        DataCell(
-          TextWidget(
-            text: items[index]['plusStock'].toString(),
-            color: Colors.white,
-            size: 14.0,
-            isBold: false,
-          ),
-        ),
+        // DataCell(
+        //   TextWidget(
+        //     text: items[index]['stock'].toString(),
+        //     color: Colors.white,
+        //     size: 14.0,
+        //     isBold: false,
+        //   ),
+        // ),
+        // DataCell(
+        //   TextWidget(
+        //     text: items[index]['plusStock'].toString(),
+        //     color: Colors.white,
+        //     size: 14.0,
+        //     isBold: false,
+        //   ),
+        // ),
         DataCell(
           TextWidget(
             text: items[index]['total'].toString(),

@@ -519,7 +519,7 @@ class PurchasePdf extends StatelessWidget {
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 380.0),
             child: pw.Text(
-              'Amount',
+              'Amount = ',
               style: pw.TextStyle(
                 fontSize: 12.0,
                 color: PdfColors.black,
@@ -551,7 +551,7 @@ class PurchasePdf extends StatelessWidget {
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 380.0),
             child: pw.Text(
-              'Discount',
+              'Discount = ',
               style: pw.TextStyle(
                 fontSize: 12.0,
                 color: PdfColors.black,
@@ -583,7 +583,7 @@ class PurchasePdf extends StatelessWidget {
           pw.Padding(
             padding: pw.EdgeInsets.only(left: 380.0),
             child: pw.Text(
-              'Payable Amount',
+              'Payable Amount = ',
               style: pw.TextStyle(
                 fontSize: 12.0,
                 color: PdfColors.black,
@@ -617,7 +617,7 @@ class PurchasePdf extends StatelessWidget {
             padding: pw.EdgeInsets.only(left: 100.0),
             child: pw.Center(
               child: pw.Text(
-                'Balance Due',
+                'Balance Due = ',
                 style: pw.TextStyle(
                   fontSize: 12.0,
                   color: PdfColors.white,

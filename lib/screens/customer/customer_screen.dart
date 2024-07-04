@@ -29,16 +29,16 @@ class CustomerScreen extends StatelessWidget {
                     text: "Customer List",
                     color: Colors.white,
                     size: Responsive.isMobile(context) ? 14.0 : 18.0),
-                CustomNeumorphicButton(
-                  width: Responsive.isMobile(context) ? 150.0 : 200.0,
-                  height: 50.0,
-                  isIcon: false,
-                  label: 'Add New',
-                  press: () {
-                    provider.parameters?.clear();
-                    provider.changeScreen(Routes.ADD_CUSTOMER);
-                  },
-                ),
+                // CustomNeumorphicButton(
+                //   width: Responsive.isMobile(context) ? 150.0 : 200.0,
+                //   height: 50.0,
+                //   isIcon: false,
+                //   label: 'Add New',
+                //   press: () {
+                //     provider.parameters?.clear();
+                //     provider.changeScreen(Routes.ADD_CUSTOMER);
+                //   },
+                // ),
                 // ButtonWidget(text: "Add New", width: 120, height: 50,backgroundColor: hoverColor,icons: true,
                 //     onClicked: (){
                 //       Provider.of<MenuAppController>(context, listen: false)

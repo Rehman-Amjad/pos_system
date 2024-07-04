@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/screens/dashboard/components/header.dart';
-import 'package:pos_system/screens/uom/components/uom_form.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import '../../helper/text_helper.dart';
+import 'components/area_form.dart';
 
-class AddUOMScreen extends StatelessWidget {
+class AddAreaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MenuAppController>(context, listen: false);
@@ -23,17 +23,17 @@ class AddUOMScreen extends StatelessWidget {
             const Header(),
             const SizedBox(height: defaultDrawerHeadHeight + 20),
             TextHelper()
-                .mNormalText(text: "UOM", color: Colors.white, size: 18.0),
+                .mNormalText(text: "Area", color: Colors.white, size: 18.0),
             const SizedBox(height: defaultDrawerHeadHeight - 10),
             TextHelper().mNormalText(
-                text: "Create new UOM", color: Colors.white70, size: 14.0),
+                text: "Create new Area", color: Colors.white70, size: 14.0),
             const SizedBox(height: defaultDrawerHeadHeight + 20),
-            UOMForm(
+            AreaForm(
               edit: provider.parameters?['edit'] ?? 'false',
-              code: provider.parameters?[Constant.KEY_UOM_ID] ?? "no code",
-              name: provider.parameters?[Constant.KEY_UOM_NAME] ??
-                  'Enter UOM Name',
-              desc: provider.parameters?[Constant.KEY_CATEGORY_DESC] ??
+              code: provider.parameters?[Constant.KEY_AREA_ID] ?? "no code",
+              name: provider.parameters?[Constant.KEY_AREA_NAME] ??
+                  'Enter Area Name',
+              desc: provider.parameters?[Constant.KEY_AREA_DESC] ??
                   'Enter Description',
             )
           ],

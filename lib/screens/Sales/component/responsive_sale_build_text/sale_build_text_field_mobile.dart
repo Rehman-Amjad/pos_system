@@ -189,10 +189,10 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
                                           provider.selectedItemPurchasePrice =
                                               provider
                                                   .itemPurchasePrice[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
                                           provider.selectedUom =
                                               provider.uom[itemIndex];
                                           widget.saleFormControllers
@@ -206,9 +206,9 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
                                               .saleFormControllers
                                               .uomController
                                               .text = provider.uom[itemIndex];
-                                          widget.saleFormControllers
-                                                  .stockController.text =
-                                              provider.itemStock[itemIndex];
+                                          // widget.saleFormControllers
+                                          //         .stockController.text =
+                                          //     provider.itemStock[itemIndex];
                                           widget.saleFormControllers
                                                   .saleRateController.text =
                                               provider.itemSalePrice[itemIndex];

@@ -38,38 +38,38 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
                 );
               },
             ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 2),
-              child: Text('Stock: '),
-            ),
-            Consumer<ItemsDataProvider>(
-              builder: (context, value, child) {
-                return Text(
-                  value.selectedItemStock.toString(),
-                  style: TextStyle(color: hoverColor),
-                );
-              },
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 2),
-              child: Text('Total Stock: '),
-            ),
-            Expanded(
-              child: TextFormField(
-                cursorColor: hoverColor,
-                controller: widget.saleFormControllers.plusStockController,
-                decoration: InputDecoration(
-                  hintText:
-                      widget.saleFormControllers.stockController.text.isNotEmpty
-                          ? widget.saleFormControllers.plusStockController.text
-                          : '0',
-                  hintStyle: TextStyle(fontSize: 12, color: hoverColor),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            // Spacer(),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 2),
+            //   child: Text('Stock: '),
+            // ),
+            // Consumer<ItemsDataProvider>(
+            //   builder: (context, value, child) {
+            //     return Text(
+            //       value.selectedItemStock.toString(),
+            //       style: TextStyle(color: hoverColor),
+            //     );
+            //   },
+            // ),
+            // Spacer(),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 2),
+            //   child: Text('Total Stock: '),
+            // ),
+            // Expanded(
+            //   child: TextFormField(
+            //     cursorColor: hoverColor,
+            //     controller: widget.saleFormControllers.plusStockController,
+            //     decoration: InputDecoration(
+            //       hintText:
+            //           widget.saleFormControllers.stockController.text.isNotEmpty
+            //               ? widget.saleFormControllers.plusStockController.text
+            //               : '0',
+            //       hintStyle: TextStyle(fontSize: 12, color: hoverColor),
+            //       border: InputBorder.none,
+            //     ),
+            //   ),
+            // ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 2),
@@ -176,13 +176,13 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
                                               provider.itemsID[itemIndex];
                                           provider.selectedItemSalePrice =
                                               provider.itemSalePrice[itemIndex];
-                                          provider.selectedItemPurchasePrice =
-                                              provider
-                                                  .itemPurchasePrice[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
-                                          provider.selectedItemStock =
-                                              provider.itemStock[itemIndex];
+                                          // provider.selectedItemPurchasePrice =
+                                          //     provider
+                                          //         .itemPurchasePrice[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
+                                          // provider.selectedItemStock =
+                                          //     provider.itemStock[itemIndex];
                                           provider.selectedUom =
                                               provider.uom[itemIndex];
                                           widget.saleFormControllers
@@ -196,16 +196,16 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
                                               .saleFormControllers
                                               .uomController
                                               .text = provider.uom[itemIndex];
-                                          widget.saleFormControllers
-                                                  .stockController.text =
-                                              provider.itemStock[itemIndex];
+                                          // widget.saleFormControllers
+                                          //         .stockController.text =
+                                          //     provider.itemStock[itemIndex];
                                           widget.saleFormControllers
                                                   .saleRateController.text =
                                               provider.itemSalePrice[itemIndex];
-                                          widget.saleFormControllers
-                                                  .priceRateController.text =
-                                              provider
-                                                  .itemPurchasePrice[itemIndex];
+                                          // widget.saleFormControllers
+                                          //         .priceRateController.text =
+                                          //     provider
+                                          //         .itemPurchasePrice[itemIndex];
                                           updateAmount();
                                           updateTotal();
                                         });
@@ -324,38 +324,38 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
                 ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Column(
-                  children: [
-                    Text(
-                      'P.Price',
-                      style: TextStyle(fontSize: 16.0, color: hoverColor),
-                    ),
-                    SizedBox(height: 12.0),
-                    TextFormField(
-                      cursorColor: hoverColor,
-                      controller:
-                          widget.saleFormControllers.priceRateController,
-                      decoration: InputDecoration(
-                        hintText: provider.selectedItemPurchasePrice != null
-                            ? widget.saleFormControllers.priceRateController
-                                .text = provider.selectedItemPurchasePrice!
-                            : "0",
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: hoverColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: hoverColor),
-                        ),
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(right: 8),
+            //     child: Column(
+            //       children: [
+            //         Text(
+            //           'P.Price',
+            //           style: TextStyle(fontSize: 16.0, color: hoverColor),
+            //         ),
+            //         SizedBox(height: 12.0),
+            //         TextFormField(
+            //           cursorColor: hoverColor,
+            //           controller:
+            //               widget.saleFormControllers.priceRateController,
+            //           decoration: InputDecoration(
+            //             hintText: provider.selectedItemPurchasePrice != null
+            //                 ? widget.saleFormControllers.priceRateController
+            //                     .text = provider.selectedItemPurchasePrice!
+            //                 : "0",
+            //             enabledBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(color: hoverColor),
+            //             ),
+            //             focusedBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(color: hoverColor),
+            //             ),
+            //           ),
+            //           textAlign: TextAlign.start,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -490,7 +490,7 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
     updateQuantity();
     updateAmount();
     updateTotalAmount();
-    updatePlusStock();
+    // updatePlusStock();
   }
 
   void updateQuantity() {
@@ -502,12 +502,12 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
 
   void updateAmount() {
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
-    double priceRate =
-        double.tryParse(provider.selectedItemPurchasePrice ?? '0') ?? 0;
+    double saleRate =
+        double.tryParse(provider.selectedItemSalePrice ?? '0') ?? 0;
     double quantity =
         double.tryParse(widget.saleFormControllers.quantityController.text) ??
             0;
-    double amount = priceRate * quantity;
+    double amount = saleRate * quantity;
     widget.saleFormControllers.totalController.text = amount.toString();
   }
 
@@ -522,16 +522,16 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
         totalAmount.toString();
   }
 
-  void updatePlusStock() {
-    final provider = Provider.of<ItemsDataProvider>(context, listen: false);
-    double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
-    double quantity =
-        double.tryParse(widget.saleFormControllers.quantityController.text) ??
-            0;
-    double stockAddition = stock - quantity;
-    widget.saleFormControllers.plusStockController.text =
-        stockAddition.toString();
-  }
+  // void updatePlusStock() {
+  //   final provider = Provider.of<ItemsDataProvider>(context, listen: false);
+  //   double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
+  //   double quantity =
+  //       double.tryParse(widget.saleFormControllers.quantityController.text) ??
+  //           0;
+  //   double stockAddition = stock - quantity;
+  //   widget.saleFormControllers.plusStockController.text =
+  //       stockAddition.toString();
+  // }
 
   void updateQuantityForIndex(index) {
     double quantity =
@@ -541,7 +541,7 @@ class _SaleBuildTextFieldWebState extends State<SaleBuildTextFieldWeb> {
       widget.saleFormControllers.quantityController.text = quantity.toString();
       updateAmount();
       updateTotalAmount();
-      updatePlusStock();
+      // updatePlusStock();
     }
   }
 }

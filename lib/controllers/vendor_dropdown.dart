@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pos_system/controllers/cash_dropdown.dart';
 import 'package:pos_system/screens/Purchase/components/purchase_form.dart';
 import 'package:provider/provider.dart';
@@ -84,6 +85,9 @@ class _VendorDropdownState extends State<VendorDropdown> {
                     left: 8.0,
                   ),
                   child: TextFormField(
+                    inputFormatters: [
+                      UpperCaseTextFormatter(),
+                    ],
                     expands: true,
                     maxLines: null,
                     controller: _vendorController,
@@ -122,5 +126,16 @@ class _VendorDropdownState extends State<VendorDropdown> {
   void dispose() {
     _vendorController.dispose();
     super.dispose();
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
   }
 }

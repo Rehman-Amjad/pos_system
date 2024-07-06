@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pos_system/screens/Purchase/components/build_text_field.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants.dart';
@@ -235,6 +236,9 @@ class _BuildTextFieldItemsWebState extends State<BuildTextFieldItemsWeb> {
                                             left: 8.0,
                                           ),
                                           child: TextFormField(
+                                            inputFormatters: [
+                                              UpperCaseTextFormatter(),
+                                            ],
                                             expands: true,
                                             maxLines: null,
                                             controller: widget
@@ -528,5 +532,16 @@ class _BuildTextFieldItemsWebState extends State<BuildTextFieldItemsWeb> {
       updateTotalAmount();
       updatePlusStock();
     }
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
   }
 }

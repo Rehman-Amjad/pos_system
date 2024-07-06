@@ -31,67 +31,68 @@ class DashboardScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          DashboardDetails(
-                            title: 'Customer',
-                            icons: Icons.person,
-                            text: Constant.COLLECTION_CUSTOMER,
-                          ),
-                          SizedBox(width: 8.0),
-                          DashboardDetails(
-                            title: 'Supply Man',
-                            icons: Icons.shopping_cart_sharp,
-                            text: Constant.COLLECTION_SUPPLYMAN,
-                          ),
-                          SizedBox(width: 8.0),
-                          DashboardDetails(
-                            title: 'Sales Man',
-                            icons: Icons.point_of_sale_sharp,
-                            text: Constant.COLLECTION_SALESMAN,
-                          ),
-                          SizedBox(width: 8.0),
-                          DashboardDetails(
-                              title: 'Vendor',
+                if (Responsive.isDesktop(context))
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            DashboardDetails(
+                              title: 'Customer',
+                              icons: Icons.person,
+                              text: Constant.COLLECTION_CUSTOMER,
+                            ),
+                            SizedBox(width: 8.0),
+                            DashboardDetails(
+                              title: 'Supply Man',
+                              icons: Icons.shopping_cart_sharp,
+                              text: Constant.COLLECTION_SUPPLYMAN,
+                            ),
+                            SizedBox(width: 8.0),
+                            DashboardDetails(
+                              title: 'Sales Man',
+                              icons: Icons.point_of_sale_sharp,
+                              text: Constant.COLLECTION_SALESMAN,
+                            ),
+                            SizedBox(width: 8.0),
+                            DashboardDetails(
+                                title: 'Vendor',
+                                icons: Icons.person_add_alt,
+                                text: Constant.COLLECTION_VENDORMAN)
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          children: [
+                            DashboardDetails(
+                              title: 'Category',
+                              icons: Icons.person,
+                              text: Constant.COLLECTION_CATEGORY,
+                            ),
+                            SizedBox(width: 8.0),
+                            DashboardDetails(
+                              title: 'Items',
+                              icons: Icons.shopping_cart_sharp,
+                              text: Constant.COLLECTION_ITEMS,
+                            ),
+                            SizedBox(width: 8.0),
+                            DashboardDetails(
+                              title: 'Purchase Invoice',
+                              icons: Icons.point_of_sale_sharp,
+                              text: Constant.COLLECTION_PURCHASE,
+                            ),
+                            SizedBox(width: 8.0),
+                            DashboardDetails(
+                              title: 'Sales Invoice',
                               icons: Icons.person_add_alt,
-                              text: Constant.COLLECTION_VENDORMAN)
-                        ],
-                      ),
-                      SizedBox(height: 12.0),
-                      Row(
-                        children: [
-                          DashboardDetails(
-                            title: 'Category',
-                            icons: Icons.person,
-                            text: Constant.COLLECTION_CATEGORY,
-                          ),
-                          SizedBox(width: 8.0),
-                          DashboardDetails(
-                            title: 'Items',
-                            icons: Icons.shopping_cart_sharp,
-                            text: Constant.COLLECTION_ITEMS,
-                          ),
-                          SizedBox(width: 8.0),
-                          DashboardDetails(
-                            title: 'Purchase Invoice',
-                            icons: Icons.point_of_sale_sharp,
-                            text: Constant.COLLECTION_PURCHASE,
-                          ),
-                          SizedBox(width: 8.0),
-                          DashboardDetails(
-                            title: 'Sales Invoice',
-                            icons: Icons.person_add_alt,
-                            text: Constant.COLLECTION_SALES,
-                          ),
-                        ],
-                      ),
-                    ],
+                              text: Constant.COLLECTION_SALES,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
             // SizedBox(height: 75.0),

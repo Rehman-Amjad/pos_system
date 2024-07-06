@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pos_system/screens/Sales/component/sale_build_text_field.dart';
 import 'package:provider/provider.dart';
@@ -42,38 +43,38 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
                     );
                   },
                 ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 2),
-                  child: Text('Stock: '),
-                ),
-                Consumer<ItemsDataProvider>(
-                  builder: (context, value, child) {
-                    return Text(
-                      value.selectedItemStock.toString(),
-                      style: TextStyle(color: hoverColor),
-                    );
-                  },
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 2),
-                  child: Text('Total Stock: '),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    cursorColor: hoverColor,
-                    controller: widget.saleFormControllers.plusStockController,
-                    decoration: InputDecoration(
-                      hintText: widget.saleFormControllers.stockController.text
-                              .isNotEmpty
-                          ? widget.saleFormControllers.plusStockController.text
-                          : '0',
-                      hintStyle: TextStyle(fontSize: 12, color: hoverColor),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
+                // Spacer(),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 2),
+                //   child: Text('Stock: '),
+                // ),
+                // Consumer<ItemsDataProvider>(
+                //   builder: (context, value, child) {
+                //     return Text(
+                //       value.selectedItemStock.toString(),
+                //       style: TextStyle(color: hoverColor),
+                //     );
+                //   },
+                // ),
+                // Spacer(),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 2),
+                //   child: Text('Total Stock: '),
+                // ),
+                // Expanded(
+                //   child: TextFormField(
+                //     cursorColor: hoverColor,
+                //     controller: widget.saleFormControllers.plusStockController,
+                //     decoration: InputDecoration(
+                //       hintText: widget.saleFormControllers.stockController.text
+                //               .isNotEmpty
+                //           ? widget.saleFormControllers.plusStockController.text
+                //           : '0',
+                //       hintStyle: TextStyle(fontSize: 12, color: hoverColor),
+                //       border: InputBorder.none,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             Row(
@@ -247,6 +248,9 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
                                             left: 8.0,
                                           ),
                                           child: TextFormField(
+                                            inputFormatters: [
+                                              UpperCaseTextFormatter(),
+                                            ],
                                             expands: true,
                                             maxLines: null,
                                             controller: widget
@@ -339,38 +343,38 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
                 ),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Column(
-                  children: [
-                    Text(
-                      'P.Price',
-                      style: TextStyle(fontSize: 16.0, color: hoverColor),
-                    ),
-                    SizedBox(height: 12.0),
-                    TextFormField(
-                      cursorColor: hoverColor,
-                      controller:
-                          widget.saleFormControllers.priceRateController,
-                      decoration: InputDecoration(
-                        hintText: provider.selectedItemPurchasePrice != null
-                            ? widget.saleFormControllers.priceRateController
-                                .text = provider.selectedItemPurchasePrice!
-                            : "0",
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: hoverColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: hoverColor),
-                        ),
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(right: 8),
+            //     child: Column(
+            //       children: [
+            //         Text(
+            //           'P.Price',
+            //           style: TextStyle(fontSize: 16.0, color: hoverColor),
+            //         ),
+            //         SizedBox(height: 12.0),
+            //         TextFormField(
+            //           cursorColor: hoverColor,
+            //           controller:
+            //               widget.saleFormControllers.priceRateController,
+            //           decoration: InputDecoration(
+            //             hintText: provider.selectedItemPurchasePrice != null
+            //                 ? widget.saleFormControllers.priceRateController
+            //                     .text = provider.selectedItemPurchasePrice!
+            //                 : "0",
+            //             enabledBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(color: hoverColor),
+            //             ),
+            //             focusedBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(color: hoverColor),
+            //             ),
+            //           ),
+            //           textAlign: TextAlign.start,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         SizedBox(height: 6.0),
@@ -515,7 +519,7 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
     updateQuantity();
     updateAmount();
     updateTotalAmount();
-    updatePlusStock();
+    // updatePlusStock();
   }
 
   void updateQuantity() {
@@ -527,12 +531,12 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
 
   void updateAmount() {
     final provider = Provider.of<ItemsDataProvider>(context, listen: false);
-    double priceRate =
-        double.tryParse(provider.selectedItemPurchasePrice ?? '0') ?? 0;
+    double saleRate =
+        double.tryParse(provider.selectedItemSalePrice ?? '0') ?? 0;
     double quantity =
         double.tryParse(widget.saleFormControllers.quantityController.text) ??
             0;
-    double amount = priceRate * quantity;
+    double amount = saleRate * quantity;
     widget.saleFormControllers.totalController.text = amount.toString();
   }
 
@@ -547,16 +551,16 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
         totalAmount.toString();
   }
 
-  void updatePlusStock() {
-    final provider = Provider.of<ItemsDataProvider>(context, listen: false);
-    double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
-    double quantity =
-        double.tryParse(widget.saleFormControllers.quantityController.text) ??
-            0;
-    double stockAddition = stock - quantity;
-    widget.saleFormControllers.plusStockController.text =
-        stockAddition.toString();
-  }
+  // void updatePlusStock() {
+  //   final provider = Provider.of<ItemsDataProvider>(context, listen: false);
+  //   double stock = double.tryParse(provider.selectedItemStock.toString()) ?? 0;
+  //   double quantity =
+  //       double.tryParse(widget.saleFormControllers.quantityController.text) ??
+  //           0;
+  //   double stockAddition = stock - quantity;
+  //   widget.saleFormControllers.plusStockController.text =
+  //       stockAddition.toString();
+  // }
 
   void updateQuantityForIndex(index) {
     double quantity =
@@ -566,7 +570,18 @@ class _SaleBuildTextFieldMobileState extends State<SaleBuildTextFieldMobile> {
       widget.saleFormControllers.quantityController.text = quantity.toString();
       updateAmount();
       updateTotalAmount();
-      updatePlusStock();
+      // updatePlusStock();
     }
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
   }
 }

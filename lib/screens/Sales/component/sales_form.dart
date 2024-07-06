@@ -657,41 +657,12 @@ class _SalesFormState extends State<SalesForm> {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  // saving
-                  saleProvider.saleSavingDataToFireStore(
-                    context,
-                    purchaseCode: saleProvider1.countValue.toString(),
-                    paymentVia: SaleAllController.saleCash,
-                    remarks: _remarksController.text.toString(),
-                    // vendor: SaleAllController.saleVendor,
-                    customer: SaleAllController.saleCustomer.toString(),
-                    salesMan: SaleAllController.saleSalesMan.toString(),
-                    supplyMan: SaleAllController.saleSupplyMan.toString(),
-                    date: saleProvider.saleJoiningDate,
-                    time: DateTime.now(),
-                  );
-                  saleProvider1.fetchCountValue();
-                  int newCountValue = saleProvider1.countValue;
-                  saleProvider1.updateCountValue(count: newCountValue + 1);
-                },
-                child: Container(
-                  height: 36.0,
-                  width: 70.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10),
-                    color: hoverColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
+            ],
+          ),
+          SizedBox(height: 12.0),
+          Row(
+            children: [
+              SizedBox(width: 40.0),
               TextButton(
                 onPressed: () {
                   // save
@@ -722,6 +693,42 @@ class _SalesFormState extends State<SalesForm> {
                   child: Center(
                     child: Text(
                       'Save & New',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8.0),
+              TextButton(
+                onPressed: () {
+                  // saving
+                  saleProvider.saleSavingDataToFireStore(
+                    context,
+                    purchaseCode: saleProvider1.countValue.toString(),
+                    paymentVia: SaleAllController.saleCash,
+                    remarks: _remarksController.text.toString(),
+                    // vendor: SaleAllController.saleVendor,
+                    customer: SaleAllController.saleCustomer.toString(),
+                    salesMan: SaleAllController.saleSalesMan.toString(),
+                    supplyMan: SaleAllController.saleSupplyMan.toString(),
+                    date: saleProvider.saleJoiningDate,
+                    time: DateTime.now(),
+                  );
+                  saleProvider1.fetchCountValue();
+                  int newCountValue = saleProvider1.countValue;
+                  saleProvider1.updateCountValue(count: newCountValue + 1);
+                },
+                child: Container(
+                  height: 36.0,
+                  width: 70.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10),
+                    color: hoverColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

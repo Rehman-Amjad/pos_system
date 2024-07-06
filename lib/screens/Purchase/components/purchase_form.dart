@@ -499,38 +499,12 @@ class PurchaseForm extends StatelessWidget {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  // saving:
-                  provider.savingDataToFireStore(
-                    context,
-                    purchaseCode: provider1.countValue.toString(),
-                    paymentVia: AllController.cash,
-                    remarks: _remarksController.text.toString(),
-                    vendor: AllController.vendor,
-                    date: provider.joiningDate,
-                    time: DateTime.now(),
-                  );
-                  provider1.fetchCountValue();
-                  int newCountValue = provider1.countValue;
-                  provider1.updateCountValue(count: newCountValue + 1);
-                },
-                child: Container(
-                  height: 36.0,
-                  width: 70.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10),
-                    color: hoverColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
+            ],
+          ),
+          SizedBox(height: 12.0),
+          Row(
+            children: [
+              SizedBox(width: 40.0),
               TextButton(
                 onPressed: () {
                   // save:
@@ -558,6 +532,39 @@ class PurchaseForm extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'Save & New',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 5.0),
+              TextButton(
+                onPressed: () {
+                  // saving:
+                  provider.savingDataToFireStore(
+                    context,
+                    purchaseCode: provider1.countValue.toString(),
+                    paymentVia: AllController.cash,
+                    remarks: _remarksController.text.toString(),
+                    vendor: AllController.vendor,
+                    date: provider.joiningDate,
+                    time: DateTime.now(),
+                  );
+                  provider1.fetchCountValue();
+                  int newCountValue = provider1.countValue;
+                  provider1.updateCountValue(count: newCountValue + 1);
+                },
+                child: Container(
+                  height: 36.0,
+                  width: 70.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10),
+                    color: hoverColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

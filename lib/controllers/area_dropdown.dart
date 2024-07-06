@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/items_data_fetch_provider.dart';
@@ -77,6 +78,9 @@ class _AreaDropdownState extends State<AreaDropdown> {
                     left: 8.0,
                   ),
                   child: TextFormField(
+                    inputFormatters: [
+                      UpperCaseTextFormatter(),
+                    ],
                     expands: true,
                     maxLines: null,
                     controller: _areaController,
@@ -115,5 +119,16 @@ class _AreaDropdownState extends State<AreaDropdown> {
   void dispose() {
     _areaController.dispose();
     super.dispose();
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return newValue.copyWith(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
   }
 }

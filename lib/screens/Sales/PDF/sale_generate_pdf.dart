@@ -7,6 +7,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pos_system/screens/Sales/PDF/sale_invoice_pdf.dart';
 
 import '../../../constants.dart';
+import '../../../responsive.dart';
 import '../../Purchase/components/purchase_form.dart';
 
 class SalePdf extends StatelessWidget {
@@ -60,24 +61,44 @@ class SalePdf extends StatelessWidget {
                 "assets/images/invoice.png",
               ),
               SizedBox(height: 8.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 360.0),
-                height: 40.0,
-                decoration: BoxDecoration(
-                  color: hoverColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Text(
-                    'PDF',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+              Responsive.isDesktop(context)
+                  ? Container(
+                      margin: EdgeInsets.symmetric(horizontal: 360.0),
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        color: hoverColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'PDF',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      // margin: EdgeInsets.symmetric(horizontal: 360.0),
+                      height: 40.0,
+                      width: 280.0,
+                      decoration: BoxDecoration(
+                        color: hoverColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'PDF',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

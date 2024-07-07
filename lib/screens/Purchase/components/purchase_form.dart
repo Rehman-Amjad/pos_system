@@ -347,7 +347,6 @@ class PurchaseForm extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(width: 8.0),
               TextButton(
                 onPressed: () {
                   // preview:
@@ -485,7 +484,7 @@ class PurchaseForm extends StatelessWidget {
                 },
                 child: Container(
                   height: 36.0,
-                  width: 80.0,
+                  width: 75.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
@@ -537,7 +536,6 @@ class PurchaseForm extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 5.0),
               TextButton(
                 onPressed: () {
                   // saving:

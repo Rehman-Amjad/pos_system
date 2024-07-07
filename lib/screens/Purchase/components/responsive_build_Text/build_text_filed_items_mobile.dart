@@ -515,9 +515,14 @@ class _BuildTextFieldItemsMobileState extends State<BuildTextFieldItemsMobile> {
   }
 
   void updateQuantity() {
-    double quantity =
-        double.tryParse(widget.formControllers.quantityController.text) ?? 0;
-    widget.formControllers.quantityController.text = quantity.toString();
+    setState(() {
+      final quantity =
+          double.tryParse(widget.formControllers.quantityController.text) ??
+              0.0;
+      final formattedQuantity =
+          quantity % 1 == 0 ? quantity.toInt().toString() : quantity.toString();
+      widget.formControllers.quantityController.text = formattedQuantity;
+    });
   }
 
   void updateAmount() {
@@ -549,10 +554,13 @@ class _BuildTextFieldItemsMobileState extends State<BuildTextFieldItemsMobile> {
   // }
 
   void updateQuantityForIndex(index) {
-    double quantity =
-        double.tryParse(widget.formControllers.quantityController.text) ?? 0;
+    final quantity =
+        double.tryParse(widget.formControllers.quantityController.text) ?? 0.0;
+    final formattedQuantity =
+        quantity % 1 == 0 ? quantity.toInt().toString() : quantity.toString();
     if (index == widget.index) {
-      widget.formControllers.quantityController.text = quantity.toString();
+      widget.formControllers.quantityController.text =
+          formattedQuantity.toString();
       updateAmount();
       updateTotalAmount();
       // updatePlusStock();

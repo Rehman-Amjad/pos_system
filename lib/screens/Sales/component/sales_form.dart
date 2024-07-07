@@ -643,7 +643,7 @@ class _SalesFormState extends State<SalesForm> {
                 },
                 child: Container(
                   height: 36.0,
-                  width: 80.0,
+                  width: 68.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
@@ -698,7 +698,6 @@ class _SalesFormState extends State<SalesForm> {
                   ),
                 ),
               ),
-              SizedBox(width: 8.0),
               TextButton(
                 onPressed: () {
                   // saving

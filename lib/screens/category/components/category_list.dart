@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pos_system/helper/text_helper.dart';
 import 'package:pos_system/helper/text_widget.dart';
 import 'package:pos_system/provider/count_value_provider.dart';
 import 'package:pos_system/responsive.dart';
@@ -9,7 +7,6 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../controllers/MenuAppController.dart';
 import '../../../route/routes.dart';
-import '../../dashboard/components/header.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({Key? key}) : super(key: key);
@@ -183,7 +180,7 @@ class DataTableSourceImpl extends DataTableSource {
         ),
         const DataCell(
           TextWidget(
-            text: "ADMIN",
+            text: "admin",
             color: Colors.white,
             size: 14.0,
             isBold: false,
@@ -193,6 +190,10 @@ class DataTableSourceImpl extends DataTableSource {
           children: [
             GestureDetector(
                 onTap: () {
+                  final provider =
+                      Provider.of<MenuAppController>(context, listen: false);
+
+                  provider.parameters?.clear();
                   Provider.of<MenuAppController>(context, listen: false)
                       .changeScreenWithParams(Routes.ADD_CATEGORY_ROUTE,
                           parameters: {

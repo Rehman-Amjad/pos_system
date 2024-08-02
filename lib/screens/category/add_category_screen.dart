@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_system/screens/dashboard/components/header.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +10,10 @@ import 'components/category_form.dart';
 class AddCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final provider =   Provider.of<MenuAppController>(context, listen: false);
+    final provider = Provider.of<MenuAppController>(context, listen: false);
     return SafeArea(
-      child: SingleChildScrollView(
         child: SingleChildScrollView(
+      child: SingleChildScrollView(
         primary: false,
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
@@ -22,20 +21,25 @@ class AddCategoryScreen extends StatelessWidget {
           children: [
             const Header(),
             const SizedBox(height: defaultDrawerHeadHeight + 20),
-            TextHelper().mNormalText(text: "Items Category",color: Colors.white,size: 18.0),
-            const SizedBox(height: defaultDrawerHeadHeight-10),
-            TextHelper().mNormalText(text: "Create new item Category",color: Colors.white70,size: 14.0),
+            TextHelper().mNormalText(
+                text: "Items Category", color: Colors.white, size: 18.0),
+            const SizedBox(height: defaultDrawerHeadHeight - 10),
+            TextHelper().mNormalText(
+                text: "Create new item Category",
+                color: Colors.white70,
+                size: 14.0),
             const SizedBox(height: defaultDrawerHeadHeight + 20),
             CategoryForm(
               edit: provider.parameters?['edit'] ?? 'false',
               code: provider.parameters?[Constant.KEY_CATEGORY_ID] ?? "no code",
-              name: provider.parameters?[Constant.KEY_CATEGORY_NAME] ?? 'Enter Category Name',
-              desc: provider.parameters?[Constant.KEY_CATEGORY_DESC] ?? 'Enter Description',
+              name: provider.parameters?[Constant.KEY_CATEGORY_NAME] ??
+                  'Enter Category Name',
+              desc: provider.parameters?[Constant.KEY_CATEGORY_DESC] ??
+                  'Enter Description',
             )
           ],
         ),
       ),
-      )
-    );
+    ));
   }
 }

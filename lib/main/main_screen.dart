@@ -4,7 +4,6 @@ import 'package:pos_system/screens/Area/add_area_screen.dart';
 import 'package:pos_system/screens/Area/area_screen.dart';
 import 'package:pos_system/screens/Sales/add_sales_screen.dart';
 import 'package:pos_system/screens/Sales/sales_screen.dart';
-import 'package:pos_system/screens/Stock/low_stock_screen.dart';
 import 'package:pos_system/screens/category/add_category_screen.dart';
 import 'package:pos_system/screens/customer/add_customer_screen.dart';
 import 'package:pos_system/screens/saleman/saleman_screen.dart';
@@ -12,6 +11,7 @@ import 'package:pos_system/screens/supplyman/supplyman_screen.dart';
 import 'package:pos_system/screens/uom/add_uom_screen.dart';
 import 'package:pos_system/screens/uom/uom_screen.dart';
 import 'package:provider/provider.dart';
+
 import '../controllers/MenuAppController.dart';
 import '../responsive.dart';
 import '../screens/Purchase/add_purchase_screen.dart';

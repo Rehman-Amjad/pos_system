@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:pos_system/helper/button_widget.dart';
 import 'package:pos_system/responsive.dart';
 import 'package:provider/provider.dart';
+
 import '../../../constants.dart';
 import '../../../controllers/MenuAppController.dart';
 import '../../../helper/custom_textfield.dart';
@@ -15,7 +15,7 @@ class CategoryForm extends StatefulWidget {
   final String code, name, desc;
   final String edit;
 
-  const CategoryForm({
+  CategoryForm({
     super.key,
     required this.edit,
     required this.code,
@@ -36,8 +36,6 @@ class _CategoryFormState extends State<CategoryForm> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Provider.of<CountValueProvider>(context, listen: false)
-    //     .fetchCountValue();
     Provider.of<CountValueProvider>(context, listen: false).fetchCountValue();
   }
 
